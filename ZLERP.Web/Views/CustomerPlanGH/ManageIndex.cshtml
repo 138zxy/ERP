@@ -1,0 +1,95 @@
+﻿@model ZLERP.Model.CustomerPlanGH 
+@{
+    var pumps  = (SelectList)ViewBag.PumpList;
+    var array = pumps.Select(p => string.Format("'{0}':'{1}'", p.Value, p.Text)).ToArray();
+    string pumpInlineSelect = "{'':''," + string.Join(",", array) + "}";
+
+    var pumpMans = HelperExtensions.SelectListData<ZLERP.Model.User>("TrueName", "ID", " UserType = '52' AND IsUsed=1 ", "ID", true, "");
+    var pumpManArray = pumpMans.Select(p => string.Format("'{0}':'{1}'", p.Value, p.Text)).ToArray();
+    string pumpManInlineSelect = "{'':''," + string.Join(",", pumpManArray) + "}";
+    
+ }
+@section HeaderSection{ 
+<script src="@Url.Content("~/Scripts/Views/CustomerPlanGH/ManageIndex.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var pumpInlineStr = "@Html.Raw(pumpInlineSelect)";
+        var pumpManInlineStr = "@Html.Raw(pumpManInlineSelect)";
+        $(function () {
+            manageIndexInit('@Url.Action("ManageFind")',
+            '@Url.Action("Update")',
+            '@Url.Action("MultAudit")',
+            '@Url.Action("CancelAudit")',
+            '@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")',
+            '@DateTime.Today.ToString("yyyy-MM-dd")');
+        }); 
+</script>
+}
+<div id="MyJqGrid"></div>
+ 
+<div id="MyFormDiv" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+<table class="mvcform"> 
+    <tr style="display:none">
+        <td>@Html.HiddenFor(m => m.ID)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m=>m.ContractID)@Html.TextBoxFor(m => m.ContractID, new { readOnly = true })</td>
+        <td>@Html.LabelFor(m => m.TaskID)@Html.TextBoxFor(m => m.TaskID, new { readOnly= true })</td>
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.ProjectName)@Html.TextBoxFor(m => m.ProjectName)</td>
+    </tr>
+    <tr>
+        <td colspan="2">@Html.LabelFor(m => m.BuildUnit)@Html.TextBoxFor(m => m.BuildUnit)</td>
+    </tr>
+    <tr>
+        <td colspan="2">@Html.LabelFor(m => m.ConstructUnit)@Html.TextBoxFor(m => m.ConstructUnit)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.ProjectAddr)@Html.TextBoxFor(m => m.ProjectAddr)
+       </td>
+       <td style="display:none;"> 
+        @Html.LabelFor(m => m.SupplyUnit)@Html.DicComboBoxFor(m => m.SupplyUnit, DicEnum.SupplyUnitSupplyUnit)
+       </td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.ConsPos)@Html.TextBoxFor(m => m.ConsPos)</td>
+        <td>@Html.Label("强 度")@Html.DropDownListFor(m => m.ConStrength, (IEnumerable<SelectListItem>)ViewBag.ConStrength, new { zlerp = "combobox" })</td>
+    </tr>
+    <tr> 
+        <td  style="display:none;">@Html.LabelFor(m => m.Slump)@Html.DicComboBoxFor(m => m.Slump, DicEnum.Slump)</td>
+        <td>@Html.LabelFor(m => m.CastMode)@Html.DicComboBoxFor(m => m.CastMode, DicEnum.CastModeGH)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.NeedDate)@Html.TextBoxFor(m => m.NeedDate, "Time" )</td>
+        <td style="display:none;">@Html.LabelFor(m => m.PumpName)@Html.DropDownListFor(m => m.PumpName, (SelectList)ViewBag.PumpList, "")</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("开盘安排")@Html.TextBoxFor(m => m.PiepLen)</td>
+        <td style="display:none;">@Html.LabelFor(m => m.PumpMan)@Html.EditorFor(m => m.PumpMan)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.PlanCube)@Html.EditorFor(m => m.PlanCube)</td>
+        <td>@Html.LabelFor(m => m.PlanDate)@Html.EditorFor(m => m.PlanDate, "DateTime", new { defaultValue = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") })</td> 
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.Tel)@Html.EditorFor(m => m.Tel)</td>
+        <td>@Html.LabelFor(m => m.LinkMan)@Html.EditorFor(m => m.LinkMan)</td>
+    </tr> 
+    <tr>
+        <td colspan="2">@Html.LabelFor(m => m.AuditStatus)@Html.DicEditorFor(m => m.AuditStatus, DicEnum.AuditStatus)</td>
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.Remark)@Html.TextAreaFor(m => m.Remark)</td> 
+    </tr> 
+    <tr> 
+        <td colspan="2"> @Html.LabelFor(m => m.AuditInfo)@Html.TextAreaFor(m => m.AuditInfo)</td> 
+    </tr>
+    <tr>
+        <td>@Html.HiddenFor(m=>m.Auditor)</td>
+        <td>@Html.HiddenFor(m=>m.AuditTime)</td>
+    </tr>
+</table> 
+}
+</div> 

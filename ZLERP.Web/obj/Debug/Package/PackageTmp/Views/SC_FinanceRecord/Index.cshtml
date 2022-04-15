@@ -1,0 +1,15 @@
+﻿@model ZLERP.Model.SupplyChain.SC_FinanceRecord
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_FinanceRecord.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")'
+        };
+        $(function () {
+            SC_FinanceRecordIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+ 

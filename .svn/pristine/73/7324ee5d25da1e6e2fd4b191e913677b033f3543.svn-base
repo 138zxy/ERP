@@ -1,0 +1,140 @@
+﻿
+@model ZLERP.Model.Material.V_M_SupplyInfo 
+@section HeaderSection{ 
+     <script src="@Url.Content("~/Scripts/Views/SupplyInfo.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            supplyInfoInit({
+                storeUrl: '@Url.Action("Find")',
+                updateUsedStatusUrl: '@Url.Action("UpdateUsedStatus")',
+                getPinYin: '@Url.Action("GetFirstPinYin")',
+                updateStroeUrl: '@Url.Action("UpdateSupplyInfo")',
+                DelstoreUrl: '@Url.Action("Find","M_Car")' 
+            });
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+<div id="myJqGridDetial" style="display:none;"></div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+   
+        <table class="mvcform">
+            <tr>
+                @Html.HiddenFor(m => m.SupplyInfo.ID)
+                @*<td>@Html.LabelFor(m => m.SupplyInfo.ID)@Html.EditorFor(m => m.SupplyInfo.ID)
+                </td>*@
+                <td>@Html.LabelFor(m => m.SupplyInfo.ShortName)@Html.EditorFor(m => m.SupplyInfo.ShortName)
+                </td>
+            </tr>
+                @Html.HiddenFor(m => m.SupplyInfo.ID)
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.SupplyKind)@Html.DicEditorFor(m => m.SupplyInfo.SupplyKind, DicEnum.SuType, "", "" )
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.SupplyName)@Html.EditorFor(m => m.SupplyInfo.SupplyName)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.Principal)@Html.EditorFor(m => m.SupplyInfo.Principal)
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.SupplyAddr)@Html.EditorFor(m => m.SupplyInfo.SupplyAddr)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.InvoiceAddr)@Html.EditorFor(m => m.SupplyInfo.InvoiceAddr)
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.BankName)@Html.EditorFor(m => m.SupplyInfo.BankName)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.BankAccount)@Html.EditorFor(m => m.SupplyInfo.BankAccount)
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.BusinessTel)@Html.EditorFor(m => m.SupplyInfo.BusinessTel)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.BusinessFax)@Html.EditorFor(m => m.SupplyInfo.BusinessFax)
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.PostCode)@Html.EditorFor(m => m.SupplyInfo.PostCode)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.PrincipalTel)@Html.EditorFor(m => m.SupplyInfo.PrincipalTel)
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.LinkMan)@Html.EditorFor(m => m.SupplyInfo.LinkMan)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.LinkTel)@Html.EditorFor(m => m.SupplyInfo.LinkTel)
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.SupplyType)@Html.EditorFor(m => m.SupplyInfo.SupplyType)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.CreditWorthiness)@Html.EditorFor(m => m.SupplyInfo.CreditWorthiness)
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.Email)@Html.EditorFor(m => m.SupplyInfo.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.IsUsed)@Html.CheckBoxFor(m => m.SupplyInfo.IsUsed, new { Checked = true})
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.IsTax)@Html.CheckBoxFor(m => m.SupplyInfo.IsTax)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.Remark)@Html.EditorFor(m => m.SupplyInfo.Remark)
+                </td>
+                <td>@Html.LabelFor(m => m.SupplyInfo.IsNz)@Html.CheckBoxFor(m => m.SupplyInfo.IsNz)
+                </td>
+            </tr>
+              <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.PaidIn)@Html.TextBoxFor(m => m.SupplyInfo.PaidIn, new { Value = 0 })
+                </td>
+                  <td>@Html.LabelFor(m => m.SupplyInfo.PrepayInit)@Html.TextBoxFor(m => m.SupplyInfo.PrepayInit, new { Value = 0 })
+               </td></tr>
+               <tr>
+                <td>@Html.LabelFor(m => m.SupplyInfo.PiaoPaidIn)@Html.TextBoxFor(m => m.SupplyInfo.PiaoPaidIn, new { Value = 0 })
+                </td>
+                 </tr>
+        </table>
+
+    }
+</div>
+
+
+<div id="MyFormDivDel" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+  @Html.HiddenFor(m => m.M_Car.ID)
+  @Html.HiddenFor(m => m.M_Car.TransID)
+ <table class="mvcform">  
+     <tr> 
+        <td>@Html.LabelFor(m => m.M_Car.CarNo)@Html.EditorFor(m => m.M_Car.CarNo)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_Car.Driver)@Html.EditorFor(m => m.M_Car.Driver)</td>
+    </tr> 
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_Car.MaxWeight)@Html.EditorFor(m => m.M_Car.MaxWeight)</td>
+    </tr>
+      <tr> 
+        <td>@Html.LabelFor(m => m.M_Car.CarWeight)@Html.EditorFor(m => m.M_Car.CarWeight)</td>
+    </tr>
+      <tr> 
+       <td>@Html.LabelFor(m => m.M_Car.StuffType)@Html.DropDownListFor(m => m.M_Car.StuffType, new SelectListItem[] { new SelectListItem { Text = "FA--细骨料", Value = "FA--细骨料" }, new SelectListItem { Text = "CA--粗骨料", Value = "CA--粗骨料" }, new SelectListItem { Text = "CE--水泥", Value = "CE--水泥" }, new SelectListItem { Text = "AIR--掺合料", Value = "AIR--掺合料" }, new SelectListItem { Text = "WA--水", Value = "WA--水" }, new SelectListItem { Text = "ADM--外加剂", Value = "ADM--外加剂" } }, "", new { @class = "text", style = "width:100px;" })
+          </td>
+     
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_Car.Condition)@Html.EditorFor(m => m.M_Car.Condition)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_Car.Remark)@Html.EditorFor(m => m.M_Car.Remark)</td>
+    </tr>
+    
+</table> 
+}
+</div>

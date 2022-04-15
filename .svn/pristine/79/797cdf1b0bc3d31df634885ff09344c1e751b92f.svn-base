@@ -1,0 +1,87 @@
+﻿@model ZLERP.Model.Material.V_M_TransPrice 
+@section HeaderSection{
+<script src="@Url.Content("~/Scripts/Views/TransPrice/TransPrice.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            transpriceIndexInit(
+                {
+                    transPriceStoreUrl: '@Url.Action("Find")',
+                    MultiAuditUrl: '@Url.Action("MultiAudit", "M_TransPrice")',
+                    MultiAudit_NUrl: '@Url.Action("MultiAudit_N", "M_TransPrice")',
+                    MultiAudit2Url: '@Url.Action("MultiAudit2", "M_TransPrice")',
+                    MultiAudit2_NUrl: '@Url.Action("MultiAudit2_N", "M_TransPrice")',
+                    DelstoreUrl: '@Url.Action("Find","M_TransPrice")' 
+                }
+             );
+        });
+</script>
+}
+<div id="TransPriceGrid"">
+</div> 
+<div id="myJqGridDetial"></div>
+
+<div id="MyFormDiv" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+  @Html.HiddenFor(m => m.TransPrice.ID)
+ <table class="mvcform"> 
+    <tr>  
+        <td>  
+            @Html.LabelFor(m => m.TransPrice.TransportID)@Html.AutoComplete("TransPrice.TransportID", "TransportName", "ComboByKey", "SupplyInfo", "ID", "ShortName", "SupplyName", "supplykind in ('Su3','Su5') and IsUsed =1 ", null)
+        </td>
+    </tr>
+     <tr>  
+        <td>  
+            @Html.LabelFor(m => m.TransPrice.SupplyID)@Html.AutoComplete("TransPrice.SupplyID", "SupplyName", "ComboByKey", "SupplyInfo", "ID", "ShortName", "SupplyName", "supplykind in ('Su1','Su5') and IsUsed =1 ", null)
+        </td>
+    </tr> 
+ 
+     <tr>  
+        <td>  
+            @Html.LabelFor(m => m.TransPrice.SourceID)@Html.AutoComplete("TransPrice.SourceID", "SupplyName", "ComboByKey", "SupplyInfo", "ID", "ShortName", "SupplyName", "supplykind in ('Su7') and IsUsed =1 ", null)
+        </td>
+    </tr> 
+    <tr> 
+        <td>  
+          @Html.LabelFor(m => m.TransPrice.StuffID)@Html.AutoComplete("TransPrice.StuffID", "StuffName", "Combo", "StuffInfo", "ID", "StuffName")
+        </td>
+    </tr> 
+    <tr> 
+        <td>@Html.LabelFor(m => m.TransPrice.UnitPrice)@Html.EditorFor(m => m.TransPrice.UnitPrice)</td>
+   
+    </tr>
+    <tr  style="display:none;"> 
+        <td >@Html.LabelFor(m => m.TransPrice.CalcType)
+        @Html.TextBoxFor(m => m.TransPrice.CalcType, new { Value = "TPM01" })
+        </td>
+   
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.TransPrice.Remark)@Html.EditorFor(m => m.TransPrice.Remark)</td>
+    </tr>
+</table>
+
+}
+</div>
+
+<div id="MyFormDivDel" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+  @Html.HiddenFor(m => m.M_TransPrice.ID)
+  @Html.HiddenFor(m => m.M_TransPrice.TransPriceID)
+ <table class="mvcform">  
+     <tr> 
+        <td>@Html.LabelFor(m => m.M_TransPrice.UnitPrice)@Html.EditorFor(m => m.M_TransPrice.UnitPrice)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_TransPrice.PriceDate)
+			@Html.EditorFor(m => m.M_TransPrice.PriceDate, "DateTimeWithTime")</td>
+    </tr> 
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_TransPrice.Remark)@Html.EditorFor(m => m.M_TransPrice.Remark)</td>
+    </tr>
+</table> 
+}
+</div>
+
+ 

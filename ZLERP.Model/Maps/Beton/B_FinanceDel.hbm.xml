@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="ZLERP.Model.Beton" assembly="ZLERP.Model">
+	<class name="ZLERP.Model.Beton.B_FinanceDel, ZLERP.Model" table="B_FinanceDel" lazy="true"
+    dynamic-insert="true" dynamic-update="true" batch-size="30" optimistic-lock="version">
+		<id name="ID" column="ID">
+      <generator class="native" />
+		</id>
+		<version name="Version" column="Version" />
+		<property name="FinanceID" column="FinanceID" />
+    <property name="BaleID" column="BaleID" />
+    <property name="BaleNo" column="BaleNo" />
+    
+    <property name="UnitID" column="UnitID" />
+    <property name="UnitName" column="UnitName" />
+    <property name="NextID" column="NextID" />
+    <property name="NextName" column="NextName" />
+    
+    <property name="InMonth" column="InMonth" /> 
+    <property name="OrderDate" column="OrderDate" />
+    <property name="AllOkMoney" column="AllOkMoney" />
+
+    <property name="PayMoney" column="PayMoney" />
+    <property name="PayFavourable" column="PayFavourable" />
+  
+    <property name="BuildTime" column="BuildTime" update="false"/>
+    <property name="Builder" column="Builder" update="false"/>
+    <property name="ModifyTime" column="ModifyTime" insert="false"/>
+    <property name="Modifier" column="Modifier" insert="false"/>
+    <property name="Lifecycle" column="Lifecycle" />
+ 
+	</class>
+</hibernate-mapping>

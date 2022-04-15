@@ -1,0 +1,57 @@
+﻿@model ZLERP.Model.HR.HR_GZ_SafePerson 
+@section HeaderSection{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/daterangepicker.jQuery.js")"></script>
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_GZ_SafePerson.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            SetUrl: '@Url.Action("Get", "HR_GZ_Safe")',
+            deptTreeUrl: '@Url.Action("FindTree", "Department")' 
+        };
+        $(function () {
+            HR_GZ_SafePersonIndexInit(options);
+        });
+    </script>
+}
+@*页面布局*@
+<div id="Department" class="ztree" style="overflow: scroll;float: left; width: 12%">
+</div>
+
+<!-- 右边Grid -->
+<div id="MyJqGrid" style="float: right; width: 87%">
+</div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.ID )
+        <table class="mvcform">
+          <tr> 
+         
+            <td> 
+                 @Html.LabelFor(m => m.PersonID)@Html.AutoComplete("PersonID", "PersonIDText", "Combo", "HR_Base_Personnel", "ID", "Name", "1=1", new { style = "width:120px" }) 
+            </td>
+             <td>
+                 @Html.LabelFor(m => m.SetID)@Html.DropDownListFor(m => m.SetID, (IEnumerable<SelectListItem>)ViewBag.SetID, "", new { @class = "text", style = "width:120px;" })
+            </td>
+        </tr>
+        <tr> 
+           <td>
+                 @Html.LabelFor(m => m.Condition)@Html.DropDownListFor(m => m.Condition, (IEnumerable<SelectListItem>)ViewBag.Condition, new { @class = "text", style = "width:120px;" })
+            </td>
+             <td>
+                 @Html.LabelFor(m => m.SafeDate)@Html.EditorFor(m => m.SafeDate)
+            </td>
+            
+        </tr>
+       <tr> 
+            <td>
+                 @Html.LabelFor(m => m.HR_GZ_Safe.Summation)@Html.TextBoxFor(m => m.HR_GZ_Safe.Summation, new { readOnly = true, @class = "inputReadOnly" })
+            </td> 
+        </tr>
+        <tr> 
+            <td colspan="2">@Html.LabelFor(m => m.Remark)@Html.TextAreaFor(m => m.Remark, new { style = "width:70%" })
+            </td>
+        </tr> 
+        </table>
+    }
+</div>

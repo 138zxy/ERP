@@ -1,0 +1,140 @@
+﻿@model ZLERP.Model.Lab_ConWPRecordGH
+@section HeaderSection{
+<script src="@Url.Content("~/Scripts/Views/Lab_ConWPRecordGH/Lab_ConWPRecordGH.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            lab_conwprecordIndexInit('@Url.Action("Find")');
+        });
+        //打印检测结果
+        function report() {
+            //window.location.href = "/Reports/Lab/R720201.aspx"
+            //var reportid = $("#Lab_ConStrengthReport_ID").val();
+           // window.open("/Reports/Lab/R720803.aspx?reportid=" + reportid, 'top');
+        }
+</script>
+<style type="text/css">
+        fieldset
+        {
+            padding: 0.1px;
+            margin: 1px;
+            width: 100%;
+            color: #333;
+            border: #06c dashed 1px;
+        }
+        legend
+        {
+            color: #1D5987;          
+            font-weight: bold;
+            background: #fff;
+            border: #b6b6b6 solid 1px;
+            padding: 1px 3px;
+        }
+
+    </style>
+}
+
+<!-- 左边Grid -->
+<div style="float: left; width: 64%">
+    <div id="MyJqGrid">
+    </div>
+</div>
+<!-- 右边Grid -->
+<div style="float: right; width: 35%">
+    <div id="MyJqGridR">
+    </div>
+</div>
+
+@*工作性能检测记录*@
+<div id="MyFormDiv" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+<table class="mvcform"> 
+
+    <tr> 
+        <td>@Html.Label("试样编号")@Html.TextBoxFor(m => m.ID, new { @readOnly = true })</td>
+        <td>@Html.LabelFor(m => m.SamplingDate)@Html.EditorFor(m => m.SamplingDate, "DateTimeWithTime", new { defaultValue = @DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") })</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.ConStrength)@Html.EditorFor(m => m.ConStrength)</td>
+        <td>@Html.LabelFor(m => m.ProjectName)@Html.EditorFor(m => m.ProjectName)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.ConsPos)@Html.EditorFor(m => m.ConsPos)</td>
+        <td>@Html.LabelFor(m => m.CarNo)@Html.EditorFor(m => m.CarNo)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.ProductLine)@Html.EditorFor(m => m.ProductLine)</td>
+        <td>@Html.LabelFor(m => m.Slump)@Html.EditorFor(m => m.Slump)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.ExpansionDegree)@Html.EditorFor(m => m.ExpansionDegree)</td>
+        <td>@Html.LabelFor(m => m.WaterRetention)@Html.EditorFor(m => m.WaterRetention)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.Cohesiveness)@Html.EditorFor(m => m.Cohesiveness)</td>
+       <td>@Html.LabelFor(m => m.QualifiedJudgment)@Html.EditorFor(m => m.QualifiedJudgment)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.SamplingMan)@Html.EditorFor(m => m.SamplingMan)</td>
+        <td>@Html.LabelFor(m => m.Remark)@Html.EditorFor(m => m.Remark)</td>
+    </tr>
+     <tr> 
+        <td>@Html.LabelFor(m => m.ShipDocID)@Html.EditorFor(m => m.ShipDocID)</td>
+    </tr>
+</table>
+
+}
+</div>
+
+@*混凝土实验管理*@
+<div id="MyFormDivItems" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+            
+                <tr>
+                    @Html.HiddenFor(m => m.Lab_ConWPRecordItemsGH.ID)
+                    <td style="display:none">
+                        @Html.LabelFor(m => m.Lab_ConWPRecordItemsGH.Lab_ConWPRecordGHId)@*@Html.TextBox("Lab_ConWPRecordId")*@
+                        @Html.EditorFor(m => m.Lab_ConWPRecordItemsGH.Lab_ConWPRecordGHId)
+                        </td>
+                    <td>
+                    @Html.Label("报告类型:")
+                    @Html.DropDownListFor(m => m.Lab_ConWPRecordItemsGH.ReportType, Enumerable.Empty<SelectListItem>(), new { @data_val_required = "字段是必需的", data_val = "true", zlerp = "combobox" })
+                    @*@Html.DropDownList("ReportType", Enumerable.Empty<SelectListItem>(), new { @data_val_required = "字段是必需的", data_val = "true", zlerp = "combobox" })*@
+                    </td>
+                    
+                    <td>@Html.LabelFor(m => m.Lab_ConWPRecordItemsGH.DocType)@Html.EditorFor(m => m.Lab_ConWPRecordItemsGH.DocType)
+                    </td>
+                </tr>
+                <tr>
+                    
+                    <td>@Html.LabelFor(m => m.Lab_ConWPRecordItemsGH.ReportUrl)
+                    @Html.EditorFor(m => m.Lab_ConWPRecordItemsGH.ReportUrl)</td>
+                                        
+                    <td>@Html.LabelFor(m => m.Lab_ConWPRecordItemsGH.Remark)
+                    @Html.EditorFor(m => m.Lab_ConWPRecordItemsGH.Remark)</td>
+                    
+                </tr>
+        </table>
+
+    }
+</div>
+
+<div id="DocTemplateFormDiv" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+ <table class="mvcform">
+            <tr>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("选择模板:")@Html.DropDownList("LabTemplateType", Enumerable.Empty<SelectListItem>(), new { @data_val_required = "字段是必需的", data_val = "true", zlerp = "combobox" })
+                </td>
+            </tr>    
+ </table>
+}
+</div>

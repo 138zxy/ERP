@@ -1,0 +1,56 @@
+﻿@model ZLERP.Model.HR.HR_PM_Dimission 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_PM_Dimission.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            hr_pm_dimissionIndexInit('@Url.Action("Find")');
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+            <tr style="display: none;">
+                <td>@Html.LabelFor(m => m.ID)@Html.EditorFor(m => m.ID)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.DimissionNo)@Html.TextBoxFor(m => m.DimissionNo, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.PersonID)@Html.AutoComplete("PersonID", "PersonName", "Combo", "HR_Base_Personnel", "ID", "Name", "State='在职'")
+                </td>
+                @*<td >@Html.LabelFor(m=>m.PersonName)@Html.EditorFor(m=>m.PersonName)</td>*@
+                <td style="display: none;">@Html.LabelFor(m => m.DepartmentID)@Html.EditorFor(m => m.DepartmentID)
+                </td>
+                <td>@Html.LabelFor(m => m.DepartmentName)@Html.TextBoxFor(m => m.DepartmentName, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.DimissionType)@Html.DropDownListFor(m => m.DimissionType, (IEnumerable<SelectListItem>)ViewBag.DimissionTypeList, new { @class = "text", style = "width: 137px" })
+                </td>
+                <td>@Html.LabelFor(m => m.DimissionDate)@Html.EditorFor(m => m.DimissionDate, new { defaultValue = @DateTime.Now.ToString("yyyy-MM-dd") })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.WageAmount)@Html.EditorFor(m => m.WageAmount)
+                </td>
+                <td>@Html.LabelFor(m => m.Amount)@Html.EditorFor(m => m.Amount)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">@Html.LabelFor(m => m.DimissionReason)@Html.TextAreaFor(m => m.DimissionReason, 3, 55, new { })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">@Html.LabelFor(m => m.Meno)@Html.TextAreaFor(m => m.Meno, 3, 55, new { })
+                </td>
+            </tr>
+        </table>
+
+    }
+</div>

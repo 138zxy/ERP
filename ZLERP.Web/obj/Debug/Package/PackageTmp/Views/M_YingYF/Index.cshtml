@@ -1,0 +1,48 @@
+﻿@model ZLERP.Model.Material.V_M_YingYF
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/Material/M_YingYF.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            DelstoreUrl: '@Url.Action("Find", "M_VYingSFrec")'
+        };
+        $(function () {
+            M_YingYFIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+
+<div id="myJqGridDetial"></div> 
+ 
+ <div id="SC_YingYSPayForm" class="mvcform" style="display:none;"> 
+@using (Html.BeginForm())
+{@Html.ValidationSummary() 
+    @Html.HiddenFor(m => m.M_YingSFrec.UnitID)
+<table class="mvcform"> 
+    <tr> 
+         <td>@Html.LabelFor(m => m.SupplyInfo.SupplyName)@Html.TextBoxFor(m => m.SupplyInfo.SupplyName, new { readOnly = true, @class = "inputReadOnly" }) </td>
+         <td>@Html.Label("原欠款额")@Html.TextBoxFor(m => m.SupplyInfo.PayMoney, new { readOnly = true, @class = "inputReadOnly" }) </td>
+  
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_YingSFrec.FinanceDate)@Html.EditorFor(m => m.M_YingSFrec.FinanceDate)</td>
+        <td>@Html.Label("现有预付金")@Html.TextBoxFor(m => m.SupplyInfo.PrePay, new { readOnly = true, @class = "inputReadOnly" }) </td>
+ 
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_YingSFrec.PayType)@Html.DropDownListFor(m => m.M_YingSFrec.PayType, (IEnumerable<SelectListItem>)ViewBag.FinanceType, "", new { @class = "text", style = "width:135px;" })</td>
+        <td>@Html.Label("预付金额")@Html.EditorFor(m => m.M_YingSFrec.FinanceMoney) </td>
+    </tr>
+   
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_YingSFrec.Payer)@Html.EditorFor(m => m.M_YingSFrec.Payer)</td> 
+        <td>@Html.LabelFor(m => m.M_YingSFrec.Gatheringer)@Html.EditorFor(m => m.M_YingSFrec.Gatheringer)</td> 
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.M_YingSFrec.Remark)@Html.TextAreaFor(m => m.M_YingSFrec.Remark, new { style = "width:70%" }) </td>
+    </tr> 
+</table>
+}
+</div>

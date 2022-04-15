@@ -1,0 +1,25 @@
+﻿
+@model ZLERP.Model.HR.Search 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_GZ_DeductAnalysis.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+                HR_GZ_DeductAnalysisIndexInit({
+                storeUrl: '@Url.Action("Find")'
+            });
+        });
+    </script>
+}
+ 
+<div>
+<div  class="mvcform" >
+ @Html.LabelFor(m => m.BeginDate)@Html.EditorFor(m => m.BeginDate)@Html.LabelFor(m => m.EndDate)@Html.EditorFor(m => m.EndDate) 
+                     <button id="sbb" class="tbtn ui-icon-search" style=" margin:0px;" title="大类/查询" role="button" aria-disabled="false" type ="button" onclick="Search('B');return false;">查询</button>
+
+</div> 
+<div id="MyJqGrid"> 
+</div> 
+</div> 
+ 
+
+ 

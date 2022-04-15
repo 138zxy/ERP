@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="ZLERP.Model" assembly="ZLERP.Model">
+  <class name="ZLERP.Model.Balance, ZLERP.Model" table="Balance" lazy="true"
+    dynamic-insert="true" dynamic-update="true" batch-size="30">
+    <id name="ID" column="BalanceID">
+      <generator class="native" />
+    </id>
+    <property name="Balance" column="Balance" />
+    <property name="Remark" column="Remark" />
+    <property name="BuildTime" column="BuildTime" />
+    <property name="PayDate" column="PayDate" />  
+    <property name="userID" column="userID" />
+    <property name="CustomerID" column="CustomerID" />
+    <property name="PayType" column="PayType" />
+    <many-to-one name="User" column="userID" class="User" insert="false" update="false" />
+    <many-to-one name="Customer" column="CustomerID" class="Customer" insert="false" update="false" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="ZLERP.Model.SupplyChain" assembly="ZLERP.Model">
+	<class name="ZLERP.Model.SupplyChain.SC_PiaoOutOrder, ZLERP.Model" table="SC_PiaoOutOrder" lazy="true"
+    dynamic-insert="true" dynamic-update="true" batch-size="30" optimistic-lock="version">
+		<id name="ID" column="ID">
+      <generator class="native" />
+		</id>
+		<version name="Version" column="Version" />
+		<property name="UserID" column="UserID" />
+    <property name="DepartmentID" column="DepartmentID" />
+    <property name="OrderNo" column="OrderNo" />
+    <property name="UseDate" column="UseDate" />
+    <property name="VarietyNum" column="VarietyNum" />
+    <property name="OrderMoney" column="OrderMoney" /> 
+    <property name="Condition" column="Condition" /> 
+    <property name="PiaoDate" column="PiaoDate" />
+    <property name="Auditor" column="Auditor" /> 
+    <property name="AuditTime" column="AuditTime" />
+    
+    <property name="Remark" column="Remark" /> 
+    <property name="BuildTime" column="BuildTime" update="false"/>
+    <property name="Builder" column="Builder" update="false"/>
+    <property name="ModifyTime" column="ModifyTime" insert="false"/>
+    <property name="Modifier" column="Modifier" insert="false"/>
+    <property name="Lifecycle" column="Lifecycle" />
+    <many-to-one name="Department">
+      <column name="DepartmentID" sql-type="nvarchar" not-null="false" />
+    </many-to-one>
+    <bag name="SC_PiaoOuts" lazy="true" batch-size="30" inverse="true" >
+      <key column="OutOrderID"></key>
+      <one-to-many class="SC_PiaoOut"></one-to-many>
+    </bag>
+	</class>
+</hibernate-mapping>

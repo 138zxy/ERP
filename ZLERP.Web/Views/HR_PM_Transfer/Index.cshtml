@@ -1,0 +1,124 @@
+﻿@model ZLERP.Model.HR.HR_PM_Transfer 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_PM_Transfer.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            hr_pm_transferIndexInit('@Url.Action("Find")');
+        });
+    </script>
+    <style type="text/css">
+        fieldset
+        {
+            padding: 0.1px;
+            margin: 1px;
+            width: 100%;
+            color: #333;
+            border: #06c dashed 1px;
+        }
+        legend
+        {
+            color: #1D5987;
+            font-weight: bold;
+            background: #fff;
+            border: #b6b6b6 solid 1px;
+            padding: 1px 3px;
+        }
+    </style>
+}
+<div id="MyJqGrid">
+</div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+            <tr style="display: none;">
+                <td>@Html.LabelFor(m => m.ID)@Html.EditorFor(m => m.ID)
+                </td>
+            </tr>
+             <tr>
+                <td>@Html.LabelFor(m => m.TransferNo)@Html.TextBoxFor(m => m.TransferNo, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.PersonID)@Html.AutoComplete("PersonID", "PersonName", "Combo", "HR_Base_Personnel", "ID", "Name", "")
+                </td>
+                <td>@Html.LabelFor(m => m.PersonName)@Html.TextBoxFor(m => m.PersonName, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+            </tr>
+        </table>
+        <br />
+        <fieldset>
+            <table class="mvcform">
+                <tr>
+                    <td>@Html.LabelFor(m => m.IsDept)@Html.CheckBoxFor(m => m.IsDept)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;">@Html.LabelFor(m => m.OldDepartmentID)@Html.EditorFor(m => m.OldDepartmentID)
+                    </td>
+                    <td>@Html.LabelFor(m => m.OldDepartmentName)@Html.TextBoxFor(m => m.OldDepartmentName, new { @readonly = "readonly", @class = "inputReadOnly" })
+                    </td>
+                    <td style="display: none;">@Html.LabelFor(m => m.NewDepartmentName)@Html.EditorFor(m => m.NewDepartmentName)
+                    </td>
+                    <td>@Html.LabelFor(m => m.NewDepartmentName)@Html.DropDownTreeFor(m => m.NewDepartmentID, "FindTree", "Department")
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br />
+        <fieldset>
+            <table class="mvcform">
+                <tr>
+                    <td>@Html.LabelFor(m => m.IsPosition)@Html.CheckBoxFor(m => m.IsPosition)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;">@Html.LabelFor(m => m.OldPositionID)@Html.EditorFor(m => m.OldPositionID)
+                    </td>
+                    <td>@Html.LabelFor(m => m.OldPosition)@Html.TextBoxFor(m => m.OldPosition, new { @readonly = "readonly", @class = "inputReadOnly" })
+                    </td>
+                    <td style="display: none;">@Html.LabelFor(m => m.NewPositionID)@Html.EditorFor(m => m.NewPosition)
+                    </td>
+                    <td>@Html.LabelFor(m => m.NewPosition)@Html.DropDownListFor(m => m.NewPositionID, (IEnumerable<SelectListItem>)ViewBag.PositionTypeList, "", new { @class = "text", style = "width: 137px" })
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    <br />
+        <fieldset>
+            <table class="mvcform">
+                <tr>
+                    <td>@Html.LabelFor(m => m.IsPost)@Html.CheckBoxFor(m => m.IsPost)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;">@Html.LabelFor(m => m.OldPostID)@Html.EditorFor(m => m.OldPostID)
+                    </td>
+                    <td>@Html.LabelFor(m => m.OldPostName)@Html.TextBoxFor(m => m.OldPostName, new { @readonly = "readonly", @class = "inputReadOnly" })
+                    </td>
+                    <td style="display: none;">@Html.LabelFor(m => m.NewPostID)@Html.EditorFor(m => m.NewPostName)
+                    </td>
+                    <td>@Html.LabelFor(m => m.NewPostName)@Html.DropDownListFor(m => m.NewPostID, (IEnumerable<SelectListItem>)ViewBag.PostList, "", new { @class = "text", style = "width: 137px" })
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br />
+        
+        <fieldset>
+        <table class="mvcform">
+            <tr>
+                <td>@Html.LabelFor(m => m.TransferDate)@Html.EditorFor(m => m.TransferDate, new { defaultValue = @DateTime.Now.ToString("yyyy-MM-dd") })
+                </td>
+                <td>@Html.LabelFor(m => m.Operator)@Html.AutoComplete("Name", "Operator", "Combo", "HR_Base_Personnel", "ID", "Name", "")@Html.HiddenFor(m => m.Operator)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">@Html.LabelFor(m => m.Reason)@Html.TextAreaFor(m => m.Reason, 3, 55, new { })
+                 </td>
+            </tr>
+        </table>
+        </fieldset>
+
+    }
+</div>

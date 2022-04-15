@@ -1,0 +1,105 @@
+﻿ @section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/CarManage/CarStatus.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            CarStatusIndexInit({
+                shopdocUrl: '@Url.Action("GetShopdocByCarID")',
+                scTreeUrl: '@Url.Action("FindTree")',
+                storeUrl: '@Url.Action("Find", "ShippingDocument")'
+            });
+        });
+    </script> 
+}
+ 
+  <div id="MyGoodsShowDiv" class="mvcform">
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td width="200" valign="top">
+                    <div id="CarsType" class="ztree" style="overflow: scroll;">
+                    </div>
+                </td>
+                <td valign="top"> 
+                    <div id="MyJqGrid" style="width: 100%; overflow: auto;"> 
+                    <p style="color:Red;float: left"><strong>车辆状态：</strong>  </p>
+                        <input type="radio" id="radio_0" name="radio" value="100"/><label for="radio_0">全部状态</label> 
+                        @{
+                            foreach (var CarStatu in ViewBag.CarStatus)
+                            {
+                                <input type="radio" id="radio_ @CarStatu.ID" name="radio" value="@CarStatu.TreeCode"/><label for="radio_ @CarStatu.ID">@CarStatu.DicName</label> 
+                            }
+                        }
+                    </div> 
+                        <div id="MyJqGrid1" style="width: 100%; overflow: auto;"> 
+                        <p style="color:Red;float: left"><strong> 车辆图标说明：</strong> </p>
+                            @{
+                                foreach (var CarStatu in ViewBag.CarStatus)
+                                {
+                                    var url = "../../Content/erpimage/" + CarStatu.DicName + ".png";
+                                    <img id="car_img" alt="" src="@url" style="float: left;width:30px;height:30px;"/> 
+                                    <p style="float: left"><strong>@CarStatu.DicName</strong>  </p>
+                                }
+                            }
+                        </div>
+                        <div id="MyJqGrid2" style="width: 100%; overflow: auto;"> 
+                        <p style="color:Red;float: left"><strong> 显示车辆状态数：</strong> </p> 
+                        <div  >
+                        @{
+                            foreach (var carCount in ViewBag.carCounts)
+                                {
+                                <p style="float: left">@carCount.Text : @carCount.Value &nbsp;&nbsp;&nbsp;</p>
+                                }
+                            }
+                            </div>
+                        </div>
+                    <div id="MyJqGrid3" style="width: 100%;overflow: auto;"> 
+                    @{  
+                            var  cars= (List<ZLERP.Model.Car>)ViewBag.cars;
+                            foreach (var CarType in ViewBag.CarTypes)
+                            { 
+                                var carDic=cars.Where(t => t.CarTypeID == CarType.TreeCode).ToList();
+                                if (carDic == null || carDic.Count()<=0)
+                                {
+                                    continue;
+                                }
+                                <div style="width: 100%;overflow: auto;"> 
+                                @* <p style="color:Blue"><strong>@CarType.DicName</strong></p>  *@
+                                @foreach (var car in carDic)
+                                {
+                                    var CarStatus = (List<ZLERP.Model.Dic>)ViewBag.CarStatus;
+                                    var dkj = CarStatus.Where(t => t.TreeCode == car.CarStatus).FirstOrDefault();
+                                    if (dkj == null)
+                                    {
+                                        continue;
+                                    }
+                                    var url = "../../Content/erpimage/" + dkj.DicName + ".png";
+                                    var classType = "CarStatus_" + @dkj.TreeCode;
+                                    var ClassCarType = "CarTypes_" + @CarType.TreeCode;
+                                    <div style="float: left;width:100px;height:120px;" class="@classType @ClassCarType showall">
+                                    @{
+                                        <img title="点击查看最近的运输任务" src="@url" style="width:50px;height:70px;" onclick="imgonclick('@dkj.DicName','@car.ID')"/> 
+                                        <p>@car.ID</p>
+                                        <p>@car.CarNo</p>
+                                    }
+                                    </div>
+                                }
+                                </div> 
+                              
+                            } 
+                        }
+                        </div>
+          </td>
+            </tr>
+        </tbody>
+    </table>      
+</div>
+
+
+
+<div  id='MyShowDiv' style="display: none"; width:"300px"; height:"200px">
+ 
+</div>
+ 
+
+
+

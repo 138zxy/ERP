@@ -1,0 +1,161 @@
+﻿@model ZLERP.Model.HR.HR_KQ_PaiBan 
+@section HeaderSection{
+<script type="text/javascript" src="@Url.Content("~/Scripts/daterangepicker.jQuery.js")"></script>
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_KQ_PaiBan.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            GetArrangeUrl: '@Url.Action("GetAcitonArrage")',
+            deptTreeUrl: '@Url.Action("FindTree", "Department")',
+            BathPaiBanUrl:'@Url.Action("BathPaiBan")',
+            PersonUrl: '@Url.Action("Find", "HR_Base_Personnel")'
+        };
+        $(function () {
+            HR_KQ_PaiBanIndexInit(options);
+
+        });
+        $(document).ready(function () {
+            $('#StartPai').datepicker();
+            $('#EndPai').datepicker();
+        });
+    </script>
+}
+@*页面布局*@
+<div id="Department" class="ztree" style="overflow: scroll;float: left; width: 12%">
+</div>
+
+<!-- 右边Grid -->
+<div id="MyJqGrid" style="float: right; width: 87%">
+</div>
+ 
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.ID )
+        <table class="mvcform">
+        <tr> 
+            <td> 
+                 @Html.LabelFor(m => m.PersonID)@Html.AutoComplete("PersonID", "PersonIDText", "Combo", "HR_Base_Personnel", "ID", "Name", "1=1", new { style = "width:120px" }) 
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.WorkDate)@Html.EditorFor(m => m.WorkDate)
+            </td> 
+        </tr>
+         <tr>  
+            <td>
+                 @Html.LabelFor(m => m.ArrangeID)@Html.DropDownListFor(m => m.ArrangeID, (IEnumerable<SelectListItem>)ViewBag.Arrange, "", new { @class = "text", style = "width:120px;" })
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.WeekShow)@Html.TextBoxFor(m => m.WeekShow, new { readOnly = true, @class = "inputReadOnly" })
+            </td>
+        </tr>
+        <tr>  
+            <td>
+                 @Html.LabelFor(m => m.WordStartTime)@Html.EditorFor(m => m.WordStartTime, "DateTimeWithTime")
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.UpStartTime)@Html.EditorFor(m => m.UpStartTime, "DateTimeWithTime")
+            </td>
+        </tr>
+
+          <tr>  
+              <td>
+                 @Html.LabelFor(m => m.WordEndTime)@Html.EditorFor(m => m.WordEndTime, "DateTimeWithTime")
+            </td>
+        
+      
+            <td>
+                 @Html.LabelFor(m => m.DwonEndTime)@Html.EditorFor(m => m.DwonEndTime, "DateTimeWithTime")
+            </td>
+        </tr>
+               <tr>  
+            <td>
+                 @Html.LabelFor(m => m.AutoUp)@Html.EditorFor(m => m.AutoUp)
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.AutoDown)@Html.EditorFor(m => m.AutoDown)
+            </td>
+        </tr>
+               <tr>  
+            <td>
+                 @Html.LabelFor(m => m.IsInnerDay)@Html.EditorFor(m => m.IsInnerDay)
+            </td> 
+        </tr>
+        <tr> 
+            <td colspan="2">@Html.LabelFor(m => m.Remark)@Html.TextAreaFor(m => m.Remark, new { style = "width:70%" })
+            </td>
+        </tr> 
+        </table>
+    }
+</div>
+
+
+<div id="MyFormBathPaiBan"style="display: none;">
+    <table width="100%"  class="mvcform">
+        <tbody>
+            <tr>
+                <td width="200" valign="top">
+                    <div id="Department2" class="ztree" style="overflow: scroll;">
+                    </div>
+                </td>
+                <td> 
+                    <div id="MyJqGrid2" style="float: left; width: 100%; overflow: auto;"> 
+                    
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td width="200" valign="top" colspan="2"> 
+                <div>
+                     <hr/>
+                        <table>
+                        <tr> 
+                             <td colspan="2">
+                                @Html.EditorFor(m => m.IsSelectDepart)<span>为已选部门所有员工排班(如选全部部门将为全部部门排班)</span>
+                            </td>  
+                        </tr>
+                         <tr>  
+                             <td>
+                                <span>班次选择</span>@Html.DropDownListFor(m => m.ArraggeShowID, (IEnumerable<SelectListItem>)ViewBag.Arrange, "", new { @class = "text", style = "width:120px;" })
+                            </td>
+                             <td>
+                                @Html.EditorFor(m => m.IsCancel)<span style="color: Red;">取消排班(用于对节假日等特殊情况批量取消排班)</span>
+                            </td>  
+                        </tr>
+                         <tr>  
+                           <td colspan="2">
+                            <fieldset>
+                            <legend>高级设定</legend>
+                             <span>开始日期：</span>@Html.EditorFor(m => m.StartPai) 
+                             <span>截止日期：</span>@Html.EditorFor(m => m.EndPai)  
+                                <hr/>
+                             <span>星期设置：</span>
+                              @Html.EditorFor(m => m.Monday)<span>星期一</span>
+                              @Html.EditorFor(m => m.Tuesday)<span>星期二</span>
+                              @Html.EditorFor(m => m.Wednesday)<span>星期三</span>
+                              @Html.EditorFor(m => m.Thursday)<span>星期四</span>
+                              @Html.EditorFor(m => m.Friday)<span>星期五</span>
+                              @Html.EditorFor(m => m.Saturday)<span>星期六</span>
+                              @Html.EditorFor(m => m.Sunday)<span>星期天</span>
+                             <hr/>
+                             <span>间隔设置：</span>
+                               @Html.EditorFor(m => m.IsWeekAlternate)<span  style="color: Red;">星期交替排班(每隔一个星期进行排班)</span>
+                              <span>星期开始：</span>  @Html.DropDownListFor(m => m.StartWeek, (IEnumerable<SelectListItem>)ViewBag.StartWeek, "", new { @class = "text", style = "width:120px;" })
+                                <hr/>
+                             <span>隔天设置：</span>
+                               @Html.EditorFor(m => m.IsDayAlternate)<span  style="color: Red;">隔天数交替排班(每隔一个天数进行排班,与星期无关)</span>
+                              <span>间隔天数：</span>  @Html.EditorFor(m => m.AlternateDay)  
+                            </fieldset> 
+                            </td>
+                                  
+                        </tr>
+                        </table>
+                  </div>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+ 
+
+</div>

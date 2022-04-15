@@ -1,0 +1,115 @@
+﻿@model ZLERP.Model.Beton.V_B_YingYS
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/ajaxfileupload.js")" type="text/javascript" language="javascript"> </script>
+    <script src="@Url.Content("~/Scripts/Views/Beton/B_PiaoYingSF.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            DelstoreUrl: '@Url.Action("Find", "B_VYingYS")',
+            UpdateUrl: '@Url.Action("Update", "B_VYingYS")',
+            uploadUrl: '@Url.Action("Upload", "Attachment")', //附加上传
+            PayUrl: '@Url.Action("Pay", "B_PiaoYingSF")'
+        };
+        $(document).ready(function () {
+            $('#B_Balance_BaleDate').datepicker();
+        });
+        $(function () {
+            B_YingSFIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+
+<div id="PiaomyJqGridDetial"> </div> 
+ 
+<div id="B_PiaoYingSFPayForm" class="mvcform" style="display:none;"> 
+ 
+    @Html.Label("合同编码")@Html.TextBoxFor(m => m.B_Balance.ID, new { @readonly = "readonly", @class = "inputReadOnly" })
+    @Html.Label("合同号")@Html.TextBoxFor(m => m.B_Balance.Contract.ContractNo, new { @readonly = "readonly", @class = "inputReadOnly" })
+    @Html.Label("合同名称")@Html.TextBoxFor(m => m.B_Balance.Contract.ContractName, new { @readonly = "readonly", @class = "inputReadOnly" })
+    @Html.Label("签订总金额")@Html.TextBoxFor(m => m.B_Balance.Contract.SignTotalMoney, new { @readonly = "readonly", @class = "inputReadOnly" })
+    
+  <div  id="PiaomyJqGridPayDetial"></div>
+ 
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+    @Html.HiddenFor(m => m.B_Balance.ID)
+<table class="mvcform"> 
+ 
+    <tr> 
+        <td>@Html.Label("发票类型")@Html.EditorFor(m => m.B_Balance.PayType)</td>
+        <td>@Html.Label("发票号")@Html.EditorFor(m => m.B_Balance.PiaoNo)</td>
+    </tr>
+      <tr> 
+        <td>@Html.Label("日期")@Html.EditorFor(m => m.B_Balance.BaleDate, new { defaultValue = @DateTime.Now.ToString("yyyy-MM-dd") }) </td>
+        <td>@Html.Label("已开票金额")@Html.TextBoxFor(m => m.B_Balance.PiaoPayMoney, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+       
+    </tr>
+    <tr> 
+        <td>@Html.Label("开票人")@Html.EditorFor(m => m.B_Balance.Payer)</td> 
+        <td>@Html.Label("免开票金额")@Html.TextBoxFor(m => m.B_Balance.PiaoPayFavourable, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+     
+    </tr>
+    <tr> 
+           <td>@Html.Label("收票人")@Html.EditorFor(m => m.B_Balance.Gatheringer)</td> 
+           <td>@Html.Label("未开票金额")@Html.TextBoxFor(m => m.B_Balance.PiaoPayOwing, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.B_Balance.Remark2)@Html.TextAreaFor(m => m.B_Balance.Remark2, new { style = "width:70%" }) </td>
+    </tr> 
+        <tr> 
+        <td  colspan="3">
+          <label>发票文件
+            </label><input type="file" id="uploadFile" name="upload" />
+            <div id="Attachments" style="clear: both;">
+            </div>
+        </td>
+    </tr> 
+</table>
+}
+</div>
+
+
+
+<div id="B_PiaoYingSFPayIniForm" class="mvcform" style="display:none;"> 
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+    @Html.HiddenFor(m => m.B_PiaoYingSFrec.UnitID)
+<table class="mvcform"> 
+    <tr> 
+         <td>@Html.Label("合同名称")@Html.TextBoxFor(m => m.Contract.ContractName, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+         <td>@Html.Label("应开票额额")@Html.TextBoxFor(m => m.Contract.PiaoPayMoney, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+         
+    </tr>
+      <tr> 
+        <td>@Html.Label("期初应开票额")@Html.TextBoxFor(m => m.Contract.PiaoPaidIn, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+         <td>@Html.Label("期初已开票额")@Html.TextBoxFor(m => m.Contract.PiaoPaidOut, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+          
+    </tr>
+        <tr> 
+        <td>@Html.Label("期初免开票额")@Html.TextBoxFor(m => m.Contract.PiaoPaidFavourable, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+        <td>@Html.Label("还需期初开票额")@Html.TextBoxFor(m => m.Contract.PiaoPaidOwing, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+    </tr>
+    <tr> <td  colspan="2"><hr></td></tr>
+  
+    <tr> 
+        <td>@Html.LabelFor(m => m.B_PiaoYingSFrec.FinanceDate)@Html.EditorFor(m => m.B_PiaoYingSFrec.FinanceDate) </td>
+        <td>@Html.LabelFor(m => m.B_PiaoYingSFrec.PayType)@Html.EditorFor(m => m.B_PiaoYingSFrec.PayType)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.B_PiaoYingSFrec.FinanceMoney)@Html.TextBoxFor(m => m.B_PiaoYingSFrec.FinanceMoney) </td>
+       <td>@Html.LabelFor(m => m.B_PiaoYingSFrec.PayFavourable)@Html.EditorFor(m => m.B_PiaoYingSFrec.PayFavourable)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.B_PiaoYingSFrec.Payer)@Html.EditorFor(m => m.B_PiaoYingSFrec.Payer)</td> 
+        <td>@Html.LabelFor(m => m.B_PiaoYingSFrec.Gatheringer)@Html.EditorFor(m => m.B_PiaoYingSFrec.Gatheringer)</td> 
+    </tr>
+    <tr> 
+        <td>@Html.Label("发票号")@Html.EditorFor(m => m.B_PiaoYingSFrec.PiaoNo)</td>
+        <td>@Html.LabelFor(m => m.B_PiaoYingSFrec.Remark)@Html.TextAreaFor(m => m.B_PiaoYingSFrec.Remark) </td>
+    </tr> 
+</table>
+}
+</div>
+ 

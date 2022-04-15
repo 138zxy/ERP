@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/13/2011 14:57:18" ReportInfo.Modified="01/15/2013 22:12:45" ReportInfo.CreatorVersion="1.8.30.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqE5kRij404xp3dSNmtpbZOWEP+7Ht3MmZL2zZRKJJTVjKh6kfWMNy6HDgZAvrYl1gT8+tl7fU7J/5OFuLqhJDIs+6QSKEFcBS9jLNSw4kBpuFb/TFmLP5rwr168KGuTsl0GUS6hdvY32Ug2fwbOrvwZaNbUDsERll4EnVXq462fsCrknuRlNik0aRNuIWqaQWCJzWwNmpAYRil06JeX0oMg==">
+      <TableDataSource Name="MetageRecord" DataType="System.Int32" Enabled="true" TableName="MetageRecord">
+        <Column Name="MetageID" DataType="System.Int32"/>
+        <Column Name="CarNo" DataType="System.String"/>
+        <Column Name="StuffID" DataType="System.String"/>
+        <Column Name="CustomerName" DataType="System.String"/>
+        <Column Name="BaleID" DataType="System.String"/>
+        <Column Name="Operator" DataType="System.String"/>
+        <Column Name="GrossNum" DataType="System.Decimal"/>
+        <Column Name="GrossOperator" DataType="System.String"/>
+        <Column Name="GrossTime" DataType="System.DateTime"/>
+        <Column Name="TareNum" DataType="System.Decimal"/>
+        <Column Name="TareOperator" DataType="System.String"/>
+        <Column Name="TareTime" DataType="System.DateTime"/>
+        <Column Name="Num" DataType="System.Decimal"/>
+        <Column Name="NetNum" DataType="System.Decimal"/>
+        <Column Name="OperaterStates" DataType="System.Int32"/>
+        <Column Name="GoodsNum" DataType="System.String"/>
+        <Column Name="SundriesRate" DataType="System.Decimal"/>
+        <Column Name="Version" DataType="System.Int32"/>
+        <Column Name="CreateTime" DataType="System.DateTime"/>
+        <Column Name="UpdateTime" DataType="System.DateTime"/>
+        <Column Name="CreaterID" DataType="System.String"/>
+        <Column Name="UpdaterID" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="AuditingStatus" DataType="System.Int32"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="过磅编号" DataType="System.String"/>
+    <Parameter Name="车辆编号" DataType="System.String"/>
+    <Parameter Name="材料名称" DataType="System.String"/>
+    <Parameter Name="供货厂家" DataType="System.String"/>
+    <Parameter Name="筒仓名称" DataType="System.String"/>
+    <Parameter Name="过磅员" DataType="System.String"/>
+    <Parameter Name="毛重" DataType="System.String"/>
+    <Parameter Name="毛重称量员" DataType="System.String"/>
+    <Parameter Name="毛重称量时间" DataType="System.DateTime"/>
+    <Parameter Name="皮重" DataType="System.String"/>
+    <Parameter Name="皮重称量员" DataType="System.String"/>
+    <Parameter Name="皮重称量时间" DataType="System.DateTime"/>
+    <Parameter Name="入库量" DataType="System.String"/>
+    <Parameter Name="净重" DataType="System.String"/>
+    <Parameter Name="操作标识" DataType="System.String"/>
+    <Parameter Name="采购编号" DataType="System.String"/>
+    <Parameter Name="扣重" DataType="System.String"/>
+    <Parameter Name="备注" DataType="System.String"/>
+    <Parameter Name="材料类型" DataType="System.String"/>
+    <Parameter Name="单据类型" DataType="System.String"/>
+    <Parameter Name="司机姓名" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" PaperWidth="220" PaperHeight="110">
+    <ReportTitleBand Name="ReportTitle1" Width="756" Height="37.8">
+      <TextObject Name="Text1" Left="236.25" Top="9.45" Width="340.2" Height="18.9" Text="重庆天助水泥集团鱼嘴混凝土有限公司(270站)" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <LineObject Name="Line12" Left="-9450" Top="-9450" Height="47.25"/>
+      <LineObject Name="Line13" Left="-9450" Top="-9450" Height="9.45"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="756" Height="28.35">
+      <TextObject Name="Text2" Top="9.45" Width="85.05" Height="18.9" Text="来料单位：" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt, style=Bold"/>
+      <TextObject Name="Text10" Left="538.65" Top="9.45" Width="189" Height="18.9" Text="[Date]" Format="Date" Format.Format="F" Font="宋体, 9pt"/>
+      <TextObject Name="Text35" Left="255.15" Top="9.45" Width="113.4" Height="18.9" Text="材料名称、规格：" VertAlign="Center" Font="宋体, 9pt, style=Bold"/>
+      <TextObject Name="Text12" Left="85.05" Top="9.45" Width="170.1" Height="18.9" Text="[供货厂家]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text45" Left="368.55" Top="9.45" Width="170.1" Height="18.9" Text="[材料名称]  [材料规格]" VertAlign="Center" Font="宋体, 9pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="74.15" Width="756" Height="207.9">
+      <LineObject Name="Line1" Width="727.65"/>
+      <LineObject Name="Line2" Height="151.2"/>
+      <LineObject Name="Line4" Left="727.65" Height="151.2"/>
+      <LineObject Name="Line5" Top="28.35" Width="727.65"/>
+      <LineObject Name="Line6" Left="103.95" Height="66.15"/>
+      <LineObject Name="Line8" Left="217.35" Height="66.15"/>
+      <LineObject Name="Line9" Left="330.75" Height="66.15"/>
+      <LineObject Name="Line10" Left="444.15" Height="66.15"/>
+      <LineObject Name="Line11" Left="567" Height="66.15"/>
+      <TextObject Name="Text4" Top="9.45" Width="85.05" Height="18.9" Text="车号" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text11" Left="103.95" Top="9.45" Width="113.4" Height="18.9" Text="毛  重/Kg" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <LineObject Name="Line14" Top="66.15" Width="727.65"/>
+      <LineObject Name="Line17" Top="151.2" Width="727.65"/>
+      <TextObject Name="Text25" Left="18.9" Top="153.65" Width="75.6" Height="18.9" Text="司磅员：" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text38" Left="217.35" Top="9.45" Width="113.4" Height="18.9" Text="皮  重/Kg" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text39" Left="330.75" Top="9.45" Width="113.4" Height="18.9" Text="净  重/Kg" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text40" Left="444.15" Top="9.45" Width="122.85" Height="18.9" Text="扣  重/Kg" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text41" Left="576.45" Top="9.45" Width="122.85" Height="18.9" Text="备   注" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text5" Top="37.8" Width="94.5" Height="18.9" Text="[车辆编号]" HorzAlign="Center" Font="宋体, 11pt"/>
+      <TextObject Name="Text6" Left="113.4" Top="37.8" Width="94.5" Height="18.9" Text="[毛重]" HorzAlign="Center" Font="宋体, 11pt"/>
+      <TextObject Name="Text7" Left="217.35" Top="37.8" Width="103.95" Height="18.9" Text="[皮重]" HorzAlign="Center" Font="宋体, 11pt"/>
+      <TextObject Name="Text8" Left="330.75" Top="37.8" Width="103.95" Height="18.9" Text="[净重]" HorzAlign="Center" Font="宋体, 11pt"/>
+      <TextObject Name="Text9" Left="453.6" Top="37.8" Width="103.95" Height="18.9" Text="[扣重]" HorzAlign="Center" Font="宋体, 11pt"/>
+      <TextObject Name="Text13" Left="576.45" Top="37.8" Width="151.2" Height="18.9" Text="[备注]" Font="宋体, 11pt"/>
+      <TextObject Name="Text42" Left="66.15" Top="75.6" Width="604.8" Height="56.7" Text="说明： 1.将车停放在称的有效范围内；&#13;&#10;       2.必须经地磅人员同意后才能下磅并将材料卸至指定场所；&#13;&#10;       3.过磅车辆请听从值班人员的安排。" Font="宋体, 11pt"/>
+      <TextObject Name="Text14" Left="103.95" Top="153.65" Width="85.05" Height="18.9" Text="[过磅员]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text43" Left="47.25" Top="179.55" Width="302.4" Height="18.9" Text="白色：内业      红色：司机      黄色：财务" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text44" Left="463.05" Top="154.2" Width="122.85" Height="18.9" Text="送货驾驶员签名：" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text3" Left="604.8" Top="103.95" Width="132.3" Height="18.9" Text="[过磅编号]" VertAlign="Center" Font="宋体, 9pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="286.05" Width="756"/>
+  </ReportPage>
+</Report>

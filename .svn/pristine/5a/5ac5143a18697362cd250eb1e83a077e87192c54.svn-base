@@ -1,0 +1,52 @@
+﻿
+@model ZLERP.Model.SupplyChain.Search 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_JxcReport.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () { 
+            SC_JxcReportIndexInit({
+                storeUrl: '@Url.Action("Find")',
+                storeUrl2: '@Url.Action("Find2")',
+                storeUrl3: '@Url.Action("Find3")',
+                scTreeUrl: '@Url.Action("FindTree", "SC_Goods")'
+            });
+            $("#formula-tabs").tabs({ fx: {}, selected: 0 });
+        });
+    </script>
+}
+ <div>
+ 
+ <div id="GoodgType" class="ztree" style="float: left; width: 10%">
+                    </div> 
+
+<div id="formula-tabs" style="float: right; width: 88%;">
+    <ul>
+        <li><a href="#MyJqGrid1" id="idinfo1">月份统计</a></li>
+        <li><a href="#MyJqGrid2" id="idinfo2">明细查询</a></li>
+        <li><a href="#MyJqGrid3" id="idinfo3">单品流通</a></li> 
+    </ul>
+    <div id="MyJqGrid1"  class="mvcform" >
+        @Html.Label("开始月份")@Html.EditorFor(m => m.BeginMonth, "Date", new { defaultValue = @DateTime.Now.ToString("yyyy-MM") })
+        @Html.Label("结束月份")@Html.EditorFor(m => m.EndMonth, "Date", new { defaultValue = @DateTime.Now.ToString("yyyy-MM") })
+        <button id="sbb1" class="tbtn ui-icon-search" style=" margin:0px;" title="大类/查询" role="button" aria-disabled="false" type ="button" onclick="Search1('B');return false;">查询</button> 
+    </div>
+        <div id="MyJqGrid2"  class="mvcform" >
+        @Html.LabelFor(m => m.BeginDate)@Html.EditorFor(m => m.BeginDate)@Html.LabelFor(m => m.EndDate)@Html.EditorFor(m => m.EndDate)
+        @Html.LabelFor(m => m.GoodsName)@Html.EditorFor(m => m.GoodsName)@Html.LabelFor(m => m.LibName)
+        @Html.DropDownListFor(m => m.LibName, (IEnumerable<SelectListItem>)ViewBag.Libs, "", new { @class = "text", style = "width:135px;" })
+ 
+        <button id="sbb2" class="tbtn ui-icon-search" style=" margin:0px;" title="大类/查询" role="button" aria-disabled="false" type ="button" onclick="Search2('B');return false;">查询</button> 
+    </div>
+        <div id="MyJqGrid3" class="mvcform" > 
+        @Html.LabelFor(m => m.GoodsID)@Html.AutoComplete("GoodsID", "GoodsName", "Combo", "SC_JxcReport", "ID", "GoodsName", "IsOff=0", new { style = "width:120px" })
+        @Html.LabelFor(m => m.LibName2)@Html.DropDownListFor(m => m.LibName2, (IEnumerable<SelectListItem>)ViewBag.Libs, "", new { @class = "text", style = "width:135px;" })
+        <button id="sbb3" class="tbtn ui-icon-search" style=" margin:0px;" title="大类/查询" role="button" aria-disabled="false" type ="button" onclick="Search3('B');return false;">查询</button> 
+    </div>
+</div>  
+
+ </div>
+
+
+ <script language="javascript" type="text/javascript">
+     $.datepicker.setDefaults({ dateFormat: 'yy-mm' });
+ </script>

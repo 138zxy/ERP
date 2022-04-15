@@ -1,0 +1,256 @@
+
+---在SQL中针对ERP进行语句升级，具体语句如下：
+
+---/*地磅系统配置文件中的UseMetageCube字段的设置：
+
+---以地磅系统累计车数和方量就设置为ture
+
+---以ERP系统的累计车数和方量就设置为false
+
+---DarkRatemode    暗扣方式 0:不暗扣,1:ERP管理-按原材料基本信息处暗扣,2:磅房系统管理暗扣 3:ERP管理-按原材料合同处设置 暗扣
+
+---找为供货商的*/
+---SqlTitle=SELECT SupplyID, SupplyName FROM dbo.SupplyInfo where IsUsed = 1 and SupplyKind='Su1' order by SupplyName 
+
+---************2019-04-17 lzl 修正换罐筒仓和材料库存没变，入库单还是草稿状态*************
+GO
+/****** Object:  StoredProcedure [dbo].[ChangeSiloForMetage]    Script Date: 04/17/2019 14:02:24 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--磅房换罐操作
+
+ALTER PROC [dbo].[ChangeSiloForMetage](
+	@StuffInID VARCHAR(50),
+	@StuffID VARCHAR(50), 
+    @Spec  VARCHAR(50),  
+    @SiloID VARCHAR(50), 
+    @CarNo VARCHAR(50), 
+    @SupplyID VARCHAR(50), 
+    @TotalNum DECIMAL(10,2), 
+    @CarWeight DECIMAL(10,2),  
+    @WRate DECIMAL(10,2), 
+    @InNum DECIMAL(10,2),  
+    @Driver VARCHAR(50) ,  
+    @Operator VARCHAR(30), 
+    @Pic1 VARCHAR(300), 
+    @Pic2 VARCHAR(300), 
+    @Pic3 VARCHAR(300), 
+    @Pic4 VARCHAR(300),
+    @DarkWeight DECIMAL(10,2), 
+    @FastMetage BIT,  
+    @SourceAddr VARCHAR(100), 
+    @ParentStuffInID VARCHAR(50)
+  )
+AS
+BEGIN
+	 DECLARE  @OrderNum INT,@fatherStuffInId VARCHAR(50)
+	 SELECT @OrderNum = OrderNum
+	 FROM dbo.StuffIn
+	 WHERE StuffInID = @ParentStuffInID
+	 
+	 IF @ParentStuffInID IS NULL OR LTRIM(RTRIM(@ParentStuffInID)) = ''
+	 begin
+		SET @OrderNum = 1
+		SET @ParentStuffInID = @StuffInID
+	 END
+	 ELSE
+	 BEGIN
+		 SELECT @OrderNum = OrderNum + 1
+		 FROM dbo.StuffIn
+		 WHERE StuffInID = @StuffInID
+	 END
+	  
+	 
+	 BEGIN TRANSACTION
+	 
+	 UPDATE dbo.StuffIn
+	 SET CarWeight = @CarWeight,InNum = @InNum,OutDate = GETDATE(),BuildTime = GETDATE(),
+		 StuffID = @StuffID,Spec = @Spec, SiloID = @SiloID,CarNo = @CarNo,SupplyID = @SupplyID,pic3 =@Pic3,pic4 = @Pic4
+		 ,lifecycle=1
+	 WHERE StuffInID = @StuffInID
+	 
+	 --第一条影响库存
+	 UPDATE Silo SET Content = Content + @InNum WHERE SiloID = @SiloID; 
+	 UPDATE StuffInfo SET Inventory = Inventory + @InNum  WHERE StuffID = @StuffID;
+	 
+	 --插入另一条
+	 INSERT INTO dbo.StuffIn
+	         ( StuffInID, StuffID, Spec,  SiloID,
+			   CarNo, SupplyID, GageUnit, TotalNum,
+			   CarWeight,WRate,InNum,InDate,
+			   Driver,AH,OutDate,Operator,
+			   pic1,pic2,pic3,pic4,
+			   DarkWeight,FastMetage,SourceAddr,BuildTime,
+			   ParentID,OrderNum
+	         )
+	 VALUES  ( 
+				 @ParentStuffInID + '_' + CAST(@OrderNum AS varchar(2)) ,
+				 @StuffID,@Spec,@SiloID,@CarNo,@SupplyID,'公斤',@CarWeight,
+				 0,0,0,GETDATE(),@Driver,'Auto',GETDATE(),
+				 @Operator,@Pic3,@Pic4,'','', 0,
+				 0,'',GETDATE(),@ParentStuffInID,
+				 @OrderNum			 
+	         )
+	  COMMIT
+	  
+ END
+
+
+
+/********************************************************2019-05-08 更新*****************************************************************/
+
+/****** Object:  StoredProcedure [dbo].[ChangeSiloForMetage]    Script Date: 05/08/2019 10:43:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--磅房换罐操作
+
+ALTER PROC [dbo].[ChangeSiloForMetage](
+	@StuffInID VARCHAR(50),
+	@StuffID VARCHAR(50), 
+    @Spec  VARCHAR(50),  
+    @SiloID VARCHAR(50), 
+    @CarNo VARCHAR(50), 
+    @SupplyID VARCHAR(50), 
+    @TotalNum DECIMAL(10,2), 
+    @CarWeight DECIMAL(10,2),  
+    @WRate DECIMAL(10,2), 
+    @InNum DECIMAL(10,2),  
+    @Driver VARCHAR(50) ,  
+    @Operator VARCHAR(30), 
+    @Pic1 VARCHAR(300), 
+    @Pic2 VARCHAR(300), 
+    @Pic3 VARCHAR(300), 
+    @Pic4 VARCHAR(300),
+    @DarkWeight DECIMAL(10,2), 
+    @FastMetage BIT,  
+    @SourceAddr VARCHAR(100), 
+    @ParentStuffInID VARCHAR(50),
+    @SupplyNum DECIMAL(10,2)
+  )
+AS
+BEGIN
+	 DECLARE  @OrderNum INT,@fatherStuffInId VARCHAR(50)
+	 SELECT @OrderNum = OrderNum
+	 FROM dbo.StuffIn
+	 WHERE StuffInID = @ParentStuffInID
+	 
+	 IF @ParentStuffInID IS NULL OR LTRIM(RTRIM(@ParentStuffInID)) = ''
+	 begin
+		SET @OrderNum = 1
+		SET @ParentStuffInID = @StuffInID
+	 END
+	 ELSE
+	 BEGIN
+		 SELECT @OrderNum = OrderNum + 1
+		 FROM dbo.StuffIn
+		 WHERE StuffInID = @StuffInID
+	 END
+	  
+	 
+	 BEGIN TRANSACTION
+	 
+	 UPDATE dbo.StuffIn
+	 SET CarWeight = @CarWeight,InNum = @InNum,OutDate = GETDATE(),BuildTime = GETDATE(),
+		 StuffID = @StuffID,Spec = @Spec, SiloID = @SiloID,CarNo = @CarNo,SupplyID = @SupplyID,pic3 =@Pic3,pic4 = @Pic4
+		 ,lifecycle=1,SupplyNum=@SupplyNum,FinalFootNum=@InNum
+	 WHERE StuffInID = @StuffInID
+	 
+	 --第一条影响库存
+	 UPDATE Silo SET Content = Content + @InNum WHERE SiloID = @SiloID; 
+	 UPDATE StuffInfo SET Inventory = Inventory + @InNum  WHERE StuffID = @StuffID;
+	 
+	 --插入另一条
+	 INSERT INTO dbo.StuffIn
+	         ( StuffInID, StuffID, Spec,  SiloID,
+			   CarNo, SupplyID, GageUnit, TotalNum,
+			   CarWeight,WRate,InNum,InDate,
+			   Driver,AH,OutDate,Operator,
+			   pic1,pic2,pic3,pic4,
+			   DarkWeight,FastMetage,SourceAddr,BuildTime,
+			   ParentID,OrderNum
+	         )
+	 VALUES  ( 
+				 @ParentStuffInID + '_' + CAST(@OrderNum AS varchar(2)) ,
+				 @StuffID,@Spec,@SiloID,@CarNo,@SupplyID,'公斤',@CarWeight,
+				 0,0,0,GETDATE(),@Driver,'Auto',GETDATE(),
+				 @Operator,@Pic3,@Pic4,'','', 0,
+				 0,'',GETDATE(),@ParentStuffInID,
+				 @OrderNum			 
+	         )
+	  COMMIT
+	  
+ END
+
+
+GO
+
+
+ALTER  VIEW [dbo].[MetageStuffIn]
+AS
+    SELECT  *
+    FROM    ( SELECT    ROW_NUMBER() OVER ( PARTITION BY father.StuffInID ORDER BY child.ParentID, child.OrderNum DESC ) AS rownumber ,
+                        father.StuffInID ,
+                        father.StuffID ,
+                        father.SiloID ,
+                        father.SupplyID ,
+                        father.TotalNum ,
+                        ( CASE WHEN child.CarWeight IS NULL
+                               THEN father.CarWeight
+                               ELSE child.CarWeight
+                          END ) AS carweight ,
+                        ( CASE WHEN child.CarWeight IS NULL THEN father.InNum
+                               WHEN child.InNum = 0 THEN 0
+                               ELSE father.TotalNum - child.CarWeight
+                          END ) AS Innum ,
+                        father.SourceAddr ,
+                        father.InDate ,
+                        ( CASE WHEN child.CarWeight IS NULL
+                               THEN father.OutDate
+                               ELSE child.OutDate
+                          END ) AS OutDate ,
+                        father.AH ,
+                        father.Remark ,
+                        father.CarNo ,
+                        father.Operator ,
+                        father.FootStatus ,
+                        father.BuildTime ,
+                        father.Lifecycle ,
+                        father.pic1 ,
+                        father.pic2 ,
+                        ( CASE WHEN child.CarWeight IS NULL THEN father.pic3
+                               ELSE child.pic3
+                          END ) AS pic3 ,
+                        ( CASE WHEN child.CarWeight IS NULL THEN father.pic4
+                               ELSE child.pic4
+                          END ) AS pic4 ,
+                        father.TransportID ,
+                        father.WRate ,
+                        father.Proportion ,
+                        father.Driver ,
+                        father.DarkWeight ,
+                        father.Spec ,
+                        father.FastMetage ,
+                        father.ParentID ,
+                        father.OrderNum ,
+                        father.Builder ,
+                        father.MingWeight ,
+                        father.CompanyID ,
+                        father.SourceNumber,
+                        father.SupplyNum + child.SupplyNum AS SupplyNum 
+              FROM      dbo.StuffIn AS father
+                        LEFT JOIN StuffIn AS child ON child.ParentID = father.StuffInID
+                                                      AND child.Lifecycle <> -1
+              WHERE     father.ParentID IS NULL
+                        OR LTRIM(RTRIM(father.ParentID)) = ''
+                        AND father.Lifecycle <> -1
+            ) a
+    WHERE   rownumber = 1;
+
+
+GO
+
+ALTER TABLE StockPact ADD DarkRate DECIMAL(18,2)

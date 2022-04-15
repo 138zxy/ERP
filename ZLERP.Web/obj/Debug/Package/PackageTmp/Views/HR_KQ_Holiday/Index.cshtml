@@ -1,0 +1,45 @@
+﻿@model ZLERP.Model.HR.HR_KQ_Holiday 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_KQ_Holiday.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+        };
+        $(function () {
+            HR_KQ_HolidayIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.ID )
+        <table class="mvcform">
+        <tr> 
+            <td>
+                 @Html.LabelFor(m => m.HolidayName)@Html.EditorFor(m => m.HolidayName)
+            </td>
+        </tr>
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.StartDate)@Html.EditorFor(m => m.StartDate)
+            </td>
+        </tr>
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.EndDate)@Html.EditorFor(m => m.EndDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.HolidayType)@Html.DropDownListFor(m => m.HolidayType, (IEnumerable<SelectListItem>)ViewBag.HolidayType, "", new { @class = "text", style = "width:120px;", id = "ItemsType" })
+            </td>
+        </tr>
+        <tr> 
+            <td>@Html.LabelFor(m => m.Remark)@Html.TextAreaFor(m => m.Remark)
+            </td>
+        </tr> 
+        </table>
+    }
+</div>

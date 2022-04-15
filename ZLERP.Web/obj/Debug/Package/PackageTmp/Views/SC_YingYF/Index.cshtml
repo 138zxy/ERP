@@ -1,0 +1,46 @@
+﻿@model ZLERP.Model.SupplyChain.V_SC_YingYF
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_YingYF.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            DelstoreUrl: '@Url.Action("Find", "SC_VYingSFrec")'
+        };
+        $(function () {
+            SC_YingYFIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+
+<div id="myJqGridDetial">来往记录明细</div> 
+ 
+ <div id="SC_YingYSPayForm" class="mvcform" style="display:none;"> 
+@using (Html.BeginForm())
+{@Html.ValidationSummary() 
+    @Html.HiddenFor(m => m.SC_YingSFrec.UnitID)
+<table class="mvcform"> 
+    <tr> 
+         <td>@Html.LabelFor(m => m.SC_Supply.SupplierName)@Html.TextBoxFor(m => m.SC_Supply.SupplierName, new { readOnly = true }) </td>
+         <td>@Html.Label("原欠款额")@Html.TextBoxFor(m => m.SC_Supply.PayMoney, new { readOnly = true }) </td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_YingSFrec.FinanceDate)@Html.EditorFor(m => m.SC_YingSFrec.FinanceDate)</td>
+        <td>@Html.Label("现有预付金")@Html.TextBoxFor(m => m.SC_Supply.PrePay, new { readOnly = true }) </td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_YingSFrec.PayType)@Html.DropDownListFor(m => m.SC_YingSFrec.PayType, (IEnumerable<SelectListItem>)ViewBag.FinanceType, "", new { @class = "text", style = "width:135px;" })</td>
+        <td>@Html.Label("预付金额")@Html.EditorFor(m => m.SC_YingSFrec.FinanceMoney) </td>
+    </tr>
+   
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_YingSFrec.Payer)@Html.EditorFor(m => m.SC_YingSFrec.Payer)</td> 
+        <td>@Html.LabelFor(m => m.SC_YingSFrec.Gatheringer)@Html.EditorFor(m => m.SC_YingSFrec.Gatheringer)</td> 
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.SC_YingSFrec.Remark)@Html.TextAreaFor(m => m.SC_YingSFrec.Remark, new { style = "width:70%" }) </td>
+    </tr> 
+</table>
+}
+</div>

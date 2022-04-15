@@ -1,0 +1,130 @@
+﻿@model ZLERP.Model.SupplyChain.V_SC_GongYi
+@section HeaderSection{
+<script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_GongYi.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find", "SC_GongYi")',
+            SC_GongYiDetailUrl: '@Url.Action("Find", "SC_GongYiDetail")',
+            UpdateUrl: '@Url.Action("Update", "SC_GongYiDetail")',
+            GetZhangUrl: '@Url.Action("Get", "SC_Goods")',
+            GetLibUrl: '@Url.Action("GetLib", "SC_GongYi")',
+            UpdateUlr: '@Url.Action("UpdateUlr", "SC_GongYi")',
+            ChangeInlibUrl: '@Url.Action("ChangeInlib", "SC_GongYi")',
+            SearchChangeUrl: '@Url.Action("SearchChange", "SC_GongYi")',
+            PiaoChangeUrl: '@Url.Action("Find", "SC_PiaoChange")'
+        };
+        var Libselect = { '': '' };
+        var LibDic = [];
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: options.GetLibUrl,
+            async: false,
+            success: function (data) {
+                if (data.Result) {
+                    Libselect = {};
+                    for (var i = 0; i < data.Data.length; i++) {
+                        Libselect[data.Data[i].Value] = data.Data[i].Text;
+                        LibDic.push(data.Data[i]);
+                    } 
+                }
+            }
+        });
+
+            $(function () {
+                SC_GongYiIndexInit(options);
+            });
+        $("#formula-tabs").tabs({ fx: {}, selected: 0 });
+       
+        
+       
+</script>
+}
+
+<div id="formula-tabs" style="float: right; width: 100%;">
+    <ul>
+        <li><a href="#MyJqGrid1" id="idinfo1">加工模板</a></li>
+        <li><a href="#myJqGrid5" id="idinfo2">加工记录查询</a></li> 
+    </ul>
+    <div id="MyJqGrid1"  class="mvcform" > 
+        <div id="SC_GongYiGrid"></div> 
+        <div>  
+            <div id="SC_GongYiDetailGrid1" style="float: left; width: 50%"> 
+              <p  style="color:red; text-align:center;"  >@*<strong>加工前的商品</strong>*@ </p> 
+            </div>
+              
+             <div id="SC_GongYiDetailGrid2" style="float: right; width: 48%">
+               <p  style="color:red; text-align:center;"  >@*<strong>加工后商品</strong>*@ </p>  
+            </div> 
+         </div> 
+    </div>  
+     <div id="myJqGrid5"  class="mvcform" > </div>
+</div>
+
+  <div id="SC_GongYiForm" class="mvcform" style="display:none;"> 
+        @using (Html.BeginForm())
+        {@Html.ValidationSummary()
+            @Html.HiddenFor(m => m.SC_GongYi.ID)
+        <table class="mvcform"> 
+                <tr>  
+                    <td>@Html.LabelFor(m => m.SC_GongYi.GYName)@Html.EditorFor(m => m.SC_GongYi.GYName)</td>
+                </tr> 
+               <tr>  
+                    <td>@Html.LabelFor(m => m.SC_GongYi.IsOff)@Html.EditorFor(m => m.SC_GongYi.IsOff)</td>
+                </tr> 
+                <tr> 
+                    <td>@Html.LabelFor(m => m.SC_GongYi.Remark)@Html.TextAreaFor(m => m.SC_GongYi.Remark) </td>
+                </tr> 
+        </table>
+        }
+  </div>
+    <div id="SC_GongYiDetialForm" class="mvcform" style="display:none;"> 
+        @using (Html.BeginForm())
+        {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.SC_GongYiDetail.ID)
+        @Html.HiddenFor(m => m.SC_GongYiDetail.GongYiID)   
+        @Html.HiddenFor(m => m.SC_GongYiDetail.GoodsID)  
+        @Html.HiddenFor(m => m.SC_GongYiDetail.FormSource)   
+        @Html.HiddenFor(m => m.SC_GongYiDetail.SC_Goods.GoodsName); 
+        <table class="mvcform"> 
+        <tr> 
+        <td>@Html.LabelFor(m => m.SC_GongYiDetail.GoodsID)@Html.AutoComplete("ID", "SC_ZhangTo.SC_Goods.GoodsName", "Combo", "SC_PiaoTo", "ID", "GoodsName", "IsOff=0", new { style = "width:120px" })</td>
+        </tr>
+         <tr> 
+            <td>@Html.LabelFor(m => m.SC_GongYiDetail.SC_Goods.Spec)@Html.TextBoxFor(m => m.SC_GongYiDetail.SC_Goods.Spec, new { readOnly = true, @class = "inputReadOnly" })</td>
+            <td>@Html.LabelFor(m => m.SC_GongYiDetail.SC_Goods.Brand)@Html.TextBoxFor(m => m.SC_GongYiDetail.SC_Goods.Brand, new { readOnly = true, @class = "inputReadOnly" })</td>
+        </tr>
+        <tr> 
+           <td>@Html.LabelFor(m => m.SC_GongYiDetail.SC_Goods.Unit)@Html.TextBoxFor(m => m.SC_GongYiDetail.SC_Goods.Unit, new { readOnly = true, @class = "inputReadOnly" })</td>
+            <td>@Html.LabelFor(m => m.SC_GongYiDetail.Quantity)@Html.TextBoxFor(m => m.SC_GongYiDetail.Quantity) </td>
+        </tr> 
+        </table>
+        }
+  </div>
+
+   <div id="ChangeInlibForm" class="mvcform" style="display:none;"> 
+        @using (Html.BeginForm())
+        {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.SC_PiaoChange.ID)
+   <table><tr><td>
+    @Html.LabelFor(m => m.CountNum)@Html.EditorFor(m => m.CountNum)
+             <button id="sbb1" class="tbtn ui-icon-search" style=" margin:0px;" title="" role="button" aria-disabled="false" type ="button" onclick="Search();return false;">计算</button> 
+            <br> 
+          
+            <p  style="color:red; text-align:center;"  ><strong>加工前的商品</strong> </p> 
+            </td>  
+            <td>
+              @Html.LabelFor(m => m.LibName)  @Html.DropDownListFor(m => m.LibName, (IEnumerable<SelectListItem>)ViewBag.Libs, "", new { @class = "text", style = "width:135px;" })
+             <br>
+                <p  style="color:red; text-align:center;"  ><strong>加工后的商品</strong> </p>   
+            </td>
+            </tr>
+        <tr><td> <div  id="showGrid1"></div></td><td> <div  id="showGrid2"></div></td> </tr>
+ 
+        <tr><td  colspan="2">  @Html.LabelFor(m => m.SC_PiaoChange.Remark)@Html.TextAreaFor(m => m.SC_PiaoChange.Remark, new { style = "width:70%" }) </td>  </tr>
+ 
+       
+        </table>
+        }
+  </div>
+  

@@ -1,0 +1,42 @@
+﻿
+@model ZLERP.Model.View_ContractAll
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/Customer/ContractPrice.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            ContractIndexInit({
+                storeUrl: '@Url.Action("Find", "ContractAll")',
+                contractPumpStoreUrl: '@Url.Action("Find", "ContractPump")',
+                scTreeUrl: '@Url.Action("FindTree", "SC_Goods")' 
+            });
+        });
+    </script>
+}
+
+<div>
+    @*<div  class="mvcform" >
+     @Html.LabelFor(m => m.BeginDate)@Html.EditorFor(m => m.BeginDate)@Html.LabelFor(m => m.EndDate)@Html.EditorFor(m => m.EndDate)
+                         @Html.LabelFor(m => m.GoodsName)@Html.TextBoxFor(m => m.GoodsName)
+                         <button id="sbb" class="tbtn ui-icon-search" style=" margin:0px;" title="大类/查询" role="button" aria-disabled="false" type ="button" onclick="Search('B');return false;">查询</button>
+
+    </div> *@
+    @*<div id="MyJqGrid"style="float: left; width: 66%"> 
+    </div>*@ 
+</div> 
+@*<div>
+    <div id="ContractPump" style="float: right; width: 33% ;" >
+    
+    </div>
+    <div id="identitySettingGridto" style="float: right; width: 33% ;" >
+    
+    </div>
+</div> *@
+<div class="mvcform">
+ @Html.LabelFor(m => m.CustName)@Html.AutoComplete("CustomerID", "CustName", "ComboByKey", "Customer", "ID", "ShortName", "CustName", "IsUse=1", null)
+@*<a href="javascript:void(0)" id="hc">Hide column Tax</a>
+    <br />*@
+    <button type="button" id='idQuery' title="查询" value="311301" class="refresh ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-refresh"></span><span class="ui-button-text">查询</span></button>
+</div>
+<table id="MyJqGrid"></table> 
+    <div id="pgfrc1"></div>
+ 

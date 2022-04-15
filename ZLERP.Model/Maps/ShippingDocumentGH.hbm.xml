@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="ZLERP.Model" assembly="ZLERP.Model">
+  <class name="ZLERP.Model.ShippingDocumentGH, ZLERP.Model" table="ShippingDocumentGH" lazy="true"
+    dynamic-insert="true" dynamic-update="true" batch-size="30" optimistic-lock="version">
+    <id name="ID" column="ShipDocID">
+      <generator class="ZLERP.Id.TablePrefixGenerator,ZLERP.Id" />
+    </id>
+    <version name="Version" column="Version" />
+    <property name="TaskID" column="TaskID" />
+    <property name="ContractID" column="ContractID" />
+    <property name="ContractName" column="ContractName" />
+    <property name="CustomerID" column="CustomerID" />
+    <property name="CustName" column="CustName" />
+    <property name="CustMixpropID" column="CustMixpropID" />
+    <property name="ConsMixpropID" column="ConsMixpropID" />
+    <property name="SlurryConsMixpropID" column="SlurryConsMixpropID" />
+    <property name="ProjectName" column="ProjectName" />
+    <property name="ProjectAddr" column="ProjectAddr" />
+    <property name="ShipDocType" column="ShipDocType" />
+    <property name="ConStrength" column="ConStrength" />
+    <property name="CastMode" column="CastMode" />
+    <property name="ConsPos" column="ConsPos" />
+    <property name="IsJS" column="IsJS" /> 
+    <property name="ImpGrade" column="ImpGrade" />
+    <property name="ImyGrade" column="ImyGrade" />
+    <property name="ImdGrade" column="ImdGrade" />
+    <property name="CarpRadii" column="CarpRadii" />
+    <property name="CementBreed" column="CementBreed" />
+    <property name="RealSlump" column="RealSlump" />
+    <property name="BetonCount" column="BetonCount" />
+    <property name="SlurryCount" column="SlurryCount" />
+    <property name="SendCube" column="SendCube" />
+    <property name="ParCube" column="ParCube" />
+    <property name="RemainCube" column="RemainCube" />
+    <property name="ShippingCube" column="ShippingCube"/>
+    <property name="SignInCube" column="SignInCube" />
+    <property name="ProvidedCube" column="ProvidedCube" />
+    <property name="PlanCube" column="PlanCube" />
+    <property name="ScrapCube" column="ScrapCube" />
+    <property name="TransferCube" column="TransferCube" />
+    <property name="OtherCube" column="OtherCube" />
+    <property name="Cube" column="Cube" />
+    <property name="TotalWeight" column="TotalWeight" />
+    <property name="CarWeight" column="CarWeight" />
+    <property name="Weight" column="Weight" />
+    <property name="Exchange" column="Exchange" />
+    <property name="CarID" column="CarID" />
+    <property name="ProvidedTimes" column="ProvidedTimes" />
+    <property name="SumPrice" column="SumPrice" />
+    <property name="DeliveryTime" column="DeliveryTime" />
+    <property name="ArriveTime" column="ArriveTime" />
+    <property name="Driver" column="Driver" />
+    <property name="Surveyor" column="Surveyor" />
+    <property name="Signer" column="Signer" />
+    <property name="ForkLift" column="ForkLift" />
+    <property name="Operator" column="Operator" /> 
+    <property name="ProduceDate" column="ProduceDate" />
+    <property name="ProductLineName" column="ProductLineName" />
+    <property name="ProductLineID" column="ProductLineID" />
+    <property name="SupplyUnit" column="SupplyUnit" />
+    <property name="ConstructUnit" column="ConstructUnit" />
+    <property name="EntrustUnit" column="EntrustUnit" />
+    <property name="Accepter" column="Accepter" />
+    <property name="Distance" column="Distance" /> 
+    <property name="LinkMan" column="LinkMan" />
+    <property name="Tel" column="Tel" />
+    <property name="ProjectID" column="ProjectID" />
+    <property name="IsEffective" column="IsEffective" />
+    <property name="IsBack" column="IsBack" />
+    <property name="IsAudit" column="IsAudit" />
+    <property name="AuditMan" column="AuditMan" />
+    <property name="AuditTime" column="AuditTime" /> 
+    <property name="ExceptionInfo" column="ExceptionInfo" />
+    <property name="Remark" column="Remark" />
+    <property name="PrintCount" column="PrintCount" />
+    <property name="BuildTime" column="BuildTime" update="false"/>
+    <property name="Builder" column="Builder" update="false"/>
+    <property name="ModifyTime" column="ModifyTime" insert="false"/>
+    <property name="Modifier" column="Modifier" insert="false"/>
+    <property name="Lifecycle" column="Lifecycle" />
+    <property name="IsProduce" column="IsProduce" />
+    <property name="FormulaName" column="FormulaName" />
+    <property name="Status" column="Status" /> 
+    <property name="XuCube" column="XuCube" />
+    <property name="Qstatus" column="Qstatus" />
+    <property name="CarKm" column="CarKm" />
+    <property name="OverTimeReason" column="OverTimeReason" />
+    <property name="TotalProduceCube" column="TotalProduceCube" />
+    <property name="IsOverTime" column="IsOverTime" />  
+    <property name="price" column="price" />
+    <property name="sumCount" column="sumCount" />
+    <property name="BetonTag" column="BetonTag" />
+    <property name="ContractNo" column="ContractNo" />
+    <property name="IsCompComm" column="IsCompComm" />
+    <property name="IsImpComm" column="IsImpComm" />
+    <property name="ShippDocNo" column="ShippDocNo" />
+    <property name="SiloNo" column="SiloNo" />
+    <property name="CustSiloNo" column="CustSiloNo" />
+    <property name="GB_Date" column="GB_Date" />
+    <property name="CompensationCube" column="CompensationCube" />
+    <property name="CarFreight" column="CarFreight" />
+    <property name="IsClout" column="IsClout" />
+    <property name="url1" column="url1" />
+    <property name="url2" column="url2" />
+    <property name="url3" column="url3" />
+    <property name="SettleDate" column="SettleDate" />
+    <property name="EmptyFee" column="EmptyFee" />
+    <property name="OtherFee" column="OtherFee" />
+    <property name="OverTimeFee" column="OverTimeFee" />
+    <property name="RemarkJS" column="RemarkJS" />
+    <!--<many-to-one name="TZRalation" column="TZRalationID" class="TZRalation" />-->
+    <bag name="DispatchListsGH" lazy="true" inverse="true" batch-size="30">
+      <key column="ShipDocID"></key>
+      <one-to-many class="DispatchListGH"></one-to-many>
+    </bag>
+    <bag name="TZRalationsGH" lazy="true" inverse="true"  batch-size="30">
+      <key column="ShipDocID"></key>
+      <one-to-many class="TZRalationGH"></one-to-many>
+    </bag>
+    <many-to-one name="ProduceTaskGH" column="TaskID" not-found="ignore" class="ProduceTaskGH"/>
+
+
+    <property name="money" column="money" />
+    <property name="isPay" column="isPay" />
+
+
+  </class>
+</hibernate-mapping>

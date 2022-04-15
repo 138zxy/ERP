@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="ZLERP.Model.Material" assembly="ZLERP.Model">
+  <class name="ZLERP.Model.Material.M_TransPrice, ZLERP.Model" table="M_TransPrice" lazy="true"
+    dynamic-insert="true" dynamic-update="true" batch-size="30" optimistic-lock="version">
+    <id name="ID" column="ID">
+      <generator class="native" />
+    </id>
+    <version name="Version" column="Version" />
+    <property name="TransPriceID" column="TransPriceID" />
+    <property name="PriceDate" column="PriceDate" />
+    <property name="UnitPrice" column="UnitPrice" /> 
+    <property name="Remark" column="Remark" /> 
+    
+    <property name="BuildTime" column="BuildTime" update="false"/>
+    <property name="Builder" column="Builder" update="false"/>
+    <property name="ModifyTime" column="ModifyTime" insert="false"/>
+    <property name="Modifier" column="Modifier" insert="false"/>
+    <property name="Lifecycle" column="Lifecycle" />
+    
+    <property name="Auditor" column="Auditor" />
+    <property name="AuditTime" column="AuditTime" />
+    <property name="AuditStatus" column="AuditStatus" />
+    <property name="AuditInfo" column="AuditInfo" />
+    <property name="Auditor2" column="Auditor2" />
+    <property name="AuditTime2" column="AuditTime2" />
+    <property name="AuditStatus2" column="AuditStatus2" />
+    <property name="AuditInfo2" column="AuditInfo2" />
+ 
+  </class>
+
+
+</hibernate-mapping>

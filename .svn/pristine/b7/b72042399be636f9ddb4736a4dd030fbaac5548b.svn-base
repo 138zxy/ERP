@@ -1,0 +1,123 @@
+﻿@model ZLERP.Model.HR.V_HR_KQ_Result 
+@section HeaderSection{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/daterangepicker.jQuery.js")"></script>
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_KQ_Result.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            HR_KQ_ResultMainUrl: '@Url.Action("Find", "HR_KQ_ResultMain")',
+            ComputeSalarUrl: '@Url.Action("ComputeSalar", "HR_KQ_ResultMain")',
+            deptTreeUrl: '@Url.Action("FindTree", "Department")',
+            ComputeNearMonthUrl: '@Url.Action("ComputeNearMonth")',   
+            ComputeReslutUrl: '@Url.Action("ComputeReslut")' ,
+            PersonUrl: '@Url.Action("Find", "HR_Base_Personnel")'
+        };
+        $(function () {
+            HR_KQ_ResultIndexInit(options);
+        });
+        $("#formula-tabs").tabs({ fx: {}, selected: 0 });
+    </script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $('#StartR').datepicker();
+            $('#EndR').datepicker();
+        });
+    </script>
+}
+@*页面布局*@
+<div id="Department" class="ztree" style="overflow: scroll;float: left; width: 12%">
+</div>
+
+
+<!-- 右边Grid -->
+<div id="MyJqGridT" style="float: right; width: 87%">
+
+<div id="formula-tabs">
+    <ul>
+        <li><a href="#MyJqGrid1" id="idinfo1">考勤列表</a></li>
+        <li><a href="#MyJqGrid" id="idinfo2">考勤详情</a></li> 
+    </ul>
+    <div id="MyJqGrid1"  class="mvcform" >
+    </div>
+    <div id="MyJqGrid"  class="mvcform" >
+    </div>
+      
+</div>  
+</div>
+
+<div id="HR_KQ_ResultMainForm" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.HR_KQ_ResultMain.ID )
+        <table class="mvcform">
+         <tr>  
+             <td>
+                 @Html.LabelFor(m => m.HR_KQ_ResultMain.YearMonth)@Html.EditorFor(m => m.HR_KQ_ResultMain.YearMonth)
+            </td> 
+        </tr>
+          <tr>  
+             <td>
+                 @Html.LabelFor(m => m.HR_KQ_ResultMain.KQName)@Html.EditorFor(m => m.HR_KQ_ResultMain.KQName)
+            </td>
+        </tr>
+  
+       <tr> 
+            <td>
+                 @Html.LabelFor(m => m.HR_KQ_ResultMain.AllCount)@Html.TextBoxFor(m => m.HR_KQ_ResultMain.AllCount, new { readOnly = true, @class = "inputReadOnly" })
+            </td>
+        </tr>
+          <tr> 
+            <td>
+                 @Html.LabelFor(m => m.HR_KQ_ResultMain.IsSeal)@Html.EditorFor(m => m.HR_KQ_ResultMain.IsSeal)
+            </td>
+        </tr> 
+        </table>
+    }
+</div>
+
+<div id="MyFormReslut"style="display: none;">
+    <table width="100%"  class="mvcform">
+        <tbody>
+            <tr>
+                <td width="200" valign="top">
+                    <div id="Department2" class="ztree" style="overflow: scroll;">
+                    </div>
+                </td>
+                <td> 
+                    <div id="MyJqGridPerson" style="float: left; width: 100%; overflow: auto;"> 
+                    
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td width="200" valign="top" colspan="2"> 
+                <div>
+                     <hr/>
+                        <table>
+                        <tr> 
+                             <td colspan="2">
+                                @Html.EditorFor(m => m.IsSelectDepart)<span>为已选部门所有员工排班(如选全部部门将为全部部门计算)</span>
+                            </td>  
+                        </tr> 
+                         <tr>  
+                           <td colspan="2">
+                            <fieldset>
+                            <legend>高级设定</legend>
+                             <span>开始日期：</span>@Html.TextBoxFor(m => m.StartR) 
+                             <span>截止日期：</span>@Html.EditorFor(m => m.EndR)  
+                              
+                            </fieldset> 
+                            </td>
+                                  
+                        </tr>
+                        </table>
+                  </div>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+ 
+
+</div>
+ 

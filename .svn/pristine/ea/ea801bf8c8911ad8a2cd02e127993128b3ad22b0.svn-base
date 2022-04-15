@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ZLERP.Model.Generated;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+
+namespace ZLERP.Model
+{
+    public class StockPactPriceSet : _StockPactPriceSet
+    {
+        public virtual StuffInfo StuffInfo { get; set; }
+
+
+        public virtual string StuffName
+        {
+            get
+            {
+                if (StuffInfo != null)
+                {
+                    return StuffInfo.StuffName;
+                }
+                return "";
+            }
+        }
+    }
+}

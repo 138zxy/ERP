@@ -1,0 +1,125 @@
+﻿@model ZLERP.Model.LimitRegion
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/LimitRegion/LimitRegion.js")" type="text/javascript" language="javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            limitRegionIndexInit({
+                LimitRegionStoreUrl: '@Url.Action("Find")',
+                LimitRegionDeleteUrl : '@Url.Action("Delete")'
+             });
+        });
+    </script>
+}
+<div id="LimitRegionForm" style="display:none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+    <table class="mvcform">
+        <tr>
+            <td>@Html.TextBoxFor(m => m.ID, new { @class = "text", style = "display:none" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Name)@Html.TextBoxFor(m => m.Name, new { @class = "text" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.IsOutAlarm)@Html.CheckBoxFor(m => m.IsOutAlarm)</td>
+            <td>@Html.LabelFor(m => m.IsShow)@Html.CheckBoxFor(m => m.IsShow)</td>
+        </tr>
+    </table>
+}
+</div>
+
+<div id="projectrouteAll">
+    <div id="left" style="width: 29.5%; float: left; height: 100%;">
+        <div id="ProjectGrid" style="height: 50%;">
+        </div>
+        <div id="LimitRegionGrid" style="height: 50%;">
+        </div>
+    </div>
+    <div id="right" style="width: 70%; float: right; height: 100%;">
+        <div style="position: fixed;right: 1rem;z-index: 1002;">
+            <span id="tools" class="ui-widget-header ui-corner-all" style="padding: 8px 4px 7px 4px;border: 1px solid #79B7E7;">
+                <span id="pen">
+                    <span>工地围栏：</span>
+                    <button id="setPen">
+                        设置
+                    </button>
+                    <button id="savePen">
+                        保存
+                    </button>
+                </span>
+            </span>
+        </div>
+        <div id="projectMap" style="height: 50%;">
+        </div>
+    </div>
+</div>
+
+<!-- 标定工地 -->
+<div style="display: none;" class="mvcform" id="markProjectDiv">
+    @using (Html.BeginForm())
+    {
+        <table class="mvcform">
+            <tr>
+                <td colspan="2">
+                    @Html.Label("工地")@Html.AutoComplete("ID", "PName", "GetProject", "Project", "ID", "ProjectName", "ProjectName", "IsShow=1", new { style = "width:74%" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("工地编号")@Html.TextBox("ProjectID", "", new { disabled = true })
+                </td>
+                <td>
+                    @Html.Label("工地名称")@Html.TextBox("ProjectName", "", new { disabled = true })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.Label("工程地址")@Html.TextBox("ProjectAddr", "", new { disabled = true })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("联系人")@Html.TextBox("LinkMan", "", new { disabled = true })
+                </td>
+                <td>
+                    @Html.Label("联系电话")@Html.TextBox("Tel", "", new { disabled = true })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.Label("备注")@Html.TextArea("Remark", "", new { disabled = true, style = "width:80%;" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("经度")@Html.TextBox("Longitude", "", new { readOnly = true })
+                </td>
+                <td>
+                    @Html.Label("纬度")@Html.TextBox("Latitude", "", new { readOnly = true })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("工地范围")@Html.TextBox("PlaceRange", "") (m)
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<div style="display: none;" class="mvcform" id="bounddiv">
+    @using (Html.BeginForm())
+    {
+        <table class="mvcform">
+            <tr>
+                <td>
+                    @Html.Label("工地")@Html.AutoComplete("PLID", "ProjectList", "GetProject", "Project", "ID", "ProjectName", "ProjectName", "IsShow=1", null)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("围栏名称")@Html.TextBox("boundName", "")
+                </td>
+            </tr>
+        </table>
+    }
+</div>

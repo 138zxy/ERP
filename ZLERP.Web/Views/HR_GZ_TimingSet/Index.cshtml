@@ -1,0 +1,39 @@
+﻿@model ZLERP.Model.HR.HR_GZ_TimingSet 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_GZ_TimingSet.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            editSaveUrl: '@Url.Action("Update")',
+        };
+        $(function () {
+            HR_GZ_TimingSetIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+ 
+ <div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.ID )
+        <table class="mvcform">
+        <tr> 
+            <td>
+                 @Html.LabelFor(m => m.Code)@Html.EditorFor(m => m.Code)
+            </td>
+        </tr>
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.Name)@Html.EditorFor(m => m.Name)
+            </td>
+        </tr>
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.UnitPrice)@Html.EditorFor(m => m.UnitPrice)
+            </td>
+        </tr> 
+        </table>
+    }
+</div>

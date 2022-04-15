@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/13/2011 14:57:18" ReportInfo.Modified="01/19/2016 17:48:36" ReportInfo.CreatorVersion="1.8.30.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqE5kRij404xp3dSNmtpbZOWEP+7Ht3MmZL2zZRKJJTVjKh6kfWMNy6HDgZAvrYl1gT8+tl7fU7J/5OFuLqhJDIs+6QSKEFcBS9jLNSw4kBpuFb/TFmLP5rwr168KGuTsl0GUS6hdvY32Ug2fwbOrvwZaNbUDsERll4EnVXq462fsCrknuRlNik0aRNuIWqaQW5gPNziv5vIQCT+lKwnzqKg==">
+      <TableDataSource Name="MetageRecord" DataType="System.Int32" Enabled="true" TableName="MetageRecord">
+        <Column Name="MetageID" DataType="System.Int32"/>
+        <Column Name="CarNo" DataType="System.String"/>
+        <Column Name="StuffID" DataType="System.String"/>
+        <Column Name="CustomerName" DataType="System.String"/>
+        <Column Name="BaleID" DataType="System.String"/>
+        <Column Name="Operator" DataType="System.String"/>
+        <Column Name="GrossNum" DataType="System.Decimal"/>
+        <Column Name="GrossOperator" DataType="System.String"/>
+        <Column Name="GrossTime" DataType="System.DateTime"/>
+        <Column Name="TareNum" DataType="System.Decimal"/>
+        <Column Name="TareOperator" DataType="System.String"/>
+        <Column Name="TareTime" DataType="System.DateTime"/>
+        <Column Name="Num" DataType="System.Decimal"/>
+        <Column Name="NetNum" DataType="System.Decimal"/>
+        <Column Name="OperaterStates" DataType="System.Int32"/>
+        <Column Name="GoodsNum" DataType="System.String"/>
+        <Column Name="SundriesRate" DataType="System.Decimal"/>
+        <Column Name="Version" DataType="System.Int32"/>
+        <Column Name="CreateTime" DataType="System.DateTime"/>
+        <Column Name="UpdateTime" DataType="System.DateTime"/>
+        <Column Name="CreaterID" DataType="System.String"/>
+        <Column Name="UpdaterID" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="AuditingStatus" DataType="System.Int32"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="过磅编号" DataType="System.String"/>
+    <Parameter Name="车辆编号" DataType="System.String"/>
+    <Parameter Name="材料名称" DataType="System.String"/>
+    <Parameter Name="供货厂家" DataType="System.String"/>
+    <Parameter Name="筒仓名称" DataType="System.String"/>
+    <Parameter Name="过磅员" DataType="System.String"/>
+    <Parameter Name="毛重" DataType="System.String"/>
+    <Parameter Name="毛重称量员" DataType="System.String"/>
+    <Parameter Name="毛重称量时间" DataType="System.DateTime"/>
+    <Parameter Name="皮重" DataType="System.String"/>
+    <Parameter Name="皮重称量员" DataType="System.String"/>
+    <Parameter Name="皮重称量时间" DataType="System.DateTime"/>
+    <Parameter Name="入库量" DataType="System.String"/>
+    <Parameter Name="净重" DataType="System.String"/>
+    <Parameter Name="操作标识" DataType="System.String"/>
+    <Parameter Name="采购编号" DataType="System.String"/>
+    <Parameter Name="扣重" DataType="System.String"/>
+    <Parameter Name="扣重t" DataType="System.String"/>
+    <Parameter Name="备注" DataType="System.String"/>
+    <Parameter Name="材料类型" DataType="System.String"/>
+    <Parameter Name="单据类型" DataType="System.String"/>
+    <Parameter Name="司机姓名" DataType="System.String"/>
+    <Parameter Name="材料规格" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" PaperWidth="220" PaperHeight="110">
+    <ReportTitleBand Name="ReportTitle1" Width="756" Height="37.8">
+      <TextObject Name="Text1" Left="189" Top="9.45" Width="321.3" Height="28.35" Text="龙湖礼嘉供应站过磅单" HorzAlign="Center" Font="宋体, 16pt, style=Bold"/>
+      <LineObject Name="Line12" Left="-9450" Top="-9450" Height="47.25"/>
+      <LineObject Name="Line13" Left="-9450" Top="-9450" Height="9.45"/>
+      <TextObject Name="Text10" Left="548.1" Top="9.45" Width="189" Height="18.9" Text="[Date]" Format="Date" Format.Format="F" Font="宋体, 9pt"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="41.8" Width="756" Height="217.35">
+      <LineObject Name="Line1" Width="727.65"/>
+      <LineObject Name="Line2" Height="179.55"/>
+      <LineObject Name="Line4" Left="727.65" Height="179.55"/>
+      <LineObject Name="Line5" Top="33.35" Width="727.65"/>
+      <LineObject Name="Line6" Left="94.5" Height="179.55"/>
+      <LineObject Name="Line8" Left="274.05" Top="33.35" Height="109.4"/>
+      <LineObject Name="Line9" Left="340.2" Top="33.8" Height="107.95"/>
+      <LineObject Name="Line10" Left="453.6" Height="141.75"/>
+      <LineObject Name="Line11" Left="548.1" Height="141.75"/>
+      <TextObject Name="Text4" Top="9.45" Width="85.05" Height="18.9" Text="材料厂家" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text5" Left="274.05" Top="40.8" Width="56.7" Height="18.9" Text="毛重" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text6" Top="75.6" Width="85.05" Height="18.9" Text="材料规格" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text7" Left="463.05" Top="37.8" Width="75.6" Height="18.9" Text="头次时间" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text8" Top="151.2" Width="85.05" Height="18.9" Text="备注" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text9" Left="463.05" Top="75.6" Width="75.6" Height="18.9" Text="二次时间" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text11" Left="94.5" Top="9.45" Width="255.15" Height="18.9" Text="[供货厂家]" Font="宋体, 11pt"/>
+      <TextObject Name="Text14" Left="340.2" Top="40.8" Width="85.05" Height="18.9" Text="[毛重]" Font="宋体, 11pt"/>
+      <TextObject Name="Text16" Left="340.2" Top="75.6" Width="85.05" Height="18.9" Text="[皮重]" Font="宋体, 11pt"/>
+      <TextObject Name="Text15" Left="94.5" Top="41.25" Width="170.1" Height="18.9" Text="[材料名称]" Font="宋体, 11pt"/>
+      <LineObject Name="Line14" Top="66.15" Width="727.65"/>
+      <TextObject Name="Text22" Left="463.05" Top="113.4" Width="75.6" Height="18.9" Text="扣含水" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text27" Left="463.05" Top="9.45" Width="56.7" Height="18.9" Text="编号" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <LineObject Name="Line15" Top="103.95" Width="727.65"/>
+      <TextObject Name="Text28" Left="274.05" Top="75.6" Width="56.7" Height="18.9" Text="皮重" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <LineObject Name="Line16" Top="141.75" Width="727.65"/>
+      <LineObject Name="Line17" Top="179.55" Width="727.65"/>
+      <TextObject Name="Text29" Top="113.4" Width="85.05" Height="18.9" Text="车牌号" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text21" Left="548.1" Top="75.6" Width="160.65" Height="18.9" Text="[毛重称量时间]" Font="宋体, 11pt"/>
+      <TextObject Name="Text30" Left="274.05" Top="113.4" Width="56.7" Height="18.9" Text="净重" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text31" Left="548.1" Top="37.8" Width="160.65" Height="28.35" Text="[皮重称量时间]" Font="宋体, 11pt"/>
+      <TextObject Name="Text33" Left="340.2" Top="113.4" Width="85.05" Height="18.9" Text="[净重]" Font="宋体, 11pt"/>
+      <TextObject Name="Text34" Top="40.8" Width="85.05" Height="18.9" Text="材料名称" HorzAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text35" Left="37.8" Top="196.45" Width="189" Height="18.9" Text="送料人：[司机姓名]" Font="宋体, 11pt"/>
+      <TextObject Name="Text36" Left="284.4" Top="197" Width="179.55" Height="18.9" Text="质检：" Font="宋体, 11pt"/>
+      <TextObject Name="Text37" Left="538.65" Top="196.45" Width="179.55" Height="18.9" Text="收料人：[过磅员]" Font="宋体, 11pt"/>
+      <TextObject Name="Text2" Left="548.1" Top="9.45" Width="94.5" Height="18.9" Text="[过磅编号]" Font="宋体, 11pt"/>
+      <TextObject Name="Text3" Left="548.1" Top="113.4" Width="160.65" Height="18.9" Text="[扣重t]" Font="宋体, 11pt"/>
+      <TextObject Name="Text12" Left="94.5" Top="151.2" Width="614.25" Height="18.9" Text="[备注]" Font="宋体, 11pt"/>
+      <TextObject Name="Text13" Left="94.5" Top="75.6" Width="170.1" Height="18.9" Text="[材料规格]" Font="宋体, 11pt"/>
+      <TextObject Name="Text17" Left="94.5" Top="113.4" Width="170.1" Height="18.9" Text="[车辆编号]" Font="宋体, 11pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="263.15" Width="756"/>
+  </ReportPage>
+</Report>

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
+  <DataSources>
+    <DataSource Name="DataSet1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>b8bc35d1-d6e5-47ba-9f65-a310fb5dbaa7</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Fields>
+        <Field Name="ChangeTime">
+          <DataField>ChangeTime</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ConStrength">
+          <DataField>ConStrength</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="price">
+          <DataField>price</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSet1</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DataSet1</rd:DataSetName>
+        <rd:SchemaPath>E:\ZLERP_trunk_new\ZLERP.Web\DataSet1.xsd</rd:SchemaPath>
+        <rd:TableName>sp_rpt_ProducerecordDetail</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>sp_rpt_ProducerecordDetailTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <Body>
+    <ReportItems>
+      <Tablix Name="Tablix1">
+        <TablixCorner>
+          <TablixCornerRows>
+            <TablixCornerRow>
+              <TablixCornerCell>
+                <CellContents>
+                  <Textbox Name="Textbox4">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value />
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox4</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixCornerCell>
+            </TablixCornerRow>
+          </TablixCornerRows>
+        </TablixCorner>
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>0.98425in</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.23622in</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="price">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!price.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>price</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <Group Name="ChangeTime">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!ChangeTime.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!ChangeTime.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixHeader>
+                <Size>0.23622in</Size>
+                <CellContents>
+                  <Textbox Name="ChangeTime">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>=Fields!ChangeTime.Value</Value>
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>ChangeTime</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+            </TablixMember>
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <Group Name="ConStrength">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!ConStrength.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!ConStrength.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixHeader>
+                <Size>0.98425in</Size>
+                <CellContents>
+                  <Textbox Name="ConStrength">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>=Fields!ConStrength.Value</Value>
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>ConStrength</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>DataSet1</DataSetName>
+        <Height>1.2cm</Height>
+        <Width>4.99999cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+    </ReportItems>
+    <Height>0.47244in</Height>
+    <Style>
+      <Border>
+        <Style>None</Style>
+      </Border>
+    </Style>
+  </Body>
+  <Code>Function CNMoney(ByVal Money As String, Optional ByVal YB As Boolean = True) As String
+        Dim X, Y As String
+        Dim I As Integer
+        Const Zimu = ".sbqwsbqysbqwsbq" ''定义位置代码
+        Const Letter = "0123456789sbqwy.zjf" ''定义汉字缩写
+        Const Upcase = "零壹贰叁肆伍陆柒捌玖拾佰仟万亿圆整角分" '定义大写汉字
+        Dim Temp As String
+        Try
+            Temp = Convert.ToString(Format(Convert.ToDouble(Money), "0.00"))
+        Catch ex As Exception
+            Throw New NotSupportedException("数据给出错误（非数字格式）！")
+            CNMoney = "Error."
+            Exit Function
+        End Try
+        If Len(Temp) &gt; 12 Then
+            Throw New NotSupportedException("数据太大，无法计算（超亿位无法计算）！")
+            CNMoney = "Error."
+            Exit Function
+        End If
+        If InStr(Temp, ".") &gt; 0 Then Temp = Left(Temp, InStr(Temp, ".") - 1)
+        X = Format(Convert.ToDouble(Money), "0.00") '格式化货币
+        Y = ""
+        For I = 1 To Len(X) - 3
+            Y = Y &amp; Mid(X, I, 1) &amp; Mid(Zimu, Len(X) - 2 - I, 1)
+        Next
+        If Right(X, 3) = ".00" Then
+            Y = Y &amp; "z" ''***元整
+        Else
+            If Right(X, 1) = "0" Then
+                Y = Y &amp; Left(Right(X, 2), 1) &amp; "j" &amp; "z" '*元*角*整
+            Else
+                Y = Y &amp; Left(Right(X, 2), 1) &amp; "j" &amp; Right(X, 1) &amp; "f" ''*元*角*分
+            End If
+        End If
+        Y = Replace(Y, "0q", "0") ''避免零千(如：40200肆萬零千零贰佰)
+        Y = Replace(Y, "0b", "0") ''避免零百(如：41000肆萬壹千零佰)
+        Y = Replace(Y, "0s", "0") ''避免零十(如：204贰佰零拾零肆)
+        Do While Y &lt;&gt; Replace(Y, "00", "0")
+            Y = Replace(Y, "00", "0") ''避免双零(如：1004壹仟零零肆)
+        Loop
+        Y = Replace(Y, "0y", "y") ''避免零億(如：210億 贰佰壹十零億)
+        If Val(Mid(Right(Temp, 4), 1, 1)) &gt; 0 Then
+            Y = Replace(Y, "0w", "w0") ''避免无零千(如：102000 拾万贰仟)，应该是拾万零贰仟
+        Else
+            Y = Replace(Y, "0w", "w") ''避免零萬(如：210萬 贰佰壹十零萬)
+        End If
+        'Y = IIf(Len(X) = 5 And Left(Y, 1) = "1", Right(Y, Len(Y) - 1), Y) ''避免壹十(如：14壹拾肆；10壹拾)
+        Y = IIf(Len(X) = 4, Replace(Y, "0.", ""), Replace(Y, "0.", ".")) ''避免零元(如：20.00贰拾零圆；0.12零圆壹角贰分)
+        If Len(Temp) &gt;= 9 Then '加
+            Y = Replace(Y, "yw", "y") '避免亿万元　如　100000000，壹亿万元　应该是壹亿元
+        End If '加
+        For I = 1 To 19
+            Y = Replace(Y, Mid(Letter, I, 1), Mid(Upcase, I, 1)) ''大写汉字
+        Next
+        Y = Y.Replace("零角", "零")
+        If YB = False Then
+            Y = Y.Replace("圆整", "")
+        End If
+        
+        CNMoney = Y
+    End Function
+</Code>
+  <Width>1.9685in</Width>
+  <Page>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
+    <InteractiveHeight>0cm</InteractiveHeight>
+    <InteractiveWidth>29.7cm</InteractiveWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>0.5cm</TopMargin>
+    <BottomMargin>0.5cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <rd:ReportID>53b04fb2-851b-489c-b0ce-7d16351f5d67</rd:ReportID>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+</Report>

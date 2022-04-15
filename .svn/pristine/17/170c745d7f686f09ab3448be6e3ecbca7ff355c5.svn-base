@@ -1,0 +1,112 @@
+﻿@model ZLERP.Model.Material.V_M_YingYS
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/ajaxfileupload.js")" type="text/javascript" language="javascript"> </script>
+    <script src="@Url.Content("~/Scripts/Views/Material/M_PiaoYingSF.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            DelstoreUrl: '@Url.Action("Find", "M_VYingYS")',
+            UpdateUrl: '@Url.Action("Update", "M_VYingYS")', 
+            uploadUrl: '@Url.Action("Upload", "Attachment")', //附加上传
+            PayUrl: '@Url.Action("Pay", "M_PiaoYingSF")'
+        };
+        $(document).ready(function () {
+            $('#M_BaleBalance_BaleDate').datepicker();
+        });
+        $(function () {
+            M_YingSFIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+
+<div id="PiaomyJqGridDetial"> </div> 
+ 
+<div id="M_PiaoYingSFPayForm" class="mvcform" style="display:none;"> 
+     @Html.LabelFor(m => m.M_BaleBalance.StockPactID)@Html.TextBoxFor(m => m.M_BaleBalance.StockPactID, new { @readonly = "readonly", @class = "inputReadOnly" })
+    @Html.LabelFor(m => m.M_BaleBalance.SupplyInfo.SupplyName)@Html.TextBoxFor(m => m.M_BaleBalance.SupplyInfo.SupplyName, new { @readonly = "readonly", @class = "inputReadOnly" })
+    @Html.Label("未收票总额")@Html.TextBoxFor(m => m.M_BaleBalance.SupplyInfo.PayMoney, new { @readonly = "readonly", @class = "inputReadOnly" })
+  <div  id="PiaomyJqGridPayDetial"></div>
+ 
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+    @Html.HiddenFor(m => m.M_BaleBalance.ID)
+<table class="mvcform"> 
+ 
+    <tr> 
+        <td>@Html.Label("发票类型")@Html.EditorFor(m => m.M_BaleBalance.PayType)</td>
+        <td>@Html.Label("发票号")@Html.EditorFor(m => m.M_BaleBalance.PiaoNo)</td>
+    </tr>
+      <tr> 
+        <td>@Html.Label("日期")@Html.EditorFor(m => m.M_BaleBalance.BaleDate) </td>
+        <td>@Html.Label("已开票金额")@Html.TextBoxFor(m => m.M_BaleBalance.PiaoPayMoney, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+       
+    </tr>
+    <tr> 
+          <td>@Html.Label("开票人")@Html.EditorFor(m => m.M_BaleBalance.Payer)</td> 
+        <td>@Html.Label("免开票金额")@Html.TextBoxFor(m => m.M_BaleBalance.PiaoPayFavourable, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+     
+    </tr>
+    <tr> 
+           <td>@Html.Label("收票人")@Html.EditorFor(m => m.M_BaleBalance.Gatheringer)</td> 
+           <td>@Html.Label("未开票金额")@Html.TextBoxFor(m => m.M_BaleBalance.PiaoPayOwing, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.M_BaleBalance.Remark2)@Html.TextAreaFor(m => m.M_BaleBalance.Remark2, new { style = "width:70%" }) </td>
+    </tr> 
+        <tr> 
+        <td  colspan="3">
+          <label>发票文件
+            </label><input type="file" id="uploadFile" name="upload" />
+            <div id="Attachments" style="clear: both;">
+            </div>
+        </td>
+    </tr> 
+</table>
+}
+</div>
+ 
+
+
+ 
+<div id="M_PiaoYingSFPayIniForm" class="mvcform" style="display:none;"> 
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+    @Html.HiddenFor(m => m.M_PiaoYingSFrec.UnitID)
+<table class="mvcform"> 
+    <tr> 
+         <td>@Html.LabelFor(m => m.SupplyInfo.SupplyName)@Html.TextBoxFor(m => m.SupplyInfo.SupplyName, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+         <td>@Html.LabelFor(m => m.SupplyInfo.PiaoPayMoney)@Html.TextBoxFor(m => m.SupplyInfo.PiaoPayMoney, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+         
+    </tr>
+      <tr> 
+        <td>@Html.LabelFor(m => m.SupplyInfo.PiaoPaidIn)@Html.TextBoxFor(m => m.SupplyInfo.PiaoPaidIn, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+         <td>@Html.LabelFor(m => m.SupplyInfo.PiaoPaidOut)@Html.TextBoxFor(m => m.SupplyInfo.PiaoPaidOut, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+          
+    </tr>
+        <tr> 
+        <td>@Html.LabelFor(m => m.SupplyInfo.PiaoPaidFavourable)@Html.TextBoxFor(m => m.SupplyInfo.PiaoPaidFavourable, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+        <td>@Html.LabelFor(m => m.SupplyInfo.PiaoPaidOwing)@Html.TextBoxFor(m => m.SupplyInfo.PiaoPaidOwing, new { @readonly = "readonly", @class = "inputReadOnly" }) </td>
+    </tr>
+    <tr> <td  colspan="2"><hr></td></tr>
+        <td>@Html.Label("发票类型")@Html.EditorFor(m => m.M_PiaoYingSFrec.PayType)</td>
+        <td>@Html.Label("发票号")@Html.EditorFor(m => m.M_PiaoYingSFrec.PiaoNo)</td>
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_PiaoYingSFrec.FinanceDate)@Html.EditorFor(m => m.M_PiaoYingSFrec.FinanceDate, new { defaultValue = @DateTime.Now.ToString("yyyy-MM-dd") }) </td>
+        <td>@Html.LabelFor(m => m.M_PiaoYingSFrec.PayType)@Html.EditorFor(m => m.M_PiaoYingSFrec.PayType) </td>
+    </tr>
+    <tr> 
+        <td>>@Html.LabelFor(m => m.M_PiaoYingSFrec.FinanceMoney)@Html.TextBoxFor(m => m.M_PiaoYingSFrec.FinanceMoney) </td>
+       <td>@Html.LabelFor(m => m.M_PiaoYingSFrec.PayFavourable)@Html.EditorFor(m => m.M_PiaoYingSFrec.PayFavourable)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.M_PiaoYingSFrec.Payer)@Html.EditorFor(m => m.M_PiaoYingSFrec.Payer)</td> 
+        <td>@Html.LabelFor(m => m.M_PiaoYingSFrec.Gatheringer)@Html.EditorFor(m => m.M_PiaoYingSFrec.Gatheringer)</td> 
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.M_PiaoYingSFrec.Remark)@Html.TextAreaFor(m => m.M_PiaoYingSFrec.Remark, new { style = "width:70%" }) </td>
+    </tr> 
+</table>
+}
+</div>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="ZLCRM.Model.App" assembly="ZLCRM.Model">
+  <class name="ZLERP.Model.App.App_VersionManage, ZLERP.Model" table="App_VersionManage" lazy="true"
+    dynamic-insert="true" dynamic-update="true" batch-size="30" optimistic-lock="version">
+    <id name="ID" column="ID">
+      <generator class="native" />
+    </id>
+    <version name="Version" column="Version" />
+    <property name="AppName" column="AppName" />
+    <property name="AppUrl" column="AppUrl" />
+    <property name="AppVersion" column="AppVersion" />
+    <property name="BuildTime" column="BuildTime" update="false"/>
+    <property name="Builder" column="Builder" update="false"/>
+    <property name="ModifyTime" column="ModifyTime" insert="false"/>
+    <property name="Modifier" column="Modifier" insert="false"/>
+    <property name="Lifecycle" column="Lifecycle" />
+  </class>
+</hibernate-mapping>

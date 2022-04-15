@@ -1,0 +1,10 @@
+D:\WorkSpace\ErpCode\株洲日程\LicenseObj\bin\Debug\ZLERP.License.Obj.dll
+D:\WorkSpace\ErpCode\株洲日程\LicenseObj\bin\Debug\ZLERP.License.Obj.pdb
+D:\WorkSpace\ErpCode\株洲日程\LicenseObj\obj\Debug\ZLERP.License.Obj.dll
+D:\WorkSpace\ErpCode\株洲日程\LicenseObj\obj\Debug\ZLERP.License.Obj.pdb
+D:\138\株洲日成\株洲日程\LicenseObj\bin\Debug\ZLERP.License.Obj.dll
+D:\138\株洲日成\株洲日程\LicenseObj\bin\Debug\ZLERP.License.Obj.pdb
+D:\138\株洲日成\株洲日程\LicenseObj\obj\Debug\ZLERP.License.Obj.csproj.AssemblyReference.cache
+D:\138\株洲日成\株洲日程\LicenseObj\obj\Debug\ZLERP.License.Obj.csproj.CoreCompileInputs.cache
+D:\138\株洲日成\株洲日程\LicenseObj\obj\Debug\ZLERP.License.Obj.dll
+D:\138\株洲日成\株洲日程\LicenseObj\obj\Debug\ZLERP.License.Obj.pdb

@@ -1,0 +1,20 @@
+﻿ 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/Beton/B_Finance.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            DelstoreUrl: '@Url.Action("Find", "B_FinanceDel")',
+            AuditExecUrl: '@Url.Action("AuditExec")',
+            UnExecUrl: '@Url.Action("UnExec")'
+        }; 
+        $(function () {
+            B_FinanceIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+
+<div id="myJqGridDetial"> </div>  
+ 

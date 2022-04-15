@@ -1,0 +1,124 @@
+﻿@model ZLERP.Model.Material.V_M_TranBalance
+@section HeaderSection{
+<script src="@Url.Content("~/Scripts/Views/Material/M_TranBalance.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            M_TranBalanceIndexInit(
+                {
+                    storeUrl: '@Url.Action("Find")',
+                    DelstoreUrl: '@Url.Action("Find", "M_TranBalanceDel")',
+                    UpdateUrl: '@Url.Action("Update", "M_TranBalanceDel")',
+                    ChangeConditionUrl: '@Url.Action("ChangeCondition")',
+                    ComputeUrl: '@Url.Action("Compute")',
+                    StuffInUrl: '@Url.Action("Find", "StuffIn")',
+                    AddAllBalanceUrl: '@Url.Action("AddAllBalance")',
+                    AddStuffInUrl: '@Url.Action("AddStuffIn")'
+                }
+             );
+        });
+</script>
+}
+<div id="MyJqGrid"">
+</div> 
+<div id="myJqGridDetial"></div>
+   <div  id="myJqGridAddDetial" >
+    </div>
+<div  id="myJqGridShowDetial" class="mvcform" style="display:none;">
+@*    @Html.Label("进料单号")@Html.EditorFor(m => m.OrderNo) 
+                <button id="sbb" class="tbtn ui-icon-search" style=" margin:0px;" title="大类/查询" role="button" aria-disabled="false" type ="button" onclick="Search('B');return false;">查询</button>
+*@
+ 
+</div>
+ <div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td style="display: none">@Html.LabelFor(m => m.M_TranBalance.ID)@Html.EditorFor(m => m.M_TranBalance.ID)
+                </td>
+                <td>@Html.LabelFor(m => m.M_TranBalance.BaleNo)@Html.TextBoxFor(m => m.M_TranBalance.BaleNo, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+                <td>@Html.LabelFor(m => m.M_TranBalance.OrderDate)@Html.EditorFor(m => m.M_TranBalance.OrderDate, "DateTime", new { defaultValue = @DateTime.Now.ToString("yyyy-MM-dd") })
+                </td> 
+                 <td>@Html.Label("运输单位编码")@Html.TextBoxFor(m => m.M_TranBalance.TranID, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+            </tr>
+            
+            <tr> 
+                <td>@Html.Label("运输单位")@Html.TextBoxFor(m => m.M_TranBalance.SupplyInfo.SupplyName, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+              
+                  <td>@Html.LabelFor(m => m.M_TranBalance.ThatBaleMan)@Html.EditorFor(m => m.M_TranBalance.ThatBaleMan)
+                </td> 
+            </tr>
+             <tr>  
+             <td colspan="3"><hr/></td>
+            </tr>
+              <tr>
+                <td>@Html.LabelFor(m => m.M_TranBalance.StuffID)@Html.TextBoxFor(m => m.M_TranBalance.StuffID, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+                 <td>@Html.LabelFor(m => m.M_TranBalance.StuffInfo.StuffName)@Html.TextBoxFor(m => m.M_TranBalance.StuffInfo.StuffName, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+            </tr>
+             <tr>  
+             <td colspan="3"><hr/></td>
+            </tr>
+            <tr>  
+                <td>@Html.LabelFor(m => m.M_TranBalance.StartDate)@Html.EditorFor(m => m.M_TranBalance.StartDate)
+                </td>
+                <td>@Html.LabelFor(m => m.M_TranBalance.EndDate)@Html.EditorFor(m => m.M_TranBalance.EndDate)
+                </td> 
+                <td>@Html.LabelFor(m => m.M_TranBalance.BaleType)@Html.DropDownListFor(m => m.M_TranBalance.BaleType, (IEnumerable<SelectListItem>)ViewBag.ItemsType, new { @class = "text", style = "width:135px;" }) 
+                </td>   
+            </tr>
+             <tr>
+                <td>@Html.LabelFor(m => m.M_TranBalance.IsOnePrice)@Html.EditorFor(m => m.M_TranBalance.IsOnePrice)
+                </td> 
+                <td>@Html.LabelFor(m => m.M_TranBalance.OnePrice)@Html.EditorFor(m => m.M_TranBalance.OnePrice)
+                </td>
+                <td>@Html.LabelFor(m => m.M_TranBalance.IsStockPrice)@Html.EditorFor(m => m.M_TranBalance.IsStockPrice)
+                </td> 
+            </tr>
+             <tr>  
+             <td colspan="3"><hr/></td>
+            </tr>
+              <tr>
+               
+                <td>@Html.LabelFor(m => m.M_TranBalance.AllCount)@Html.TextBoxFor(m => m.M_TranBalance.AllCount, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+                  <td>@Html.LabelFor(m => m.M_TranBalance.AllMoney)@Html.TextBoxFor(m => m.M_TranBalance.AllMoney, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+            </tr>
+                 <tr>
+              <td>@Html.LabelFor(m => m.M_TranBalance.AllOkCount)@Html.EditorFor(m => m.M_TranBalance.AllOkCount)
+                </td>
+                   <td>@Html.LabelFor(m => m.M_TranBalance.AllOkMoney)@Html.EditorFor(m => m.M_TranBalance.AllOkMoney)
+                </td>
+            </tr>
+               <tr>
+               
+                <td>@Html.LabelFor(m => m.M_TranBalance.PayMoney)@Html.TextBoxFor(m => m.M_TranBalance.PayMoney, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+                  <td>@Html.LabelFor(m => m.M_TranBalance.PayOwing)@Html.TextBoxFor(m => m.M_TranBalance.PayOwing, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+                 <td>@Html.LabelFor(m => m.M_TranBalance.PayFavourable)@Html.TextBoxFor(m => m.M_TranBalance.PayFavourable, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+            </tr>
+              <tr>  
+             <td colspan="3"><hr/></td>
+            </tr>
+           <tr>
+              <td>@Html.LabelFor(m => m.M_TranBalance.BaleDate)@Html.EditorFor(m => m.M_TranBalance.BaleDate)
+                </td>
+                   <td>@Html.LabelFor(m => m.M_TranBalance.BaleMan)@Html.EditorFor(m => m.M_TranBalance.BaleMan)
+                </td>
+            </tr> 
+              <tr>
+                <td colspan="3">@Html.LabelFor(m => m.M_TranBalance.Remark)@Html.TextAreaFor(m => m.M_TranBalance.Remark, new { style = "width:70%" })  
+                </td>  
+            </tr>
+        </table>
+
+    }
+</div>
+ 
