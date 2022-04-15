@@ -1,9 +1,0 @@
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\bin\Debug\ZLERP.Resources.dll
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\bin\Debug\ZLERP.Resources.pdb
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\bin\Debug\en-US\ZLERP.Resources.resources.dll
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\obj\Debug\ZLERP.Resources.Lang.resources
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\obj\Debug\ZLERP.Resources.Lang.en-US.resources
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\obj\Debug\ZLERP.Resources.csproj.GenerateResource.Cache
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\obj\Debug\en-US\ZLERP.Resources.resources.dll
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\obj\Debug\ZLERP.Resources.dll
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Resources\obj\Debug\ZLERP.Resources.pdb

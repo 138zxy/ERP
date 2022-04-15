@@ -1,5 +1,0 @@
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Gps\bin\Debug\ZLERP.Gps.dll.config
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Gps\bin\Debug\ZLERP.Gps.dll
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Gps\bin\Debug\ZLERP.Gps.pdb
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Gps\obj\Debug\ZLERP.Gps.dll
-D:\WorkSpace\ErpCode\株洲日程\ZLERP.Gps\obj\Debug\ZLERP.Gps.pdb

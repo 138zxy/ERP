@@ -1,4 +1,0 @@
-﻿function shippingDocInit(opts) {
-    
-}
- 
