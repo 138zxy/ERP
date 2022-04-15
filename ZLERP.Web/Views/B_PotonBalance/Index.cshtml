@@ -1,0 +1,125 @@
+﻿@model ZLERP.Model.Beton.V_B_Balance
+@section HeaderSection{
+<script src="@Url.Content("~/Scripts/Views/Beton/B_PotonBalance.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            B_PotonBalanceIndexInit(
+                {
+                    storeUrl: '@Url.Action("Find")',
+                    DelstoreUrl: '@Url.Action("Find", "B_BalanceDel")',
+                    ChangeConditionUrl: '@Url.Action("ChangeCondition")',
+                    ComputeUrl: '@Url.Action("Compute")',
+                    ShopdocUrl: '@Url.Action("Find", "ShippingDocument")',
+                    AddShopdocUrl: '@Url.Action("AddShipDoc")',
+                    AddAllBalanceUrl: '@Url.Action("AddAllBalance")',
+                    UpdateUrl: '@Url.Action("Update", "B_BalanceDel")'
+                }
+             );
+        });
+</script>
+}
+<div id="B_PotonBalanceMyJqGrid"">
+</div> 
+<div id="B_PotonBalancemyJqGridBDetial"></div>
+   <div  id="B_PotonBalancemyJqGridBAddDetial" >
+    </div>
+<div  id="B_PotonBalancemyJqGridBShowDetial" class="mvcform" style="display:none;">
+ 
+</div>
+ <div id="B_PotonBalanceMyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td style="display: none">@Html.LabelFor(m => m.B_Balance.ID)@Html.EditorFor(m => m.B_Balance.ID)
+                </td>
+                <td>@Html.LabelFor(m => m.B_Balance.BaleNo)@Html.TextBoxFor(m => m.B_Balance.BaleNo, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+                <td>@Html.LabelFor(m => m.B_Balance.OrderDate)@Html.EditorFor(m => m.B_Balance.OrderDate, "DateTime", new { defaultValue = @DateTime.Now.ToString("yyyy-MM-dd") })
+                </td> 
+                <td>@Html.LabelFor(m => m.B_Balance.Contract.ContractName)@Html.TextBoxFor(m => m.B_Balance.Contract.ContractName, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+                 
+            </tr>
+            
+         
+             <tr>  
+             <td colspan="4"><hr/></td>
+            </tr>
+              <tr>
+                <td>@Html.LabelFor(m => m.B_Balance.ProjectID)@Html.TextBoxFor(m => m.B_Balance.ProjectID, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+                 <td>@Html.LabelFor(m => m.B_Balance.Project.ProjectName)@Html.TextBoxFor(m => m.B_Balance.Project.ProjectName, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+                <td>@Html.LabelFor(m => m.B_Balance.CastMode)@Html.TextBoxFor(m => m.B_Balance.CastMode, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+                
+            </tr>
+             <tr>  
+             <td colspan="4"><hr/></td>
+            </tr>
+            <tr>  
+                <td>@Html.LabelFor(m => m.B_Balance.StartDate)@Html.EditorFor(m => m.B_Balance.StartDate)
+                </td>
+                <td>@Html.LabelFor(m => m.B_Balance.EndDate)@Html.EditorFor(m => m.B_Balance.EndDate)
+                </td> 
+                 <td>@Html.LabelFor(m => m.B_Balance.InMonth)@Html.EditorFor(m => m.B_Balance.InMonth)
+                </td>  
+            </tr> 
+            <tr>
+                <td>@Html.Label("合同结算")@Html.EditorFor(m => m.B_Balance.IsStockPrice)
+               </td> 
+                <td>@Html.Label("手动结算")@Html.EditorFor(m => m.B_Balance.IsOnePrice)
+                </td>  
+               <td>@Html.Label("手动设置价")@Html.EditorFor(m => m.B_Balance.OnePrice)
+                </td>   
+            </tr> 
+             <tr>  
+             <td colspan="4"><hr/></td>
+            </tr>
+              <tr> 
+                <td>@Html.LabelFor(m => m.B_Balance.AllPCount)@Html.TextBoxFor(m => m.B_Balance.AllPCount, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+                  <td>@Html.LabelFor(m => m.B_Balance.AllPMoney)@Html.TextBoxFor(m => m.B_Balance.AllPMoney, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+                 <td>@Html.LabelFor(m => m.B_Balance.AllPOkCount)@Html.EditorFor(m => m.B_Balance.AllPOkCount)
+                </td>
+                
+            </tr> 
+                 <tr>
+                   <td>@Html.LabelFor(m => m.B_Balance.AllBOkMoney)@Html.EditorFor(m => m.B_Balance.AllBOkMoney)
+                </td> 
+               <td>@Html.LabelFor(m => m.B_Balance.OtherMoney)@Html.EditorFor(m => m.B_Balance.OtherMoney)
+                </td>
+                <td>@Html.LabelFor(m => m.B_Balance.AllOkMoney)@Html.EditorFor(m => m.B_Balance.AllOkMoney)
+                </td>
+            </tr>
+               <tr>
+               
+                <td>@Html.LabelFor(m => m.B_Balance.PayMoney)@Html.TextBoxFor(m => m.B_Balance.PayMoney, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td>
+                  <td>@Html.LabelFor(m => m.B_Balance.PayOwing)@Html.TextBoxFor(m => m.B_Balance.PayOwing, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+                 <td>@Html.LabelFor(m => m.B_Balance.PayFavourable)@Html.TextBoxFor(m => m.B_Balance.PayFavourable, new { @readonly = "readonly", @class = "inputReadOnly" })
+                </td> 
+            </tr>
+              <tr>  
+             <td colspan="4"><hr/></td>
+            </tr>
+           <tr>
+              <td>@Html.LabelFor(m => m.B_Balance.BaleDate)@Html.EditorFor(m => m.B_Balance.BaleDate)
+                </td>
+                   <td>@Html.LabelFor(m => m.B_Balance.BaleMan)@Html.EditorFor(m => m.B_Balance.BaleMan)
+                </td>
+                 <td>@Html.LabelFor(m => m.B_Balance.ThatBaleMan)@Html.EditorFor(m => m.B_Balance.ThatBaleMan)
+                </td> 
+            </tr> 
+              <tr>
+                <td colspan="4">@Html.LabelFor(m => m.B_Balance.Remark)@Html.TextAreaFor(m => m.B_Balance.Remark, new { style = "width:70%" })  
+                </td>  
+            </tr>
+        </table>
+
+    }
+</div>
+ 

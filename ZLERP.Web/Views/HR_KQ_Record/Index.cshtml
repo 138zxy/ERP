@@ -1,0 +1,51 @@
+﻿@model ZLERP.Model.HR.HR_KQ_Record 
+@section HeaderSection{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/daterangepicker.jQuery.js")"></script>
+<script src="@Url.Content("~/Scripts/ajaxfileupload.js")" type="text/javascript" language="javascript"> </script>
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_KQ_Record.js")" type="text/javascript" language="javascript"> 
+    </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            uploadUrl: '@Url.Action("ToExcel")'
+        };
+        $(function () {
+            HR_KQ_RecordIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.ID )
+        <table class="mvcform">
+        <tr>  
+            <td> 
+                 @Html.LabelFor(m => m.PersonID)@Html.AutoComplete("PersonID", "PersonIDText", "Combo", "HR_Base_Personnel", "ID", "Name", "1=1", new { style = "width:120px" }) 
+            </td>
+        </tr>
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.CheckTime)@Html.EditorFor(m => m.CheckTime, "DateTimeWithTime")
+            </td>
+        </tr>  
+        </table>
+    }
+</div>
+
+
+<div id="MyFormDiv1" class="mvcform" style="display: none;">
+        <table class="mvcform">
+         <tr> 
+        <td  colspan="2">
+          <label>请选择文件
+            </label><input type="file" id="uploadFile" name="upload" /> 
+        </td> 
+        </tr>  
+         <tr><td>请将数据整理并添加到《考勤记录导入模板》后，上传即可</td></tr>
+          <tr><td><a href="/Content/Files/Temp/考勤记录导入模板.xls">点击下载《考勤记录导入模板》</a></td></tr>
+        </table>
+    
+</div>

@@ -1,0 +1,128 @@
+﻿@model ZLERP.Model.ViewModels.FormulaGHAndItems 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/FormulaGH.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            formulaIndexInit({ storeUrl: '@Url.Action("Find")', //storeUrl
+                             formulaItemStoreUrl:'@Url.Action("Find", "FormulaGHItem")', //formulaItemStoreUrl
+                             itemUpdateUrl:'@Url.Action("Update", "FormulaGHItem")', //itemUpdateUrl
+                             getFormulaUrl:'@Url.Action("Get", "FormulaGH")', //getFormulaUrl
+                             exportStuffUrl:'@Url.Action("ExportStuff", "FormulaGH")',
+                             conStrengthSelectUrl: '@Html.Raw(Url.Action("SearchSelect", "ConStrength", new{textField="ConStrengthCode", valueField="ConStrengthCode", orderby="ConStrengthCode"}))'
+                         }); //ExportStuffUrl
+        });
+    </script>
+}
+<div id="FormulaGHFormDiv" style="display: none;">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td>@Html.LabelFor(m => m.FormulaGH.FormulaGHName)@Html.TextBoxFor(m => m.FormulaGH.FormulaGHName, new { @class = "text" })
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.FormulaGHType)@Html.DicEditorFor(m => m.FormulaGH.FormulaGHType, DicEnum.FType)
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.CementBreed)@Html.DicEditorFor(m => m.FormulaGH.CementBreed, DicEnum.GHBreed, "")
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.Label("强 度")@Html.fixedDropDownListFor(m => m.FormulaGH.ConStrength, (IEnumerable<SelectListItem>)ViewBag.ConStrength)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.FormulaGH.SeasonType)@Html.DicEditorFor(m => m.FormulaGH.SeasonType, DicEnum.Season)
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.CementType)@Html.DicEditorFor(m => m.FormulaGH.CementType, DicEnum.GHType, "")
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.Weight)@Html.TextBoxFor(m => m.FormulaGH.Weight, new { @class = "text" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.FormulaGH.TuneWeight)@Html.TextBoxFor(m => m.FormulaGH.TuneWeight, new { @class = "text" })
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.WCRate)@Html.TextBoxFor(m => m.FormulaGH.WCRate, new { @class = "text" })
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.SCRate)@Html.TextBoxFor(m => m.FormulaGH.SCRate, new { @class = "text" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.FormulaGH.Mesh)@Html.TextBoxFor(m => m.FormulaGH.Mesh, new { @class = "text" })
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.ImpGrade)@Html.TextBoxFor(m => m.FormulaGH.ImpGrade, new { @class = "text" })
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.FlexStrength)@Html.TextBoxFor(m => m.FormulaGH.FlexStrength, new { @class = "text" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.FormulaGH.CarpRadii)@Html.DicEditorFor(m => m.FormulaGH.CarpRadii, DicEnum.AggregateSize, "")
+                @*@Html.TextBoxFor(m => m.FormulaGH.CarpRadii, new { @class = "text" })*@
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.BetonTag)@Html.TextBoxFor(m => m.FormulaGH.BetonTag, new { @class = "text" })
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.MixingTime)@Html.TextBoxFor(m => m.FormulaGH.MixingTime, new { @class = "text" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.FormulaGH.CastMode)@Html.DicEditorFor(m => m.FormulaGH.CastMode, DicEnum.CastModeGH)
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.Purpose)@Html.TextBoxFor(m => m.FormulaGH.Purpose, new { @class = "text" })
+                </td>
+                <td>@Html.LabelFor(m => m.FormulaGH.Remark)@Html.TextBoxFor(m => m.FormulaGH.Remark, new { @class = "text" })
+                </td>
+                <td style="display: none">@Html.LabelFor(m => m.FormulaGH.ID)@Html.TextBoxFor(m => m.FormulaGH.ID, new { @class = "text" })
+                </td>
+            </tr>
+        </table>
+        <table class="subgridform">
+            <tr>
+                <td>
+                    <div id="SubGridDiv">
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    }
+</div>
+<div id="FormulaGHGridDiv" style="float: left; width: 68%">
+</div>
+<div id="ItemsGridDiv" style="float: right; width: 30%">
+</div>
+
+
+
+<div id="ItemsDiv" style="display: none; width: 400">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td style="display: none">@Html.LabelFor(m => m.ForGHItem.ID)@Html.TextBoxFor(m => m.ForGHItem.ID, new { @class = "text" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.ForGHItem.FormulaGHID)@Html.TextBoxFor(m => m.ForGHItem.FormulaGHID, new { @class = "text" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.ForGHItem.StuffTypeID)@Html.DropDownListFor(m => m.ForGHItem.StuffTypeID, (IEnumerable<SelectListItem>)ViewBag.StuffType)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.ForGHItem.StuffAmount)@Html.TextBoxFor(m => m.ForGHItem.StuffAmount, new { @class = "text" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.ForGHItem.StandardAmount)@Html.TextBoxFor(m => m.ForGHItem.StandardAmount, new { @class = "text" })
+                </td>
+            </tr>
+        <tr>
+                <td>@Html.LabelFor(m => m.ForGHItem.WarpAmount)@Html.TextBoxFor(m => m.ForGHItem.WarpAmount, new { @class = "text" })
+                </td>
+            </tr>
+            
+        </table>
+
+    }
+</div>

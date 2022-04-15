@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="ZLERP.Model.CarManage" assembly="ZLERP.Model">
+	<class name="ZLERP.Model.CarManage.CarAccident, ZLERP.Model" table="CarAccident" lazy="true"
+    dynamic-insert="true" dynamic-update="true" batch-size="30" optimistic-lock="version">
+		<id name="ID" column="ID">
+      <generator class="native" />
+		</id>
+		<version name="Version" column="Version" />
+		<property name="CarID" column="CarID" />
+    <property name="Driver" column="Driver" />
+    <property name="AccidentDate" column="AccidentDate" />
+    <property name="TrafficPolice" column="TrafficPolice" />
+    <property name="LossCost" column="LossCost" />
+    <property name="SettleCost" column="SettleCost" />  
+    <property name="SettleDegree" column="SettleDegree" />
+
+    <property name="InsuranceUnit" column="InsuranceUnit" />
+    <property name="InsuranceNo" column="InsuranceNo" />
+    <property name="SideCarNo" column="SideCarNo" />
+    <property name="SideName" column="SideName" />
+    <property name="SidePhone" column="SidePhone" />
+    <property name="SideCarType" column="SideCarType" />
+    <property name="SideUnit" column="SideUnit" />
+    <property name="SideDegree" column="SideDegree" />
+    <property name="AccidentDec" column="AccidentDec" />
+    <property name="PeopleDec" column="PeopleDec" />
+    <property name="AccidentAdress" column="AccidentAdress" />  
+    <property name="Remark" column="Remark" /> 
+    <property name="BuildTime" column="BuildTime" update="false"/>
+    <property name="Builder" column="Builder" update="false"/>
+    <property name="ModifyTime" column="ModifyTime" insert="false"/>
+    <property name="Modifier" column="Modifier" insert="false"/>
+    <property name="Lifecycle" column="Lifecycle" />
+
+    <many-to-one name="Car"  not-found="ignore">
+      <column name="CarID" sql-type="nvarchar" not-null="false"  />
+    </many-to-one>
+    <many-to-one name="CarDealings"  not-found="ignore">
+      <column name="InsuranceUnit" sql-type="nvarchar" not-null="false"  />
+    </many-to-one>
+    
+  </class>
+</hibernate-mapping>

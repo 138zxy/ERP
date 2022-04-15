@@ -1,0 +1,39 @@
+﻿ 
+@model ZLERP.Model.SupplyChain.SC_PriceChange
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_PriceChange.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            DelstoreUrl: '@Url.Action("Find", "SC_PriceChangeDetail")' 
+        };
+        $(function () {
+           SC_PriceChangeIndexInit(options);
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+
+<div id="myJqGridDetial"><label>调价历史记录</label></div> 
+
+
+<div id="SC_PriceChangeForm" class="mvcform" style="display:none;">
+
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+    @Html.HiddenFor(m => m.ID)
+    @Html.HiddenFor(m => m.GoodsID)
+<table class="mvcform"> 
+  
+    <tr> 
+         <td>@Html.LabelFor(m => m.CurPrice)@Html.TextBoxFor(m => m.CurPrice, new { readOnly = true })</td>
+         <td>@Html.LabelFor(m => m.AlferPrice)@Html.EditorFor(m => m.AlferPrice)</td>
+        </tr>  
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.Remark)@Html.TextAreaFor(m => m.Remark, new { style = "width:70%" }) </td>
+    </tr> 
+</table>
+}
+</div>
+ 

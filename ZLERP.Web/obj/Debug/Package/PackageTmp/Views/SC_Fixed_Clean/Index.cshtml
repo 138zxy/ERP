@@ -1,0 +1,78 @@
+﻿@model ZLERP.Model.SupplyChain.SC_Fixed_Clean 
+@section HeaderSection{
+<script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_Fixed_Clean.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            sc_fixed_cleanIndexInit('@Url.Action("Find")');
+        });
+</script>
+
+}
+<div id="MyJqGrid"></div>
+<div id="MyFormDiv" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+<table class="mvcform"> 
+    <tr style="display:none;"> 
+        <td>@Html.LabelFor(m=>m.ID)@Html.EditorFor(m=>m.ID)</td> 
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m=>m.CleanNo)@Html.TextBoxFor(m => m.CleanNo, new { @readonly = "readonly"})</td>   
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.FixedID)@Html.AutoComplete("FixedID", "ID", "Combo", "SC_Base", "ID", "Fname", "1=1", new { style = "width:110px" })</td>
+        <td>@Html.LabelFor(m=>m.Fcode)@Html.TextBoxFor(m => m.Fcode, new { @readonly = "readonly",  @class = "inputReadOnly" })</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m=>m.Fname)@Html.TextBoxFor(m => m.Fname, new { @readonly = "readonly",  @class = "inputReadOnly" })</td>
+        <td>@Html.LabelFor(m=>m.BrevityCode)@Html.TextBoxFor(m => m.BrevityCode, new { @readonly = "readonly",  @class = "inputReadOnly" })</td>
+    </tr>
+     <tr> 
+        <td>@Html.LabelFor(m=>m.Ftype)@Html.TextBoxFor(m => m.Ftype, new { @readonly = "readonly",  @class = "inputReadOnly" })</td>
+        <td>@Html.LabelFor(m=>m.Spec)@Html.TextBoxFor(m => m.Spec, new { @readonly = "readonly",  @class = "inputReadOnly" })</td>
+    </tr>
+       
+    <tr> 
+        <td>@Html.LabelFor(m=>m.DepartMent)@Html.TextBoxFor(m => m.DepartMent, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+        <td>@Html.LabelFor(m=>m.AddDate)@Html.TextBoxFor(m => m.AddDate, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m=>m.FixedPirce)@Html.TextBoxFor(m => m.FixedPirce, new { @readonly = "readonly",  @class = "inputReadOnly" })</td>
+        <td>@Html.LabelFor(m=>m.Position)@Html.TextBoxFor(m => m.Position, new { @readonly = "readonly",  @class = "inputReadOnly" })</td> 
+    </tr>
+     <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.Configure)@Html.TextAreaFor(m => m.Configure, 3, 55, new { @readonly = "readonly", @style = "background:#e1dcdc;" })
+        </td>
+    </tr>
+    <tr>
+       <td>@Html.LabelFor(m=>m.Storeman)@Html.TextBoxFor(m => m.Storeman, new { @readonly = "readonly",  @class = "inputReadOnly" })</td>
+       <td>@Html.LabelFor(m=>m.BarCode)@Html.TextBoxFor(m => m.BarCode, new { @readonly = "readonly", @class = "inputReadOnly" })</td>
+    </tr>
+    </table>
+    <br />
+    <hr />
+    <br />
+    <table class="mvcform"> 
+    <tr> 
+        <td>@Html.LabelFor(m => m.CleanType)@Html.DropDownListFor(m => m.CleanType, (IEnumerable<SelectListItem>)ViewBag.CleanType, "", new { @class = "text", style = "width:137px;" })</td>
+        <td>@Html.LabelFor(m => m.CleanDate)@Html.EditorFor(m => m.CleanDate)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.ApplicantMan)@Html.AutoCompleteFor(m => m.ID, m => m.ApplicantMan, "combo", "Users", "ID", "TrueName", null, "IsUsed = 1")</td>
+        <td>@Html.LabelFor(m => m.ApproveMan)@Html.AutoCompleteFor(m => m.ID, m => m.ApproveMan, "combo", "Users", "ID", "TrueName", null, "IsUsed = 1")</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.ResalePrice)@Html.EditorFor(m => m.ResalePrice)</td>  
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.Remark)@Html.TextAreaFor(m => m.Remark, 3, 55, new { })
+        </td>
+    </tr>
+    </table>
+
+
+}
+</div>

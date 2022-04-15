@@ -1,0 +1,261 @@
+﻿@model ZLERP.Model.Material.V_M_StockPactPriceSet
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/ajaxfileupload.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Views/StockPact.js")" type="text/javascript" language="javascript"> </script>
+    
+    <script type="text/javascript">
+        $(function () {
+            stockPactInit({
+                storeUrl: '@Url.Action("Find")',
+                AuditUrl: '@Url.Action("AuditPrice", "StockPact")',
+                currentUser: '@User.UserName()',
+                uploadUrl: '@Url.Action("Upload", "Attachment")',//附加上传
+                priceStoreUrl: '@Url.Action("Find", "StockPactPriceSet")',
+                priceAddUrl: '@Url.Action("Add", "StockPactPriceSet")',
+                priceUpdateUrl: '@Url.Action("Update", "StockPactPriceSet")',
+                priceRowDeleteUrl: '@Url.Action("Delete", "StockPactPriceSet")',
+                findSpecUrl: '@Html.Raw(Url.Action("ListData", "StuffinfoSpec", new { textField = "SpecName", valueField = "ID" }))',
+                MultiAuditUrl: '@Url.Action("MultiAudit", "StockPactPriceSet")',
+                MultiAudit_NUrl: '@Url.Action("MultiAudit_N", "StockPactPriceSet")',
+                MultiAudit2Url: '@Url.Action("MultiAudit2", "StockPactPriceSet")',
+                MultiAudit2_NUrl: '@Url.Action("MultiAudit2_N", "StockPactPriceSet")',
+                BitUpdatePriceUrl: '@Url.Action("BitUpdatePrice")' 
+            });
+        });
+        $(document).ready(function () {
+            $('#BitStuffUpdatePrice_BitUpdateDate').datepicker();
+        });
+    </script>
+    <style type="text/css">
+        fieldset
+        {
+            padding: 0.1px;
+            margin: 1px;
+            width: 100%;
+            color: #333;
+            border: #06c dashed 1px;
+        }
+        legend
+        {
+            color: #1D5987;          
+            font-weight: bold;
+            background: #fff;
+            border: #b6b6b6 solid 1px;
+            padding: 1px 3px;
+        }
+
+    </style>
+}
+<div id="MyJqGrid">
+</div>
+<div>
+    <div id="priceSettingGrid" style="width:50%;float:left;">
+    </div>
+    <div id="payMoneyGrid" style="width:49%;float:right;">
+    </div>
+</div> 
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <fieldset>
+            <table class="mvcform">
+                <tr>
+                    <td style="display: none">@Html.LabelFor(m => m.StockPact.ID)@Html.EditorFor(m => m.StockPact.ID)
+                    </td>
+                    <td style="display: none">@Html.EditorFor(m => m.StockPact.DianziString)
+                    </td> 
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.StockPact.StockPactNo)@Html.EditorFor(m => m.StockPact.StockPactNo)
+                    </td>
+                    <td>
+                        @Html.LabelFor(m => m.StockPact.PactName)@Html.EditorFor(m => m.StockPact.PactName)
+                    </td>
+                    <td>
+                        @Html.LabelFor(m => m.StockPact.PactState)@Html.EditorFor(m => m.StockPact.PactState)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.StockPact.SupplyID)@Html.AutoComplete("StockPact.SupplyID", "StockPact.SupplyName", "Combo", "SupplyInfo", "ID", "SupplyName")
+                    </td>
+                    <td>@Html.LabelFor(m => m.StockPact.SourceAddr)@Html.EditorFor(m => m.StockPact.SourceAddr)
+                    </td>
+                    <td>@Html.LabelFor(m => m.StockPact.EstablishMan)@Html.EditorFor(m => m.StockPact.EstablishMan)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.StockPact.Phone)@Html.EditorFor(m => m.StockPact.Phone)
+                    </td>
+                    <td>
+                        @Html.LabelFor(m => m.StockPact.CustomerPhone)@Html.EditorFor(m => m.StockPact.CustomerPhone)
+                    </td>
+                    <td>
+                        @Html.LabelFor(m => m.StockPact.EstablishTime)
+			@Html.EditorFor(m => m.StockPact.EstablishTime, "DateTimeWithTime")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.StockPact.baseMoney)@Html.EditorFor(m => m.StockPact.baseMoney)
+                    </td><td></td><td></td>
+                </tr>
+                 <tr> 
+                    <td colspan="2">
+                    <label>
+                        价格说明文件
+                    </label><input type="file" id="uploadFile" name="upload" />
+                    <div id="Attachments" style="clear: both;">
+                    </div>
+                    <td>@Html.LabelFor(m => m.StockPact.FootFrom)@Html.DropDownListFor(m => m.StockPact.FootFrom, (IEnumerable<SelectListItem>)ViewBag.FootFrom)
+                    </td>
+                </td>
+                </tr>
+               
+            </table>
+        </fieldset>
+        
+        <fieldset>
+            <legend>采购材料</legend>
+            <br />
+
+             <p>
+                <span style= "padding:6px;border:1px solid #DDECF7;">
+                @Html.LabelFor(m => m.StockPact.StuffID)@Html.AutoComplete("StockPact.StuffID", "StockPact.StuffName", "Combo", "StuffInfo", "ID", "StuffName", "IsUsed=True")@Html.LabelFor(m => m.StockPact.SpecID)@Html.DropDownListFor(m => m.StockPact.SpecID, Enumerable.Empty<SelectListItem>(), new { style = "Width:105px" })@Html.LabelFor(m => m.StockPact.StockPrice)@Html.TextBoxFor(m => m.StockPact.StockPrice, new { style = " width:30px;", Value = '0' }) 
+                @Html.Label("暗扣比率1")@Html.TextBoxFor(m => m.StockPact.DarkRate, new { style = " width:30px;", Value = '0' })%
+                @Html.Label("税率1")@Html.DropDownListFor(m => m.StockPact.TaxRate, (IEnumerable<SelectListItem>)ViewBag.TaxRates)</span>
+                <br />
+                <span style= "padding:6px;border:1px solid #DDECF7;">@Html.LabelFor(m => m.StockPact.StuffID1)@Html.AutoComplete("StockPact.StuffID1", "StockPact.StuffName1", "Combo", "StuffInfo", "ID", "StuffName", "IsUsed=True")@Html.LabelFor(m => m.StockPact.SpecID1)@Html.DropDownListFor(m => m.StockPact.SpecID1, Enumerable.Empty<SelectListItem>(), new { style = "Width:105px" })@Html.LabelFor(m => m.StockPact.StockPrice1)@Html.TextBoxFor(m => m.StockPact.StockPrice1, new { style = " width:30px;", Value = '0' }) @Html.Label("暗扣比率2")@Html.TextBoxFor(m => m.StockPact.DarkRate1, new { style = " width:30px;", Value = '0' })%
+                @Html.Label("税率2")@Html.DropDownListFor(m => m.StockPact.TaxRate1, (IEnumerable<SelectListItem>)ViewBag.TaxRates)</span>
+                <br />
+                <span style= "padding:6px;border:1px solid #DDECF7;">@Html.LabelFor(m => m.StockPact.StuffID2)@Html.AutoComplete("StockPact.StuffID2", "StockPact.StuffName2", "Combo", "StuffInfo", "ID", "StuffName", "IsUsed=True")@Html.LabelFor(m => m.StockPact.SpecID2)@Html.DropDownListFor(m => m.StockPact.SpecID2, Enumerable.Empty<SelectListItem>(), new { style = "Width:105px" })@Html.LabelFor(m => m.StockPact.StockPrice2)@Html.TextBoxFor(m => m.StockPact.StockPrice2, new { style = " width:30px;", Value = '0' }) @Html.Label("暗扣比率3")@Html.TextBoxFor(m => m.StockPact.DarkRate2, new { style = " width:30px;", Value = '0' })%
+                @Html.Label("税率3")@Html.DropDownListFor(m => m.StockPact.TaxRate2, (IEnumerable<SelectListItem>)ViewBag.TaxRates)</span>
+                <br />
+                <span style= "padding:6px;border:1px solid #DDECF7;">@Html.LabelFor(m => m.StockPact.StuffID3)@Html.AutoComplete("StockPact.StuffID3", "StockPact.StuffName3", "Combo", "StuffInfo", "ID", "StuffName", "IsUsed=True")@Html.LabelFor(m => m.StockPact.SpecID3)@Html.DropDownListFor(m => m.StockPact.SpecID3, Enumerable.Empty<SelectListItem>(), new { style = "Width:105px" })@Html.LabelFor(m => m.StockPact.StockPrice3)@Html.TextBoxFor(m => m.StockPact.StockPrice3, new { style = " width:30px;", Value = '0' }) @Html.Label("暗扣比率4")@Html.TextBoxFor(m => m.StockPact.DarkRate3, new { style = " width:30px;", Value = '0' })%
+                @Html.Label("税率4")@Html.DropDownListFor(m => m.StockPact.TaxRate3, (IEnumerable<SelectListItem>)ViewBag.TaxRates)</span>
+                <br />
+                <span style= "padding:6px;border:1px solid #DDECF7;">@Html.LabelFor(m => m.StockPact.StuffID4)@Html.AutoComplete("StockPact.StuffID4", "StockPact.StuffName4", "Combo", "StuffInfo", "ID", "StuffName", "IsUsed=True")@Html.LabelFor(m => m.StockPact.SpecID4)@Html.DropDownListFor(m => m.StockPact.SpecID4, Enumerable.Empty<SelectListItem>(), new { style = "Width:105px" })@Html.LabelFor(m => m.StockPact.StockPrice4)@Html.TextBoxFor(m => m.StockPact.StockPrice4, new { style = " width:30px;", Value = '0' }) @Html.Label("暗扣比率5")@Html.TextBoxFor(m => m.StockPact.DarkRate4, new { style = " width:30px;", Value = '0' })%
+                @Html.Label("税率5")@Html.DropDownListFor(m => m.StockPact.TaxRate4, (IEnumerable<SelectListItem>)ViewBag.TaxRates)</span>
+            </p>
+            <p>
+                
+            </p>
+            <br />
+        </fieldset>
+
+        @*<fieldset>
+            <legend>磅差比例</legend>
+            <br />
+            <p>
+                磅差不超过（厂商数量*比例 @Html.DicEditorFor(m => m.StockPact.lowbangcha, DicEnum.bangcha, "")
+                <br/>
+                磅差超过（厂商数量*比例) @Html.DicEditorFor(m => m.StockPact.highbangcha, DicEnum.bangcha, "") @Html.LabelFor(m => m.StockPact.BangchaRate)@Html.EditorFor(m => m.StockPact.BangchaRate)
+            </p>
+            <br />
+        </fieldset>*@
+
+ 
+    }
+</div>
+
+<div id="MyFormDivDel" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+  @Html.HiddenFor(m => m.StockPactPriceSet.ID)
+  @Html.HiddenFor(m => m.StockPactPriceSet.StockPactID)
+ <table class="mvcform">  
+     <tr> 
+        <td>  
+          @Html.LabelFor(m => m.StockPactPriceSet.StuffID)@Html.AutoComplete("StockPactPriceSet.StuffID", "StuffName", "Combo", "StuffInfo", "ID", "StuffName")
+        </td>
+    </tr> 
+     <tr> 
+        <td>@Html.LabelFor(m => m.StockPactPriceSet.SpecID)@Html.DropDownListFor(m => m.StockPactPriceSet.SpecID, Enumerable.Empty<SelectListItem>(), new { style = "Width:105px" })</td>
+    </tr>
+     <tr> 
+        <td>@Html.LabelFor(m => m.StockPactPriceSet.ChangeTime)@Html.EditorFor(m => m.StockPactPriceSet.ChangeTime, "DateTimeWithTime")</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.StockPactPriceSet.Price)@Html.EditorFor(m => m.StockPactPriceSet.Price)</td>
+    </tr> 
+    <tr> 
+        <td>@Html.LabelFor(m => m.StockPactPriceSet.Remark)@Html.EditorFor(m => m.StockPactPriceSet.Remark)</td>
+    </tr>
+</table> 
+}
+</div>
+@*审核界面*@
+<div id="AuditingFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td>@Html.LabelFor(m => m.StockPact.ID)@Html.TextBoxFor(m => m.StockPact.ID, new { readOnly = true })
+                </td>               
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.StockPact.AuditStatus)@Html.DicEditorFor(m => m.StockPact.AuditStatus, DicEnum.AuditStatus)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.StockPact.Auditor)@Html.EditorFor(m => m.StockPact.Auditor)
+                </td>               
+            </tr>
+            <tr>
+               <td>@Html.LabelFor(m => m.StockPact.AuditTime)@Html.EditorFor(m => m.StockPact.AuditTime, "DateTimeWithTime", new { id = "audit_AuditTime", defaultValue = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") })
+               </td>
+            </tr>
+        </table>
+    }
+</div> 
+
+<div id="PayMoneyDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>             
+                <td style="display: none">@Html.LabelFor(m => m.StockPactChild.StockPactID)@Html.EditorFor(m => m.StockPactChild.StockPactID)</td>              
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.StockPactChild.PayMoney)@Html.EditorFor(m => m.StockPactChild.PayMoney)
+                </td>               
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.StockPactChild.OtherMoney)@Html.EditorFor(m => m.StockPactChild.OtherMoney)
+                </td>               
+            </tr>
+            <tr>
+               <td>@Html.LabelFor(m => m.StockPactChild.PayTime)@Html.EditorFor(m => m.StockPactChild.PayTime, "DateTimeWithTime")
+               </td>
+            </tr>
+        </table>
+    }
+</div> 
+
+<div id="DivBitUpdatePrice"class="mvcform"  style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                 <td>@Html.LabelFor(m => m.BitStuffUpdatePrice.BitUpdateType)@Html.DropDownListFor(m => m.BitStuffUpdatePrice.BitUpdateType, (IEnumerable<SelectListItem>)ViewBag.BitUpdatePrice)
+                </td>
+            </tr>
+            <tr>
+                 <td>@Html.LabelFor(m => m.BitStuffUpdatePrice.BitStuffID)@Html.DropDownListFor(m => m.BitStuffUpdatePrice.BitStuffID, (IEnumerable<SelectListItem>)ViewBag.BitStuffID)
+                </td>
+                
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.BitStuffUpdatePrice.BitUpdateCnt)@Html.TextBoxFor(m => m.BitStuffUpdatePrice.BitUpdateCnt)
+                </td><td><p>下浮使用负数</P></td>
+            </tr>
+              <tr>
+                <td>@Html.LabelFor(m => m.BitStuffUpdatePrice.BitUpdateDate)@Html.EditorFor(m => m.BitStuffUpdatePrice.BitUpdateDate, "DateTime", new { defaultValue = @DateTime.Now.ToString("yyyy-MM-dd") })
+                </td>
+            </tr>
+        </table>
+    }
+</div> 
+ 
+

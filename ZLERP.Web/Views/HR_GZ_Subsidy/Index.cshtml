@@ -1,0 +1,106 @@
+﻿@model ZLERP.Model.HR.V_HR_GZ_Subsidy 
+@section HeaderSection{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/daterangepicker.jQuery.js")"></script>
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_GZ_Subsidy.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            HR_GZ_SubsidyUrl: '@Url.Action("Find")',
+            HR_GZ_TakeOffUrl: '@Url.Action("Find", "HR_GZ_TakeOff")',
+            deptTreeUrl: '@Url.Action("FindTree", "Department")'  
+        };
+        $(function () {
+            HR_GZ_SubsidyIndexInit(options);
+        });
+        $("#formula-tabs").tabs({ fx: {}, selected: 0 });
+    </script>
+}
+ @*页面布局*@
+<div id="Department" class="ztree" style="overflow: scroll;float: left; width: 12%">
+</div>
+
+<!-- 右边Grid -->
+<div id="MyJqGrid" style="float: right; width: 87%">
+
+<div id="formula-tabs">
+    <ul>
+        <li><a href="#MyJqGrid1" id="idinfo1">补贴</a></li>
+        <li><a href="#MyJqGrid2" id="idinfo2">扣除</a></li> 
+    </ul>
+    <div id="MyJqGrid1"  class="mvcform" >
+    </div>
+    <div id="MyJqGrid2"  class="mvcform" >
+    </div>
+      
+</div>  
+</div>
+ 
+
+<div id="HR_GZ_SubsidyForm" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.HR_GZ_Subsidy.ID )
+        <table class="mvcform">
+          <tr> 
+         
+            <td> 
+                 @Html.LabelFor(m => m.HR_GZ_Subsidy.PersonID)@Html.AutoComplete("HR_GZ_Subsidy.PersonID", "PersonIDText", "Combo", "HR_Base_Personnel", "ID", "Name", "1=1", new { style = "width:120px" }) 
+            </td>
+             <td>
+                 @Html.LabelFor(m => m.HR_GZ_Subsidy.ItemName)@Html.DropDownListFor(m => m.HR_GZ_Subsidy.ItemName, (IEnumerable<SelectListItem>)ViewBag.Subsidy, "", new { @class = "text", style = "width:120px;" })
+            </td>
+        </tr>
+        <tr>  
+             <td>
+                 @Html.LabelFor(m => m.HR_GZ_Subsidy.ItemMoney)@Html.EditorFor(m => m.HR_GZ_Subsidy.ItemMoney)
+            </td>
+               <td>
+                 @Html.LabelFor(m => m.HR_GZ_Subsidy.Monthly)@Html.EditorFor(m => m.HR_GZ_Subsidy.Monthly)
+            </td>
+        </tr>
+       <tr> 
+             <td>
+                 @Html.LabelFor(m => m.HR_GZ_Subsidy.ItemDate)@Html.EditorFor(m => m.HR_GZ_Subsidy.ItemDate)
+            </td>
+        </tr>
+        <tr> 
+            <td colspan="2">@Html.LabelFor(m => m.HR_GZ_Subsidy.Remark)@Html.TextAreaFor(m => m.HR_GZ_Subsidy.Remark, new { style = "width:70%" })
+            </td>
+        </tr> 
+        </table>
+    }
+</div>
+
+<div id="HR_GZ_TakeOffForm" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.HR_GZ_TakeOff.ID )
+        <table class="mvcform">
+          <tr> 
+         
+            <td> 
+                 @Html.LabelFor(m => m.HR_GZ_TakeOff.PersonID)@Html.AutoComplete("HR_GZ_TakeOff.PersonID", "PersonIDText2", "Combo", "HR_Base_Personnel", "ID", "Name", "1=1", new { style = "width:120px" }) 
+            </td>
+             <td>
+                 @Html.LabelFor(m => m.HR_GZ_TakeOff.ItemName)@Html.DropDownListFor(m => m.HR_GZ_TakeOff.ItemName, (IEnumerable<SelectListItem>)ViewBag.TakeOff, "", new { @class = "text", style = "width:120px;" })
+            </td>
+        </tr>
+        <tr>  
+             <td>
+                 @Html.LabelFor(m => m.HR_GZ_TakeOff.ItemMoney)@Html.EditorFor(m => m.HR_GZ_TakeOff.ItemMoney)
+            </td>
+               <td>
+                 @Html.LabelFor(m => m.HR_GZ_TakeOff.Monthly)@Html.EditorFor(m => m.HR_GZ_TakeOff.Monthly)
+            </td>
+        </tr>
+       <tr> 
+             <td>
+                 @Html.LabelFor(m => m.HR_GZ_TakeOff.ItemDate)@Html.EditorFor(m => m.HR_GZ_TakeOff.ItemDate)
+            </td>
+        </tr>
+        <tr> 
+            <td colspan="2">@Html.LabelFor(m => m.HR_GZ_TakeOff.Remark)@Html.TextAreaFor(m => m.HR_GZ_TakeOff.Remark, new { style = "width:70%" })
+            </td>
+        </tr> 
+        </table>
+    }
+</div>

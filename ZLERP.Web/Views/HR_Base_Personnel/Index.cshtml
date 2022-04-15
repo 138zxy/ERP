@@ -1,0 +1,139 @@
+﻿@model ZLERP.Model.HR.HR_Base_Personnel 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/ajaxfileupload.js")" type="text/javascript" language="javascript"> </script>
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_Base_Personnel.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            hr_base_personnelIndexInit({
+                storeUrl: '@Url.Action("Find")',
+                deptTreeUrl: '@Url.Action("FindTree", "Department")',
+                uploadUrl: '@Url.Action("LoadExcel")'
+            });
+        });
+</script>
+}
+@*页面布局*@
+<div id="Department" class="ztree" style="overflow: scroll;float: left; width: 12%">
+</div>
+
+<!-- 右边Grid -->
+<div id="MyJqGrid" style="float: right; width: 87%">
+</div>
+ 
+<div id="MyFormDiv" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+<table class="mvcform"> 
+    <tr style="display:none;"> 
+        <td>@Html.LabelFor(m=>m.ID)@Html.EditorFor(m=>m.ID)</td>
+   
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m=>m.Code)@Html.EditorFor(m=>m.Code)</td>
+        <td>@Html.LabelFor(m=>m.Name)@Html.EditorFor(m=>m.Name)</td>
+        <td rowspan="6">&nbsp;&nbsp;&nbsp;@Html.HiddenFor(m=>m.PhotoPath)<img alt="" src="../../Content/erpimage/user.png" style="width:130px;height:140px;"/></td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.JobNo)@Html.EditorFor(m=>m.JobNo)</td>
+        <td>@Html.LabelFor(m=>m.PyCode)@Html.EditorFor(m=>m.PyCode)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.Sex)@Html.DropDownListFor(m => m.Sex, (IEnumerable<SelectListItem>)ViewBag.Sex, "", new { @class = "text", style = "width: 137px"})</td>
+        <td>@Html.LabelFor(m => m.Nation)@Html.DropDownListFor(m => m.Nation, (IEnumerable<SelectListItem>)ViewBag.Nation, "", new { @class = "text", style = "width: 137px" })</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.Marry)@Html.DropDownListFor(m => m.Marry, (IEnumerable<SelectListItem>)ViewBag.Marry, "", new { @class = "text", style = "width: 137px" })</td>
+        <td>@Html.LabelFor(m=>m.Birthday)@Html.EditorFor(m=>m.Birthday)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.PostDate)@Html.EditorFor(m=>m.PostDate)</td>
+         <td>@Html.LabelFor(m => m.RecordSchool)@Html.DropDownListFor(m => m.RecordSchool, (IEnumerable<SelectListItem>)ViewBag.RecordSchool, "", new { @class = "text", style = "width: 137px" })</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.School)@Html.EditorFor(m=>m.School)</td>
+         <td>@Html.LabelFor(m => m.Profession)@Html.DropDownListFor(m => m.Profession, (IEnumerable<SelectListItem>)ViewBag.Profession, "", new { @class = "text", style = "width: 137px" })</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.GraduateDate)@Html.EditorFor(m=>m.GraduateDate)</td>
+        <td>@Html.LabelFor(m => m.SocialState)@Html.DropDownListFor(m => m.SocialState, (IEnumerable<SelectListItem>)ViewBag.SocialState, "", new { @class = "text", style = "width: 137px" })</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.Address)@Html.EditorFor(m=>m.Address)</td>
+        <td>@Html.LabelFor(m=>m.IDno)@Html.EditorFor(m=>m.IDno)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.IDAddress)@Html.EditorFor(m=>m.IDAddress)</td>
+        <td>@Html.LabelFor(m=>m.Telphone)@Html.EditorFor(m=>m.Telphone)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.CellPhone)@Html.EditorFor(m=>m.CellPhone)</td>
+       <td>@Html.LabelFor(m=>m.UrgentPerson)@Html.EditorFor(m=>m.UrgentPerson)</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.PositionType)@Html.DropDownListFor(m => m.PositionType, (IEnumerable<SelectListItem>)ViewBag.PositionType, "", new { @class = "text", style = "width: 137px" })</td>
+       <td>@Html.LabelFor(m => m.Post)@Html.DropDownListFor(m => m.Post, (IEnumerable<SelectListItem>)ViewBag.Post, "", new { @class = "text", style = "width: 137px" })</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.MountGuardProperty)@Html.EditorFor(m=>m.MountGuardProperty)</td>
+       <td>@Html.LabelFor(m => m.DepartmentID)@Html.DropDownTreeFor(m => m.DepartmentID, "FindTree", "Department")</td>
+    </tr>
+
+    <tr> 
+       <td>@Html.LabelFor(m=>m.SchoolRecordNo)@Html.EditorFor(m=>m.SchoolRecordNo)</td>
+        <td>@Html.LabelFor(m => m.State)@Html.DropDownListFor(m => m.State, (IEnumerable<SelectListItem>)ViewBag.State,  new { @class = "text", style = "width: 137px" })</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m => m.EmploymentForm)@Html.DropDownListFor(m => m.EmploymentForm, (IEnumerable<SelectListItem>)ViewBag.EmploymentForm, "", new { @class = "text", style = "width: 137px" })</td>
+        <td>@Html.LabelFor(m=>m.Email)@Html.EditorFor(m=>m.Email)</td>
+    </tr>
+  
+    <tr> 
+        <td>@Html.LabelFor(m=>m.Vita)@Html.EditorFor(m=>m.Vita)</td>
+        <td>@Html.LabelFor(m=>m.CorrectionDate)@Html.EditorFor(m => m.CorrectionDate, new { @class="hasDatepicker"})</td>
+    </tr>
+
+    <tr> 
+        <td>@Html.LabelFor(m=>m.ArchivesNo)@Html.EditorFor(m=>m.ArchivesNo)</td>
+        <td>@Html.LabelFor(m=>m.BankNo)@Html.EditorFor(m=>m.BankNo)</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">@Html.LabelFor(m => m.Meno)@Html.TextAreaFor(m => m.Meno, 3, 55, new { })
+        </td>
+    </tr>
+</table>
+
+}
+</div>
+
+<div id="divShowPhoto" title="显示照片" class="mvcform" style="display: none">
+<table>
+     <tr><td><img src="" alt="暂无图片" id="Photo" style="width:100px;height:100px;"/></td></tr>
+</table>
+</div>
+
+<div id="MyFormDiv1" class="mvcform" style="display: none;">
+        <table class="mvcform">
+         <tr> 
+        <td  colspan="2">
+          <label>请选择文件
+            </label><input type="file" id="uploadFile" name="upload" /> 
+        </td> 
+        </tr>  
+         <tr><td>请将数据整理并添加到《员工档案导入模板》后，上传即可</td></tr>
+          <tr><td><a href="/Content/Files/Temp/员工档案导入模板.xls">点击下载《员工档案导入模板》</a></td></tr>
+        </table>
+    
+</div>

@@ -1,0 +1,65 @@
+﻿@model ZLERP.Model.HR.HR_KQ_Arrange 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_KQ_Arrange.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+        };
+        $(function () {
+            HR_KQ_ArrangeIndexInit(options);
+            //$('#WordStartTime').timepicker();
+            //$('#WordEndTime').timepicker();
+            
+        });
+
+    </script>
+
+}
+<div id="MyJqGrid">
+</div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.ID )
+        <table class="mvcform">
+        <tr> 
+            <td>
+                 @Html.LabelFor(m => m.ArrangeName)@Html.EditorFor(m => m.ArrangeName)
+            </td>
+        </tr>
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.WordStartTime)@Html.EditorFor(m => m.WordStartTime, "Time")
+            </td>
+              <td>
+                 @Html.LabelFor(m => m.WordEndTime)@Html.EditorFor(m => m.WordEndTime, "Time")
+            </td>
+        </tr>
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.UpInterval)@Html.EditorFor(m => m.UpInterval)
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.DownInterval)@Html.EditorFor(m => m.DownInterval)
+            </td>  
+        </tr>
+            <tr> 
+            <td>
+                 @Html.LabelFor(m => m.AutoUp)@Html.EditorFor(m => m.AutoUp)
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.AutoDown)@Html.EditorFor(m => m.AutoDown)
+            </td>  
+        </tr> 
+        <tr> 
+        <td>
+                @Html.LabelFor(m => m.IsInnerDay)@Html.EditorFor(m => m.IsInnerDay)
+        </td> 
+        </tr>
+        <tr> 
+            <td colspan="2">@Html.LabelFor(m => m.Remark)@Html.TextAreaFor(m => m.Remark, new { style = "width:70%" })
+            </td>
+        </tr> 
+        </table>
+    }
+</div>

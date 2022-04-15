@@ -1,0 +1,146 @@
+﻿@model ZLERP.Model.CustomerPlan 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/ajaxfileupload.js")" type="text/javascript" language="javascript"> </script>
+    <script src="@Url.Content("~/Scripts/Views/CustomerPlan/CustomerPlanSH.js")" type="text/javascript" language="javascript"> </script>
+
+    <script type="text/javascript">
+        $(function () {
+            customerplanIndexInit({
+                storeUrl: '@Url.Action("Find")',
+                getUserUrl: '@Url.Action("Get", "User")',
+                MultAuditUrl: '@Url.Action("MultAudit")',
+                CancelAuditUrl: '@Url.Action("CancelAudit")',
+                tomorrowDate: '@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")',
+                uploadUrl: '@Url.Action("Upload", "Attachment")'
+            });
+        });
+
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    <div id="MyFormDiv1" style="float: left; width: 80%">
+        @using (Html.BeginForm())
+        {@Html.ValidationSummary()
+        @Html.TextBoxFor(m => m.DataType, new { @class = "text", Value = 1, style = "display:none;" })
+        @Html.TextBoxFor(m => m.Slump, new { @class = "text", Value = "130±20", style = "display:none;" })
+            <table class="mvcform">
+                <tr>
+                    <td>@Html.TextBoxFor(m => m.ID, new { @style = "display:none;" })
+                        @Html.HiddenFor(m => m.IdentityValue)
+                    </td>
+                    <td>@Html.TextBoxFor(m => m.ProjectIDApp, new { @style = "display:none;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">@Html.LabelFor(m => m.ContractID)@Html.AutoComplete("ContractID", "ContractName", "Combo", "CustomerPlan", "ID", "ContractName", "AuditStatus = 1 and ContractStatus!='3'  AND DataType=1 AND IsLimited = 0  ", new { style = "width:320px" })
+                    </td>
+                </tr>
+                <tr>
+                <td colspan="2" >@Html.LabelFor(m => m.Contract.CustName)@Html.TextBoxFor(m => m.Contract.CustName, new { style = "width:350px; ", @readOnly = true, @class = "inputReadOnly", disabled=true}) 
+                </td>
+                <tr>
+                    <td colspan="2">@Html.LabelFor(m => m.ProjectName)@Html.DropDownListFor(m => m.ProjectName, Enumerable.Empty<SelectListItem>(), new { zlerp = "combobox", style = "width:320px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">@Html.LabelFor(m => m.ConstructUnit)@Html.TextBoxFor(m => m.ConstructUnit, new { style = "width:350px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.ProjectAddr)@Html.TextBoxFor(m => m.ProjectAddr)
+                    </td>
+                    @*<td>@Html.LabelFor(m => m.SupplyUnit)@Html.DropDownListFor(m => m.SupplyUnit, (IEnumerable<SelectListItem>)ViewBag.SupplyUnit, new { style = "width:137px" })</td>*@
+                    <td>
+                        @Html.LabelFor(m => m.SupplyUnit)@Html.DicEditorFor(m => m.SupplyUnit, DicEnum.SupplyUnitSupplyUnit, new { style = "width:140px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.ConsPos)@Html.EditorFor(m => m.ConsPos)
+                    </td>
+                    @*<td>@Html.LabelFor(m => m.ConStrength)@Html.DropDownListFor(m => m.ConStrength, (IEnumerable<SelectListItem>)ViewBag.ConStrength, new {@data_val_required = "砼强度 字段是必需的", data_val = "true", zlerp = "combobox" })</td>*@
+                    <td>@Html.LabelFor(m => m.ConStrength)@Html.DropDownListFor(m => m.ConStrength, (IEnumerable<SelectListItem>)ViewBag.ConStrength, new { @data_val_required = "砼强度 字段是必需的", data_val = "true", zlerp = "combobox" })
+                    </td>
+                </tr>
+                <tr>
+                    @*<td>@Html.LabelFor(m => m.Slump)@Html.DicComboBoxFor(m => m.Slump, DicEnum.Slump, new { style = "width:80px;" })
+                    </td>*@
+                    <td>
+                        @Html.LabelFor(m => m.CastMode)@Html.DicComboBoxFor(m => m.CastMode, DicEnum.CastMode, new { style = "width:80px;" })
+                        @*@Html.LabelFor(m => m.CastMode)@Html.DicEditorFor(m => m.CastMode, DicEnum.CastMode, new { style = "width:140px;" })*@
+                        @*@Html.LabelFor(m => m.CastMode)@Html.DropDownListFor(m => m.CastMode, Enumerable.Empty<SelectListItem>(), "")*@
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.PlanCube)@Html.EditorFor(m => m.PlanCube)
+                    </td>
+                    <td>@Html.LabelFor(m => m.NeedDate)@Html.DropDownListFor(m => m.NeedDate, (IEnumerable<SelectListItem>)ViewBag.NeedDateList, new { style = "width:80px;", zlerp = "combobox" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.PiepLen)@Html.EditorFor(m => m.PiepLen)</td>
+                    <td>@Html.LabelFor(m => m.PumpMan)@Html.DropDownListFor(m => m.PumpMan, (IEnumerable<SelectListItem>)ViewBag.PumpManList, new { style = "width:137px;" })</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.LinkMan)@Html.DropDownListFor(m => m.LinkMan, (IEnumerable<SelectListItem>)ViewBag.LinkManList, new { zlerp = "combobox" })
+                    </td>
+                    <td>@Html.LabelFor(m => m.PlanDate)@Html.EditorFor(m => m.PlanDate, "DateTime", new { defaultValue = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Tel)@Html.EditorFor(m => m.Tel)
+                    </td>
+                    <td>@Html.LabelFor(m => m.PumpName)@Html.DropDownListFor(m => m.PumpName, (SelectList)ViewBag.PumpList, "", new { style = "width:137px;" })
+                    </td>
+                </tr>
+                <tr style="display:none;">
+                    <td>@Html.LabelFor(m => m.TaskID)@Html.DropDownListFor(m => m.TaskID, Enumerable.Empty<SelectListItem>(), new { style = "width:137px;" })
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Distance)@Html.TextBoxFor(m => m.Distance)
+                    </td>
+                    <td>@Html.LabelFor(m => m.CarpGrade)@Html.DicEditorFor(m => m.CarpGrade, DicEnum.JP, "", "", new { style = "width:137px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.TaskNo)@Html.TextBoxFor(m => m.TaskNo)
+                    </td>
+                    <td>@Html.LabelFor(m => m.ChildProject)@Html.TextBoxFor(m => m.ChildProject)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='4'>@Html.LabelFor(m => m.Remark)@Html.TextBoxFor(m => m.Remark, new { style = "width:350px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='4'>@Html.LabelFor(m => m.OtherDemand)@Html.TextBoxFor(m => m.OtherDemand, new { style = "width:350px;" })
+                    </td>
+                </tr>
+                <tr id='tr_AuditStatus'>
+                    <td>@Html.LabelFor(m => m.AuditStatus)@Html.DicEditorFor(m => m.AuditStatus, DicEnum.AuditStatus, new { style = "width:137px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <label>
+                            计划附件
+                        </label>
+                        <input type="file" id="uploadFile" name="upload" />
+                        <div id="Attachments" style="clear: both;">
+                        </div>
+                    </td>
+                </tr>
+            </table> 
+        }
+    </div>
+   @* <div id="rightdiv" style="float: right; width: 19%">
+    </div>*@
+</div>
+<script type="text/javascript">
+
+</script>

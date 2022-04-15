@@ -1,0 +1,36 @@
+﻿@model ZLERP.Model.SupplyChain.SC_GoodsType 
+@section HeaderSection{
+<script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_GoodsType.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            sc_goodstypeIndexInit('@Url.Action("FindGoodsTypes")');
+        });
+</script>
+
+}
+<div id="MyJqGrid"></div>
+<div id="MyFormDiv" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+<table class="mvcform"> 
+    <tr  style="display:none;"> 
+        <td>@Html.LabelFor(m=>m.ID)@Html.EditorFor(m=>m.ID)</td>  
+    </tr>
+    
+    <tr> 
+        <td>@Html.LabelFor(m=>m.TypeName)@Html.EditorFor(m=>m.TypeName)</td>
+        <td>@Html.LabelFor(m=>m.OrderNo)@Html.TextBoxFor(m => m.OrderNo, new { Value = "0" })</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m=>m.Flag)<input type="text" id="Flag" name="Flag" style="display:none;"/><input type="text" id="FlagName" name="FlagName"/></td>
+        <td>@Html.LabelFor(m => m.ParentID)@Html.DropDownTreeFor(m => m.ParentID, "FindTree", "SC_GoodsType")</td>
+    </tr>
+     <tr>
+        <td>@Html.LabelFor(m => m.IsLeaf)@Html.CheckBoxFor(m => m.IsLeaf)
+        </td>
+  
+    </tr>
+</table>
+
+}
+</div>

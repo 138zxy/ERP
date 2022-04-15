@@ -1,0 +1,101 @@
+﻿ @section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_NowLibIni.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            SC_NowLibIniIndexInit({
+                storeUrl: '@Url.Action("Find")',
+                scTreeUrl: '@Url.Action("FindTree", "SC_Goods")',
+                LibIn: '@Url.Action("LibIn")' 
+            });
+        });
+    </script>
+ 
+    <style type="text/css">
+        .taskinfo
+        {
+            width: 15.4%;
+            margin: .5em .5em 0 0;
+            float: left;
+            padding: 0.3em 0.2em 0.3em 0.5em;
+            height: 118px;
+        }
+        .taskinfo span
+        {
+            color: #2E6E9E;
+        }
+        .taskinfo label
+        {
+            width: 5em;
+            text-align: right;
+            display: inline-block;
+            margin-right: .5em;
+        }
+    </style>
+}
+<div id="accordion">
+    <h3>
+        
+        <button id="bb" class="tbtn save" title="新建库存初始化" role="button" aria-disabled="false" type ="button" onclick="showLib();">新建库存初始化</button>
+        <br /><a href="#">库存初始化方法</a>
+        </h3>
+    <div>
+        <div style="line-height: 1.7em">
+         1.要录入商品资料，在入库盘点数量<br />
+         2.进入基本资料菜单中的商品资料模块录入商品资料<br />
+         3.在库存初始化模块中点击“新建库存初始化”<br />
+         4.保存后数据跳转到入库管理模块，点击审核入库，即完成库存初始化
+        </div> 
+    </div>
+</div>
+<div id="task-grid" style="width: 100%; margin-top: 1em;">
+    <div style="width:100%; height:auto; display:inline-block; overflow-y:auto;overflow-x:hidden">
+        @foreach (ZLERP.Model.SupplyChain.SC_PiaoIn PiaoIn in ViewBag.SC_PiaoIns)
+        { 
+            <div class="taskinfo ui-widget-content ui-corner-all" id="@PiaoIn.ID">
+                <div class="ui-widget-header ui-corner-all ui-helper-clearfix" style="padding: .3em;">
+                   库存初始化<span style="float: right; font-weight: normal;"> 
+                    <label>状态:</label><span>@PiaoIn.Condition</span>
+                </div>
+                <label>单号:</label><span style="color: Red;">@PiaoIn.InNo</span><br />
+                <label>仓库:</label><span>@PiaoIn.SC_Lib.LibName</span><br />
+                <label> 品种:</label><span>@PiaoIn.VarietyNum</span>
+                <label>金额:</label><span>@PiaoIn.InMoney</span>  <br />
+              @*  <label>点击查看:</label><span onclick="openToUrl('/SC_NowLibIni.mvc/Index','@PiaoIn.ID')" title="点击跳转至目标页面" style="color:Green; text-decoration:underline; cursor:pointer;">查看入库单</span><br /> *@
+            </div>
+        }
+    </div> 
+</div> 
+<div id="MyGoodsShowDiv" class="mvcform" style="display: none;">
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td width="200" valign="top">
+                    <div id="GoodgType" class="ztree" style="overflow: scroll;">
+                    </div>
+                </td>
+                <td> 
+                    <div id="MyJqGrid" style="float: left; width: 100%; overflow: auto;"> 
+                       @{
+                          int j = 0;
+                          foreach (var lib in (IEnumerable<SelectListItem>)ViewBag.Libs)
+                          {
+                              if (j == 0)
+                              {
+                              
+                                <input type="radio" id="radio_ @lib.Value" name="radio" value="@lib.Value" checked="checked" /><label for="radio_ @lib.Value">@lib.Text</label> 
+                              }
+                              else
+                              {
+                                  <input type="radio" id="radio_ @lib.Value" name="radio" value="@lib.Value" /><label for="radio_ @lib.Value">@lib.Text</label> 
+                     
+                              }
+                              j++;
+                          }
+                      }
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+ 
+</div>

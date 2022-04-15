@@ -1,0 +1,144 @@
+﻿@model ZLERP.Model.Lab_Template
+@section HeaderSection{
+<script src="@Url.Content("~/Scripts/Views/Lab_Template/Lab_Template.js")" type="text/javascript" language="javascript"> </script>
+
+<script type="text/javascript">
+        $(function () {
+            lab_templateIndexInit('@Url.Action("Find")');
+        });
+</script>
+}
+<div id="MyJqGrid" style="float: left; width: 68%; margin-right: 1px;">
+</div>
+<div id="MyJqGridR" style="float: left; width: 31%;">     
+</div>
+
+<div id="MyFormDiv" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+<table class="mvcform"> 
+    <tr>
+           <td style="display:none">@Html.LabelFor(m => m.ID)@Html.EditorFor(m => m.ID)</td>
+        </tr>
+    <tr> 
+        <td>@Html.LabelFor(m=>m.LabTemplateName)@Html.EditorFor(m=>m.LabTemplateName)</td>
+        <td>@Html.LabelFor(m => m.LabTemplateType)@Html.DicEditorFor(m => m.LabTemplateType, DicEnum.LabTemplateType, new { @data_val_required = "字段是必需的", data_val = "true" })</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.DocType)@Html.DicEditorFor(m => m.DocType, DicEnum.DocType, new { @data_val_required = "字段是必需的", data_val = "true"})</td>
+    </tr>
+    <tr> 
+        <td colspan="3">@Html.LabelFor(m => m.LabTemplatePath)@Html.TextBoxFor(m => m.LabTemplatePath, new { style = "width:380px;" })</td>
+    </tr>
+
+    <tr>
+        <td colspan="3">@Html.LabelFor(m => m.Meno)@Html.TextAreaFor(m => m.Meno, 3, 60, new { @class = "text" })
+        </td>
+    </tr>
+    <tr style="display:none;">
+            <td colspan="2">
+                <label>
+                    选择模板
+                </label>
+                <input type="file" id="uploadFile" name="upload" />
+                <div id="Attachments" style="clear: both;">
+                </div>
+            </td>
+     </tr>
+</table>
+
+}
+</div>
+
+<div id="MyFormDivR" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+<table class="mvcform"> 
+    <tr> 
+        <td>@Html.HiddenFor(m=>m.ID)</td>
+   
+    </tr>
+    <tr> 
+        <td>@Html.Label("模板编码")@Html.TextBox("LabTemplateID")</td>
+   
+    </tr>
+    
+    <tr> 
+        <td>@Html.Label("字段名称")@Html.DropDownList("FieldName", Enumerable.Empty<SelectListItem>(), new { @data_val_required = "字段是必需的", data_val = "true", zlerp = "combobox" })
+        </td>
+   
+    </tr>
+    <tr> 
+        <td>@Html.Label("取值字段")@Html.TextArea("Field", "", 5, 36, new { @data_val_required = "字段是必需的", data_val = "true" })</td>
+   
+    </tr>
+    <tr> 
+        <td>@Html.Label("列位置")@Html.DicEditorFor(m => m.Lab_TemplateDataConfig.ExcelColumun, DicEnum.ExcelColumun, new { @data_val_required = "字段是必需的", data_val = "true", Value = "0", zlerp = "combo" })
+        <select  id="selectColumun"  style="display:none">
+           <option value="0">A</option>
+           <option value="1">B</option>
+           <option value="2">C</option>
+           <option value="3">D</option>
+           <option value="4">E</option>
+           <option value="5">F</option>
+           <option value="6">G</option>
+           <option value="7">H</option>
+           <option value="8">I</option>
+           <option value="9">J</option>
+           <option value="10">K</option>
+           <option value="11">L</option>
+           <option value="12">M</option>
+           <option value="13">N</option>
+           <option value="14">O</option>
+           <option value="15">P</option>
+           <option value="16">Q</option>
+           <option value="17">R</option>
+           <option value="18">S</option>
+           <option value="19">T</option>
+           <option value="20">U</option>
+           <option value="21">V</option>
+           <option value="22">W</option>
+           <option value="23">X</option>
+           <option value="24">Y</option>
+           <option value="25">Z</option>
+        </select></td>
+   
+    </tr>
+    <tr> 
+        <td>@Html.Label("行位置")@Html.DicEditorFor(m => m.Lab_TemplateDataConfig.ExcelRow, DicEnum.ExcelRow, new { @data_val_required = "字段是必需的", data_val = "true", Value = "0" })
+        @*@Html.TextBox("ExcelRow", 0, new { @data_val_required = "字段是必需的", data_val = "true", Value = "0" })*@
+        <select id="selectRow" style="display:none">
+           <option value="0">1</option>
+           <option value="1">2</option>
+           <option value="2">3</option>
+           <option value="3">4</option>
+           <option value="4">5</option>
+           <option value="5">6</option>
+           <option value="6">7</option>
+           <option value="7">8</option>
+           <option value="8">9</option>
+           <option value="9">10</option>
+           <option value="10">11</option>
+           <option value="11">12</option>
+           <option value="12">13</option>
+           <option value="13">14</option>
+           <option value="14">15</option>
+           <option value="15">16</option>
+           <option value="16">17</option>
+           <option value="17">18</option>
+           <option value="18">19</option>
+           <option value="19">20</option>
+        </select></td>
+   
+    </tr>
+    
+    <tr> 
+        <td>@Html.Label("备注")@Html.TextBox("Meno")</td>
+    </tr>
+    <tr  style="display:none">
+        <td><input id="ExcelColumun" name="ExcelColumun" value=""/>
+        <input id="ExcelRow" name="ExcelRow" value=""/></td>
+    </tr>
+</table>
+}
+</div>

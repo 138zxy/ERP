@@ -1,0 +1,4 @@
+D:\WorkSpace\ErpCode\株洲日程\LicenseObj\bin\Debug\ZLERP.License.Obj.dll
+D:\WorkSpace\ErpCode\株洲日程\LicenseObj\bin\Debug\ZLERP.License.Obj.pdb
+D:\WorkSpace\ErpCode\株洲日程\LicenseObj\obj\Debug\ZLERP.License.Obj.dll
+D:\WorkSpace\ErpCode\株洲日程\LicenseObj\obj\Debug\ZLERP.License.Obj.pdb

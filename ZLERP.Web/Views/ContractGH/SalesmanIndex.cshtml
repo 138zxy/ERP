@@ -1,0 +1,129 @@
+﻿@model ZLERP.Model.ViewModels.Salesman
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/Contract/SalesmanIndex.js")" type="text/javascript" language="javascript"> </script>
+
+    <script type="text/javascript">
+        $(function () {
+            SalesmanIndexInit();
+        });
+    </script>
+}
+<div style="float: left; width: 59%">
+    <div id="UserGrid">
+    </div>
+    <div id="WFGrid">
+    </div>
+</div>
+<div style="float: right; width: 40%">
+    <div id="DZGrid">
+    </div>
+    <div id="KKGrid">
+    </div>
+    <div id="BXGrid">
+    </div>
+</div>
+<div id="DZForm" style="display: none;">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td>
+                 @Html.HiddenFor(m => m.User.ID)
+                 </td>
+                 <td>
+                 @Html.LabelFor(m => m.User.DZMoney)@Html.EditorFor(m => m.User.DZMoney)
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<div id="KKForm" style="display: none;">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td>
+                 @Html.HiddenFor(m => m.SalesmanKK.ID)
+                 @Html.HiddenFor(m => m.SalesmanKK.UserID)
+                 </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanKK.KKTime)@Html.EditorFor(m => m.SalesmanKK.KKTime, "DateTime")
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanKK.KKMoney)@Html.EditorFor(m => m.SalesmanKK.KKMoney)
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanKK.Remark)@Html.EditorFor(m => m.SalesmanKK.Remark)
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+
+<div id="BXForm" style="display: none;">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td>
+                 @Html.HiddenFor(m => m.SalesmanBX.ID)
+                 @Html.HiddenFor(m => m.SalesmanBX.UserID)
+                 </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanBX.BXTime)@Html.EditorFor(m => m.SalesmanBX.BXTime, "DateTime")
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanBX.BXMoney)@Html.EditorFor(m => m.SalesmanBX.BXMoney)
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanBX.Remark)@Html.EditorFor(m => m.SalesmanBX.Remark)
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+
+<div id="WFForm" style="display: none;">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <table class="mvcform">
+            <tr>
+                <td>
+                 @Html.HiddenFor(m => m.SalesmanWF.ID)
+                 @Html.HiddenFor(m => m.SalesmanWF.UserID)
+                 </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanWF.WFYear)@Html.EditorFor(m => m.SalesmanWF.WFYear)
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanWF.WFMoney)@Html.EditorFor(m => m.SalesmanWF.WFMoney)
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                 @Html.LabelFor(m => m.SalesmanWF.Remark)@Html.EditorFor(m => m.SalesmanWF.Remark)
+                </td>
+            </tr>
+        </table>
+    }
+</div>

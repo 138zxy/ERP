@@ -1,0 +1,74 @@
+﻿@model ZLERP.Model.HR.V_HR_GZ_Tax 
+@{var HR_GZ_TaxSet = (ZLERP.Model.HR.HR_GZ_TaxSet)ViewBag.HR_GZ_TaxSet;}
+@section HeaderSection{
+    
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_GZ_Tax .js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = { 
+            itemUrl: '@Url.Action("Find")',
+            itemUpdateUrl: '@Url.Action("Update")',
+            AddOrUpdateUrl: '@Url.Action("AddOrUpdate", "HR_GZ_TaxSet")' 
+        };
+        var model={
+                    ID: '@HR_GZ_TaxSet.ID',
+                    TaxMoney: '@HR_GZ_TaxSet.TaxMoney',
+                  
+        };
+        $(function () {
+            init(model);
+            HR_GZ_TaxIndexInit(options);
+        });
+    </script>
+} 
+<div>
+  <button id="sbb" class="tbtn ui-icon-save" style=" margin:0px;" title="保存参数设置" role="button" aria-disabled="false" type ="button" onclick="Save();return false;">保存参数设置</button>
+</div>
+<fieldset>
+        <legend>参数设置</legend>
+        @Html.HiddenFor(m => m.HR_GZ_TaxSet.ID)
+        <table class="mvcform">
+        <tr> 
+            <td>
+                 @Html.LabelFor(m => m.HR_GZ_TaxSet.TaxMoney)@Html.EditorFor(m => m.HR_GZ_TaxSet.TaxMoney)
+            </td>
+         
+        </tr>
+         
+        </table>
+        
+</fieldset>
+ 
+<fieldset>
+    <legend>个税设置</legend>
+     <div id="MyJqGrid">
+    </div> 
+</fieldset>
+
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.HR_GZ_Tax.ID)
+        <table class="mvcform">
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.HR_GZ_Tax.OrderNum)@Html.EditorFor(m => m.HR_GZ_Tax.OrderNum)
+            </td>
+        </tr>
+        <tr> 
+            <td>
+                 @Html.LabelFor(m => m.HR_GZ_Tax.Startmoney)@Html.EditorFor(m => m.HR_GZ_Tax.Startmoney)
+            </td>
+        </tr>
+         <tr> 
+            <td>
+                 @Html.LabelFor(m => m.HR_GZ_Tax.Endmoney)@Html.EditorFor(m => m.HR_GZ_Tax.Endmoney)
+            </td>
+        </tr>
+         <tr> 
+          <td>
+                 @Html.LabelFor(m => m.HR_GZ_Tax.Rate)@Html.EditorFor(m => m.HR_GZ_Tax.Rate)
+            </td> 
+        </tr>  
+        </table>
+    }
+</div>

@@ -1,0 +1,80 @@
+﻿@model ZLERP.Model.SupplyChain.V_PiaoInOrder
+@section HeaderSection{
+@*<script type="text/javascript"  src="@Url.Content("~/Scripts/CreateControl.js")"></script>*@
+<script type="text/javascript" src="@Url.Content("~/Scripts/daterangepicker.jQuery.js")"></script>
+<script src="@Url.Content("~/Scripts/Views/SupplyChain/SC_PiaoInOrder.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find", "SC_PiaoInOrder")',
+            ZhangstoreUrl: '@Url.Action("Find", "SC_ZhangInOrder")',
+            GetZhangUrl: '@Url.Action("Get", "SC_Goods")',
+            GenerateOrderNoUrl: '@Url.Action("GenerateOrderNo", "SC_PiaoInOrder")',
+            ChangeConditionUrl: '@Url.Action("ChangeCondition")' ,
+            PurInUrl: '@Url.Action("PurIn")' 
+        };
+        $(function () {
+            SC_PiaoInOrderIndexInit(options);
+        });
+</script>
+}
+<div id="SC_PiaoInOrderGrid"></div>
+<div id="SC_PiaoInOrderForm" class="mvcform" style="display:none;">
+
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+    @Html.HiddenFor(m => m.SC_PiaoInOrder.ID)
+<table class="mvcform"> 
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_PiaoInOrder.OrderNo)@Html.TextBoxFor(m => m.SC_PiaoInOrder.OrderNo, new { readOnly = true }) </td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_PiaoInOrder.PiaoDate)@Html.EditorFor(m => m.SC_PiaoInOrder.PiaoDate) </td>
+        <td>@Html.LabelFor(m => m.SC_PiaoInOrder.SupplierID)@Html.DropDownListFor(m => m.SC_PiaoInOrder.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Supplys, "", new { @class = "text", style = "width:120px;"})</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_PiaoInOrder.DeliveryDate)@Html.EditorFor(m => m.SC_PiaoInOrder.DeliveryDate)</td>
+        <td>@Html.LabelFor(m => m.SC_PiaoInOrder.Operator)@Html.EditorFor(m => m.SC_PiaoInOrder.Operator)</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_PiaoInOrder.LibID)@Html.DropDownListFor(m => m.SC_PiaoInOrder.LibID, (IEnumerable<SelectListItem>)ViewBag.Libs, "", new { @class = "text", style = "width:120px;" })</td>
+        <td>@Html.LabelFor(m => m.SC_PiaoInOrder.PiaoNo)@Html.EditorFor(m => m.SC_PiaoInOrder.PiaoNo)</td> 
+    </tr>
+</table>
+}
+</div>
+
+<div id="SC_ZhangInOrderGrid"></div>
+<div id="SC_ZhangInOrderForm" class="mvcform" style="display:none;">
+@using (Html.BeginForm())
+{@Html.ValidationSummary()
+    @Html.HiddenFor(m => m.SC_ZhangInOrder.ID)
+    @Html.HiddenFor(m => m.SC_ZhangInOrder.OrderNo)
+    @Html.HiddenFor(m => m.SC_ZhangInOrder.GoodsID) 
+    @Html.HiddenFor(m => m.SC_ZhangInOrder.SC_Goods.GoodsName);
+<table class="mvcform"> 
+ 
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_ZhangInOrder.GoodsID)@Html.AutoComplete("ID", "SC_ZhangInOrder.SC_Goods.GoodsName", "Combo", "SC_ZhangInOrder", "ID", "GoodsName", "IsOff=0", new { style = "width:120px" })</td>
+        <td>@Html.LabelFor(m => m.SC_ZhangInOrder.SC_Goods.Spec)@Html.TextBoxFor(m => m.SC_ZhangInOrder.SC_Goods.Spec, new { readOnly = true, @class = "inputReadOnly" })</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_ZhangInOrder.UnitPrice)@Html.EditorFor(m => m.SC_ZhangInOrder.UnitPrice)</td> 
+         <td >@Html.LabelFor(m => m.SC_ZhangInOrder.Unit)@Html.DropDownListFor(m => m.SC_ZhangInOrder.Unit, Enumerable.Empty<SelectListItem>(), new { style = "width:137px;", zlerp = "Combo" })</td>
+    </tr> 
+    <tr> 
+        <td>@Html.LabelFor(m => m.SC_ZhangInOrder.Quantity)@Html.EditorFor(m => m.SC_ZhangInOrder.Quantity)</td>
+        <td>@Html.LabelFor(m => m.SC_ZhangInOrder.ZhangMoney)@Html.TextBoxFor(m => m.SC_ZhangInOrder.ZhangMoney, new { readOnly = true, @class = "inputReadOnly" })</td>
+    </tr>
+       <tr>
+       <td>@Html.LabelFor(m => m.SC_ZhangInOrder.UnitRate)@Html.TextBoxFor(m => m.SC_ZhangInOrder.UnitRate, new { readOnly = true, @class = "inputReadOnly" })
+           
+       </td>
+    </tr>
+    <tr> 
+        <td colspan="2">@Html.LabelFor(m => m.SC_ZhangInOrder.Remark)@Html.TextAreaFor(m => m.SC_ZhangInOrder.Remark, new { style = "width:80%" }) </td>
+    </tr> 
+</table>
+}
+</div>
+
+

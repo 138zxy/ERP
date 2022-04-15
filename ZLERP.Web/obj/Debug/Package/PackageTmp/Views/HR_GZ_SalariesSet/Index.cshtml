@@ -1,0 +1,80 @@
+﻿@model ZLERP.Model.HR.HR_GZ_SalariesSet 
+@section HeaderSection{ 
+    <script src="@Url.Content("~/Scripts/Views/HR/HR_GZ_SalariesSet.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        var options = {
+            storeUrl: '@Url.Action("Find")',
+            editSaveUrl: '@Url.Action("Update")', 
+            deptTreeUrl: '@Url.Action("FindTree", "Department")'
+        };
+        $(function () {
+            HR_GZ_SalariesSetIndexInit(options);
+        });
+    </script>
+}
+@*页面布局*@
+<div id="Department" class="ztree" style="overflow: scroll;float: left; width: 12%">
+</div>
+
+<!-- 右边Grid -->
+<div id="MyJqGrid" style="float: right; width: 87%">
+</div>
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        @Html.HiddenFor(m => m.ID )
+        <table class="mvcform">
+          <tr> 
+            <td> 
+                 @Html.LabelFor(m => m.PersonID)@Html.AutoComplete("PersonID", "PersonIDText", "Combo", "HR_Base_Personnel", "ID", "Name", "1=1", new { style = "width:120px" }) 
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.BasePay)@Html.EditorFor(m => m.BasePay)
+            </td>
+        </tr>
+        
+           <tr> 
+             <td>
+                 @Html.LabelFor(m => m.AllowancePay)@Html.EditorFor(m => m.AllowancePay)
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.LevelPay)@Html.EditorFor(m => m.LevelPay)
+            </td>
+        </tr>
+             <tr> 
+             <td>
+                 @Html.LabelFor(m => m.SeniorityPay)@Html.EditorFor(m => m.SeniorityPay)
+            </td>
+            <td>
+                 @Html.LabelFor(m => m.EducationalPay)@Html.EditorFor(m => m.EducationalPay)
+            </td>
+        </tr>
+
+                <tr> 
+             <td>
+                 @Html.LabelFor(m => m.TaxPay)@Html.EditorFor(m => m.TaxPay)
+            </td> 
+        </tr>
+        <tr> 
+             <td>
+                 @Html.LabelFor(m => m.IsPiece)@Html.EditorFor(m => m.IsPiece)
+            </td> 
+            <td>
+                 @Html.LabelFor(m => m.IsTiming)@Html.EditorFor(m => m.IsTiming)
+            </td> 
+        </tr>
+            <tr> 
+             <td>
+                 @Html.LabelFor(m => m.IsDeduct)@Html.EditorFor(m => m.IsDeduct)
+            </td> 
+            <td>
+                 @Html.LabelFor(m => m.IsTaxAction)@Html.EditorFor(m => m.IsTaxAction)
+            </td> 
+        </tr>
+        <tr> 
+            <td colspan="2">@Html.LabelFor(m => m.Remark)@Html.TextAreaFor(m => m.Remark, new { style = "width:70%" })
+            </td>
+        </tr> 
+        </table>
+    }
+</div>

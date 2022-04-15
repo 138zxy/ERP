@@ -1,0 +1,23 @@
+﻿@model ZLERP.Model.SynNC 
+@section HeaderSection{
+    <script src="@Url.Content("~/Scripts/Views/SynNC/SynNC.js")" type="text/javascript" language="javascript"> </script>
+    <script type="text/javascript">
+        $(function () {
+            SynNCIndexInit({
+                storeUrl: '@Url.Action("Find")',
+                ReUploadUrl: '@Url.Action("ReUpload")'
+            });
+        });
+    </script>
+}
+<div id="MyJqGrid">
+</div>
+
+<div id="MyFormDiv" class="mvcform" style="display: none;">
+    @using (Html.BeginForm())
+    {@Html.ValidationSummary()
+        <table class="mvcform">
+                
+        </table>
+    }
+</div>
