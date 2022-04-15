@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/13/2011 14:57:18" ReportInfo.Modified="03/11/2019 10:38:57" ReportInfo.CreatorVersion="1.8.30.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqE5kRij404xp3dSNmtpbZOWEP+7Ht3MmZL2zZRKJJTVjKh6kfWMNy6HDgZAvrYl1gT8+tl7fU7J/5OFuLqhJDIs+6QSKEFcBS9jLNSw4kBpuFb/TFmLP5rwr168KGuTsl0GUS6hdvY32Ug2fwbOrvwZaNbUDsERll4EnVXq462fsCrknuRlNik0aRNuIWqaQWWBkqcF46qxlP8nnM+RV9lA==">
+      <TableDataSource Name="MetageRecord" DataType="System.Int32" Enabled="true" TableName="MetageRecord">
+        <Column Name="MetageID" DataType="System.Int32"/>
+        <Column Name="CarNo" DataType="System.String"/>
+        <Column Name="StuffID" DataType="System.String"/>
+        <Column Name="CustomerName" DataType="System.String"/>
+        <Column Name="BaleID" DataType="System.String"/>
+        <Column Name="Operator" DataType="System.String"/>
+        <Column Name="GrossNum" DataType="System.Decimal"/>
+        <Column Name="GrossOperator" DataType="System.String"/>
+        <Column Name="GrossTime" DataType="System.DateTime"/>
+        <Column Name="TareNum" DataType="System.Decimal"/>
+        <Column Name="TareOperator" DataType="System.String"/>
+        <Column Name="TareTime" DataType="System.DateTime"/>
+        <Column Name="Num" DataType="System.Decimal"/>
+        <Column Name="NetNum" DataType="System.Decimal"/>
+        <Column Name="OperaterStates" DataType="System.Int32"/>
+        <Column Name="GoodsNum" DataType="System.String"/>
+        <Column Name="SundriesRate" DataType="System.Decimal"/>
+        <Column Name="Version" DataType="System.Int32"/>
+        <Column Name="CreateTime" DataType="System.DateTime"/>
+        <Column Name="UpdateTime" DataType="System.DateTime"/>
+        <Column Name="CreaterID" DataType="System.String"/>
+        <Column Name="UpdaterID" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="AuditingStatus" DataType="System.Int32"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="磅单号" DataType="System.String"/>
+    <Parameter Name="车号" DataType="System.String"/>
+    <Parameter Name="材料名称" DataType="System.String"/>
+    <Parameter Name="收货单位" DataType="System.String"/>
+    <Parameter Name="过磅员" DataType="System.String"/>
+    <Parameter Name="毛重" DataType="System.String"/>
+    <Parameter Name="毛重称量员" DataType="System.String"/>
+    <Parameter Name="出厂时间" DataType="System.DateTime"/>
+    <Parameter Name="皮重" DataType="System.String"/>
+    <Parameter Name="皮重称量员" DataType="System.String"/>
+    <Parameter Name="进厂时间" DataType="System.DateTime"/>
+    <Parameter Name="入库量" DataType="System.String"/>
+    <Parameter Name="净重" DataType="System.String"/>
+    <Parameter Name="扣重" DataType="System.String"/>
+    <Parameter Name="扣重t" DataType="System.String"/>
+    <Parameter Name="备注" DataType="System.String"/>
+    <Parameter Name="司机姓名" DataType="System.String"/>
+    <Parameter Name="供货单位" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" PaperHeight="93">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <LineObject Name="Line12" Left="-9450" Top="-9450" Height="47.25"/>
+      <LineObject Name="Line13" Left="-9450" Top="-9450" Height="9.45"/>
+      <TextObject Name="Text1" Left="226.8" Top="9.45" Width="245.7" Height="18.9" Text="西溪搅拌站砂场销售磅单" Font="宋体, 14pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="41.8" Width="718.2" Height="217.35">
+      <TextObject Name="Text2" Left="18.9" Width="85.05" Height="18.9" Text="磅单号：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text3" Left="18.9" Top="37.8" Width="85.05" Height="18.9" Text="货品名称：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text4" Left="18.9" Top="75.6" Width="85.05" Height="18.9" Text="皮重：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text5" Left="18.9" Top="113.4" Width="85.05" Height="18.9" Text="毛重：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text6" Left="18.9" Top="151.2" Width="85.05" Height="18.9" Text="净重：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text7" Left="18.9" Top="189" Width="85.05" Height="18.9" Text="司机：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text8" Left="113.4" Width="94.5" Height="18.9" Text="[磅单号]" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text9" Left="113.4" Top="37.8" Width="94.5" Height="18.9" Text="[材料名称]" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text10" Left="113.4" Top="75.6" Width="94.5" Height="18.9" Text="[皮重]   T" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text11" Left="113.4" Top="113.4" Width="94.5" Height="18.9" Text="[毛重]   T" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text12" Left="113.4" Top="151.2" Width="94.5" Height="18.9" Text="[净重]   T" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text13" Left="113.4" Top="189" Width="94.5" Height="18.9" VertAlign="Center" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text14" Left="226.8" Width="103.95" Height="18.9" Text="车牌号：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text15" Left="226.8" Top="37.8" Width="103.95" Height="18.9" Text="存货明细：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text16" Left="226.8" Top="75.6" Width="103.95" Height="18.9" Text="皮称时间：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text17" Left="226.8" Top="113.4" Width="103.95" Height="18.9" Text="毛称时间：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text18" Left="226.8" Top="151.2" Width="103.95" Height="18.9" Text="扣重：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text19" Left="226.8" Top="189" Width="103.95" Height="18.9" Text="备注：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text20" Left="340.2" Width="103.95" Height="18.9" Text="[车号]" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text21" Left="340.2" Top="37.8" Width="103.95" Height="18.9" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text22" Left="340.2" Top="66.15" Width="103.95" Height="28.35" Text="[进厂时间]" VertAlign="Bottom" Font="宋体, 10pt, style=Bold"/>
+      <TextObject Name="Text23" Left="340.2" Top="103.95" Width="103.95" Height="28.35" Text="[出厂时间]" VertAlign="Bottom" Font="宋体, 10pt, style=Bold"/>
+      <TextObject Name="Text24" Left="340.2" Top="151.2" Width="103.95" Height="18.9" Text="0  T" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text25" Left="340.2" Top="189" Width="330.75" Height="18.9" Text="[备注]" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text26" Left="453.6" Width="113.4" Height="18.9" Text="收货客户方：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text27" Left="567" Width="103.95" Height="18.9" Text="[供货单位]" VertAlign="Bottom" Font="宋体, 8pt, style=Bold"/>
+      <TextObject Name="Text28" Left="453.6" Top="37.8" Width="103.95" Height="18.9" Text="发货地址：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text29" Left="567" Top="37.8" Width="132.3" Height="18.9" Text="开顺实业（集团）" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text30" Left="453.6" Top="75.6" Width="103.95" Height="18.9" Text="皮称人：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text31" Left="453.6" Top="113.4" Width="103.95" Height="18.9" Text="毛称人：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text32" Left="453.6" Top="151.2" Width="113.4" Height="18.9" Text="扣重后净重：" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text34" Left="567" Top="75.6" Width="113.4" Height="18.9" Text="[过磅员]" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text35" Left="567" Top="113.4" Width="113.4" Height="18.9" Text="[过磅员]" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+      <TextObject Name="Text36" Left="567" Top="151.2" Width="103.95" Height="18.9" Text="[净重]   T" VertAlign="Bottom" Font="宋体, 11pt, style=Bold"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="263.15" Width="718.2"/>
+  </ReportPage>
+</Report>
